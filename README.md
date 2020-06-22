@@ -60,6 +60,17 @@
 - [ ] word （开发中）
 - [ ] excel （开发中）
 
+## 文档截图
+
++ HTML
+
+![](https://images.gitee.com/uploads/images/2020/0622/161414_74cd0b68_1407605.png "HTML")
+![](https://images.gitee.com/uploads/images/2020/0622/161723_6da58c41_1407605.png "HTML")
+
++ WORD（开发中）
+
++ EXCEL（开发中）
+
 ## 使用方式
 
 ### 普通方式
@@ -205,7 +216,7 @@ void documentGeneration() {
 
 ## 更多支持
 
-<img src="http://www.resources.smallbun.cn/preview/static/ade5b70f.d9fb68ca.jpg" alt="wechat"/>
+<img src="https://images.gitee.com/uploads/images/2020/0622/161414_eaa2819d_1407605.jpeg" alt="wechat"/>
 
 + 扫码关注官方微信公众号，第一时间尊享最新动向，回复 **screw** 获取作者微信号。
 
@@ -224,8 +235,8 @@ void documentGeneration() {
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
-    <td align="center"><img src="https://smallbun.oss-cn-hangzhou.aliyuncs.com/donate/alipay.png" width="200" height="200" /> </td>
-    <td align="center"><img src="https://smallbun.oss-cn-hangzhou.aliyuncs.com/donate/wechat.png" width="200" height="200" /></td>
+    <td align="center"><img src="https://images.gitee.com/uploads/images/2020/0622/161414_c87e1846_1407605.png" width="200" height="200" /> </td>
+    <td align="center"><img src="https://images.gitee.com/uploads/images/2020/0622/161414_e953f85f_1407605.png" width="200" height="200" /></td>
   </tr>
   <tr>
     <td align="center">支付宝</td>
