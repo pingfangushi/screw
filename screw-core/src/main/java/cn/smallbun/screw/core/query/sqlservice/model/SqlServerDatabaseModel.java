@@ -1,5 +1,5 @@
 /*
- * screw-core - 简洁好用的数据库文档生成器
+ * screw-core - 简洁好用的数据库表结构文档生成工具
  * Copyright © 2020 SanLi (qinggang.zuo@gmail.com)
  *
  * This program is free software: you can redistribute it and/or modify

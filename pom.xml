@@ -10,7 +10,7 @@
     <version>1.0.0</version>
     <inceptionYear>2020</inceptionYear>
     <name>screw</name>
-    <description>简洁好用的数据库文档生成器</description>
+    <description>简洁好用的数据库表结构文档生成工具</description>
     <url>http://www.screw.smallbun.cn</url>
     <!--scm-->
     <scm>
