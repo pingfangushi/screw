@@ -137,7 +137,7 @@ void documentGeneration() {
          //生成配置
          .produceConfig(processConfig).build();
    //执行生成
-   new DocumentationExecute(configuration).execute();
+   new DocumentationExecute(config).execute();
 }
 ```
 
