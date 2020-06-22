@@ -81,7 +81,7 @@ public class ColumnModel implements Serializable {
     /**
      * 是否主键
      */
-    private String            primaryKey;;
+    private String            primaryKey;
     /**
      * 默认值
      */

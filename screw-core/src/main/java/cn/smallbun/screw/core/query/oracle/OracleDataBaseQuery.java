@@ -56,6 +56,7 @@ import static cn.smallbun.screw.core.constant.DefaultConstants.PERCENT_SIGN;
  * @author SanLi
  * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on 2020/3/18 13:58
  */
+@SuppressWarnings("Duplicates")
 public class OracleDataBaseQuery extends AbstractDatabaseQuery {
     /**
      * 缓存
