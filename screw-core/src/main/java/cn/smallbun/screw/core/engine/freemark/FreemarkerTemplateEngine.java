@@ -110,7 +110,7 @@ public class FreemarkerTemplateEngine extends AbstractTemplateEngine {
             File file = getFile(docName);
             // writer freemarker
             try (Writer out = new BufferedWriter(
-                new OutputStreamWriter(new FileOutputStream(file), DEFAULT_ENCODING));) {
+                new OutputStreamWriter(new FileOutputStream(file), DEFAULT_ENCODING))) {
                 // process
                 template.process(info, out);
                 // open the output directory
