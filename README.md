@@ -69,7 +69,7 @@
 
 + WORD
 
-![](https://images.gitee.com/uploads/images/2020/0625/200741_d780efd7_1407605.png "WORD")
+![](https://images.gitee.com/uploads/images/2020/0625/200946_1dc0717f_1407605.png "WORD")
 
 + EXCEL（开发中）
 
