@@ -177,7 +177,7 @@ public class DataModelProcess extends AbstractProcess {
      * @return {@link List<TableModel>} 处理过后的数据
      */
     private List<TableModel> handleIgnore(List<TableModel> tables) {
-        if (!Objects.isNull(config)) {
+        if (!Objects.isNull(config) && !Objects.isNull(config.getProduceConfig())) {
             //处理忽略表名
             if (CollectionUtils.isNotEmpty(config.getProduceConfig().getIgnoreTableName())) {
                 List<String> list = config.getProduceConfig().getIgnoreTableName();
