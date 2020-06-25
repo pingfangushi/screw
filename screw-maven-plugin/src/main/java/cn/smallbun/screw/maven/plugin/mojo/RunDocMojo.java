@@ -252,9 +252,6 @@ public class RunDocMojo extends AbstractMojo {
         if (StringUtils.isBlank(getUsername())) {
             throw new MojoFailureException("请配置数据库用户名");
         }
-        if (StringUtils.isBlank(getPassword())) {
-            throw new MojoFailureException("请配置数据库密码");
-        }
         if (StringUtils.isBlank(getDriverClassName())) {
             throw new MojoFailureException("请配置数据库驱动名称");
         }
