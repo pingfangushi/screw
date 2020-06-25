@@ -7,7 +7,7 @@
     <groupId>cn.smallbun.screw</groupId>
     <artifactId>screw</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <inceptionYear>2020</inceptionYear>
     <name>screw</name>
     <description>简洁好用的数据库表结构文档生成工具</description>
@@ -351,6 +351,7 @@
                         <exclude>**/codestyle/HEADER</exclude>
                         <exclude>**/.gitkeep</exclude>
                         <exclude>**/.mvn/**</exclude>
+                        <exclude>**/resources/template/**</exclude>
                     </excludes>
                     <strictCheck>true</strictCheck>
                     <mapping>
@@ -375,6 +376,9 @@
                 <configuration>
                     <configFile>${main.user.dir}/codestyle/Formatter.xml</configFile>
                     <encoding>${project.encoding}</encoding>
+                    <excludes>
+                        <exclude>/resources/template/**</exclude>
+                    </excludes>
                 </configuration>
             </plugin>
         </plugins>
