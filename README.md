@@ -79,13 +79,13 @@
 
 + 引入依赖
 
-  ```xml
-  <dependency>
-      <groupId>cn.smallbun.screw</groupId>
-      <artifactId>screw-core</artifactId>
-      <version>${lastVersion}</version>
-  </dependency>
-  ```
+```xml
+<dependency>
+    <groupId>cn.smallbun.screw</groupId>
+    <artifactId>screw-core</artifactId>
+    <version>${lastVersion}</version>
+ </dependency>
+```
 
 + 编写代码
 
