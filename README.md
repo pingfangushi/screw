@@ -58,7 +58,7 @@
 
 - [x] html
 - [x] word
-- [ ] excel （开发中）
+- [x] markdwon
 
 ## 文档截图
 
