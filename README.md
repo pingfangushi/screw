@@ -62,16 +62,21 @@
 
 ## 文档截图
 
-+ HTML
++ html
 
 ![](https://images.gitee.com/uploads/images/2020/0622/161414_74cd0b68_1407605.png "HTML")
+
 ![](https://images.gitee.com/uploads/images/2020/0622/161723_6da58c41_1407605.png "HTML")
 
-+ WORD
++ word
 
 ![](https://images.gitee.com/uploads/images/2020/0625/200946_1dc0717f_1407605.png "WORD")
 
-+ EXCEL（开发中）
++ markdwon
+
+![](https://images.gitee.com/uploads/images/2020/0625/214749_7b15d8bd_1407605.png "MD")
+
+![](https://images.gitee.com/uploads/images/2020/0625/215006_3601e135_1407605.png "MD")
 
 ## 使用方式
 
