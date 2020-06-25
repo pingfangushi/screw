@@ -1,0 +1,31 @@
+# #if(${_data.title}) #else 数据库设计文档 #end
+
+#if(${_data.database})
+**数据库名：** $!{_data.database}
+
+#end
+#if(${_data.version})
+**文档版本：** $!{_data.version}
+
+#end
+#if(${_data.description})
+**文档描述：** $!{_data.description}
+#end
+| 表名                  | 说明       |
+| :-------------------- | :--------- |
+#foreach($t in $_data.tables)
+| [$!{t.tableName}](#$!{t.tableName}) | $!{t.remarks} |
+#end
+#foreach($t in $_data.tables)
+**表名：** <a id="$!{t.tableName}">$!{t.tableName}</a>
+
+**说明：** $!{t.remarks}
+
+**数据列：**
+
+| 序号 | 名称 | 数据类型 |  长度  | 小数位 | 允许空值 | 主键 | 默认值 | 说明 |
+| :--: | :--- | :------: | :----: | :----: | :------: | :--: | :----: | :--: |
+#foreach($c in $t.columns)
+| $!{velocityCount} | $!{c.columnName} | $!{c.typeName} | $!{c.columnSize} | #if($!{c.decimalDigits})$!{c.decimalDigits}#else 0#end | $!{c.nullable}| $!{c.primaryKey} | $!{c.columnDef} | $!{c.remarks} |
+#end
+#end
