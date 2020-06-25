@@ -35,21 +35,13 @@ public enum EngineFileType implements Serializable {
                                                      */
                                                     HTML(".html", "documentation_html", "HTML文件"),
                                                     /**
-                                                     * DOC
+                                                     * WORD
                                                      */
-                                                    DOC(".doc", "documentation_doc", "WORD文件"),
+                                                    WORD(".doc", "documentation_word", "WORD文件"),
                                                     /**
-                                                     * DOCX
+                                                     * EXCEL
                                                      */
-                                                    DOCX(".docx", "documentation_docx", "WORD文件"),
-                                                    /**
-                                                     * XSL
-                                                     */
-                                                    XSL(".xsl", "documentation_xsl", "EXCEL文件"),
-                                                    /**
-                                                     * XLSX
-                                                     */
-                                                    XLSX(".xlsx", "documentation_xlsx", "EXCEL文件");
+                                                    EXCEL(".xsl", "documentation_excel", "EXCEL文件");
 
     /**
      * 文件后缀
