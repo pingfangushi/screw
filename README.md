@@ -57,7 +57,7 @@
 ## 文档生成支持
 
 - [x] html
-- [ ] word （开发中）
+- [x] word
 - [ ] excel （开发中）
 
 ## 文档截图
@@ -67,7 +67,9 @@
 ![](https://images.gitee.com/uploads/images/2020/0622/161414_74cd0b68_1407605.png "HTML")
 ![](https://images.gitee.com/uploads/images/2020/0622/161723_6da58c41_1407605.png "HTML")
 
-+ WORD（开发中）
++ WORD
+
+![](https://images.gitee.com/uploads/images/2020/0625/194222_8a2ff99b_1407605.png "WORD")
 
 + EXCEL（开发中）
 
@@ -216,7 +218,16 @@ void documentGeneration() {
 
 ## 更多支持
 
-<img src="https://images.gitee.com/uploads/images/2020/0622/161414_eaa2819d_1407605.jpeg" alt="wechat"/>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td align="center"><img src="https://images.gitee.com/uploads/images/2020/0622/161414_eaa2819d_1407605.jpeg" width="200" height="200"  alt="WeChat"/> </td>
+    <td align="center"><img src="https://images.gitee.com/uploads/images/2020/0624/102603_2f48650e_1407605.png" width="200" height="200"  alt="WeChat"/></td>
+  </tr>
+  <tr>
+    <td align="center">公众号</td>
+    <td align="center">交流群</td>
+  </tr>
+</table>
 
 + 扫码关注官方微信公众号，第一时间尊享最新动向，回复 **screw** 获取作者微信号。
 
