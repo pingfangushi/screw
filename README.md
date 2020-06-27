@@ -199,10 +199,6 @@ void documentGeneration() {
                 <version>${project.version}</version>
                 <!--标题-->
                 <title>数据库文档</title>
-                <!--组织-->
-                <organization>平凡故事</organization>
-                <!--组织链接-->
-                <organizationUrl>https://www.pingfangushi.com</organizationUrl>
             </configuration>
             <executions>
                 <execution>
