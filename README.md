@@ -144,10 +144,6 @@ void documentGeneration() {
          .version("1.0.0")
          //描述
          .description("数据库设计文档生成")
-         //组织
-         .organization("平凡故事")
-         //组织URL
-         .organizationUrl("https://www.pingfangushi.com")
          //数据源
          .dataSource(dataSource)
          //生成配置
