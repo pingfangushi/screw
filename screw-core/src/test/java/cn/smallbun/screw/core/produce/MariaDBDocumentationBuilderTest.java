@@ -82,6 +82,6 @@ public class MariaDBDocumentationBuilderTest extends AbstractDocumentationExecut
      */
     @Override
     public String getConfigProperties() {
-        return "E:\\screw-properties\\mariadb.properties";
+        return System.getProperty("user.dir") + "/src/main/resources/properties/mariadb.properties";
     }
 }

@@ -113,6 +113,6 @@ public class MySQLDataBaseQueryTest implements Properties {
      */
     @Override
     public String getConfigProperties() {
-        return "E:\\screw-properties\\mysql.properties";
+        return System.getProperty("user.dir") + "/src/main/resources/properties/mysql.properties";
     }
 }

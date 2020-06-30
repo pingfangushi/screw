@@ -57,11 +57,6 @@ public class CacheDbDataBaseQueryTest implements Properties {
     private DatabaseQuery query;
 
     /**
-     * DataSource
-     */
-    private DataSource    dataSource;
-
-    /**
      * before
      */
     @BeforeEach
@@ -73,7 +68,7 @@ public class CacheDbDataBaseQueryTest implements Properties {
         config.setPassword(getPassword());
         config.setSchema(getSchema());
         config.setPoolName(UUID.randomUUID().toString().replace("-", ""));
-        dataSource = new HikariDataSource(config);
+        DataSource dataSource = new HikariDataSource(config);
         query = new DatabaseQueryFactory(dataSource).newInstance();
     }
 
@@ -121,7 +116,6 @@ public class CacheDbDataBaseQueryTest implements Properties {
      */
     @Override
     public String getConfigProperties() {
-        String projectLocation = System.getProperty("user.dir");
-        return projectLocation + "/src/main/resources/properties/cachedb.properties";
+        return System.getProperty("user.dir") + "/src/main/resources/properties/cachedb.properties";
     }
 }

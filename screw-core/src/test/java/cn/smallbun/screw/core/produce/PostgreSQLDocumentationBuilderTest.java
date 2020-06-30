@@ -81,7 +81,6 @@ public class PostgreSQLDocumentationBuilderTest extends AbstractDocumentationExe
      */
     @Override
     public String getConfigProperties() {
-        String projectLocation = System.getProperty("user.dir");
-        return projectLocation + "/src/main/resources/postgresql.properties";
+        return System.getProperty("user.dir") + "/src/main/resources/postgresql.properties";
     }
 }

@@ -365,7 +365,6 @@
                         <email>qinggang.zuo@gmail.com</email>
                     </properties>
                     <excludes>
-                        <exclude>**/*.properties</exclude>
                         <exclude>*.sh</exclude>
                         <exclude>*.yml</exclude>
                         <exclude>.editorconfig</exclude>

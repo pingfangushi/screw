@@ -82,6 +82,6 @@ public class OracleDocumentationBuilderTest extends AbstractDocumentationExecute
      */
     @Override
     public String getConfigProperties() {
-        return "E:\\screw-properties\\oracle.properties";
+        return System.getProperty("user.dir") + "/src/main/resources/properties/oracle.properties";
     }
 }

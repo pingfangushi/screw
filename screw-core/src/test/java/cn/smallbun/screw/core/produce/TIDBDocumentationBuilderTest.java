@@ -82,6 +82,6 @@ public class TIDBDocumentationBuilderTest extends AbstractDocumentationExecute {
      */
     @Override
     public String getConfigProperties() {
-        return "E:\\screw-properties\\tidb.properties";
+        return System.getProperty("user.dir") + "/src/main/resources/properties/tidb.properties";
     }
 }

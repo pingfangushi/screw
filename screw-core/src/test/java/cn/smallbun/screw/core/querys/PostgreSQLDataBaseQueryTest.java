@@ -111,7 +111,7 @@ public class PostgreSQLDataBaseQueryTest implements Properties {
      */
     @Override
     public String getConfigProperties() {
-        String projectLocation = System.getProperty("user.dir");
-        return projectLocation + "/src/main/resources/properties/cachedb.properties";
+        return System.getProperty("user.dir")
+               + "/src/main/resources/properties/postgresql.properties";
     }
 }

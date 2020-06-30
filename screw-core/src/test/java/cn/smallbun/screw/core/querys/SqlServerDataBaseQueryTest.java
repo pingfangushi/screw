@@ -111,6 +111,7 @@ public class SqlServerDataBaseQueryTest implements Properties {
      */
     @Override
     public String getConfigProperties() {
-        return "E:\\screw-properties\\sqlserver.properties";
+        return System.getProperty("user.dir")
+               + "/src/main/resources/properties/sqlserver.properties";
     }
 }
