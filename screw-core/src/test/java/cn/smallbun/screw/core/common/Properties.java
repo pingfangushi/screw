@@ -26,6 +26,7 @@ import java.util.Objects;
 
 /**
  * Properties
+ *
  * @author SanLi
  * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on 2020/6/20 22:45
  */
@@ -70,6 +71,16 @@ public interface Properties {
     default String getUserName() throws IOException {
         java.util.Properties properties = getProperties();
         return properties.get("username").toString();
+    }
+
+    /**
+     * 获取username
+     * @return {@link String
+     * @throws IOException
+     */
+    default String getSchema() throws IOException {
+        java.util.Properties properties = getProperties();
+        return properties.get("schema").toString();
     }
 
     /**

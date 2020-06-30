@@ -15,16 +15,11 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cn.smallbun.screw.core.common;
-
 /**
- * 常量
- * @author SanLi
- * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on 2020/6/16 21:30
+ * CacheDB Database query model
+ *
+ * @author <a href ='jxh98@foxmail.com'>Josway</a>
+ * @date 2020/6/28
+ * @since JDK 1.8
  */
-public class Constants {
-    /**
-     * 文件输出路径
-     */
-    public static final String fileOutputDir = System.getProperty("user.dir");
-}
+package cn.smallbun.screw.core.query.cachedb.model;

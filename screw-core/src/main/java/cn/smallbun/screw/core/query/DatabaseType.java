@@ -17,6 +17,7 @@
  */
 package cn.smallbun.screw.core.query;
 
+import cn.smallbun.screw.core.query.cachedb.CacheDbDataBaseQuery;
 import cn.smallbun.screw.core.query.db2.Db2DataBaseQuery;
 import cn.smallbun.screw.core.query.dm.DmDataBaseQuery;
 import cn.smallbun.screw.core.query.h2.H2DataBaseQuery;
@@ -124,6 +125,12 @@ public enum DatabaseType implements Serializable {
                                                    */
                                                   PHOENIX("phoenix", "Phoenix HBase数据库",
                                                           OtherDataBaseQuery.class),
+
+                                                  /**
+                                                   * CacheDB
+                                                   */
+                                                  CACHEDB("cachedb", "Cache 数据库",
+                                                          CacheDbDataBaseQuery.class),
 
                                                   /**
                                                    * UNKONWN DB

@@ -63,7 +63,7 @@ public class DatabaseQueryFactory implements Serializable {
      */
     public DatabaseQuery newInstance() {
         try {
-            //获取数据库类型
+            //获取数据库URL 用于判断数据库类型
             String url = this.getDataSource().getConnection().getMetaData().getURL();
             //获取实现类
             Class<? extends DatabaseQuery> query = JdbcUtils.getDbType(url).getImplClass();

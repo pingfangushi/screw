@@ -43,7 +43,8 @@
 - [x] TIDB 
 - [x] Oracle 
 - [x] SqlServer 
-- [x] PostgreSQL 
+- [x] PostgreSQL
+- [x] Cache DB
 - [ ] Phoenix HBase（开发中）
 - [ ] H2 （开发中）
 - [ ] DB2  （开发中）

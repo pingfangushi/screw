@@ -32,16 +32,14 @@ import java.util.Properties;
 import static cn.smallbun.screw.core.common.Constants.fileOutputDir;
 
 /**
- * PostgreSQL 文档生成测试
+ * CacheDB 数据库文档生成测试
  *
- * @author SanLi
- * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on 2020/3/30 18:36
+ * @author <a href ='jxh98@foxmail.com'>Josway</a>
+ * @date 2020/6/28
+ * @since JDK 1.8
  */
-public class PostgreSQLDocumentationBuilderTest extends AbstractDocumentationExecute {
+public class CacheDBDocumentationBuilderTest extends AbstractDocumentationExecute {
 
-    /**
-     * 构建
-     */
     @Test
     void build() throws IOException {
         //数据源
@@ -50,6 +48,7 @@ public class PostgreSQLDocumentationBuilderTest extends AbstractDocumentationExe
         hikariConfig.setJdbcUrl(getUrl());
         hikariConfig.setUsername(getUserName());
         hikariConfig.setPassword(getPassword());
+        hikariConfig.setSchema(getSchema());
         hikariConfig.setMinimumIdle(2);
         hikariConfig.setMaximumPoolSize(5);
         DataSource dataSource = new HikariDataSource(hikariConfig);
@@ -61,6 +60,7 @@ public class PostgreSQLDocumentationBuilderTest extends AbstractDocumentationExe
             .fileType(EngineFileType.HTML)
             //生成模板实现
             .produceType(EngineTemplateType.freemarker).build();
+
         //配置
         Configuration config = Configuration.builder()
             //版本
@@ -76,12 +76,11 @@ public class PostgreSQLDocumentationBuilderTest extends AbstractDocumentationExe
 
     /**
      * 获取配置文件
-     *
      * @return {@link Properties}
      */
     @Override
     public String getConfigProperties() {
         String projectLocation = System.getProperty("user.dir");
-        return projectLocation + "/src/main/resources/postgresql.properties";
+        return projectLocation + "/src/main/resources/properties/cachedb.properties";
     }
 }

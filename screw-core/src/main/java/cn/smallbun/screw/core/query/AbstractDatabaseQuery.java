@@ -21,14 +21,13 @@ import cn.smallbun.screw.core.exception.QueryException;
 import cn.smallbun.screw.core.metadata.PrimaryKey;
 import cn.smallbun.screw.core.util.Assert;
 import cn.smallbun.screw.core.util.ExceptionUtils;
+import cn.smallbun.screw.core.util.JdbcUtils;
 import cn.smallbun.screw.core.util.StringUtils;
+import com.zaxxer.hikari.HikariDataSource;
 import lombok.Getter;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
 import java.util.Objects;
 
@@ -107,7 +106,18 @@ public abstract class AbstractDatabaseQuery implements DatabaseQuery {
      */
     protected String getSchema() throws QueryException {
         try {
-            String schema = this.getConnection().getSchema();
+            String schema = null;
+            //获取数据库URL 用于判断数据库类型
+            HikariDataSource hikariDataSource = (HikariDataSource) this.getDataSource();
+            String url = hikariDataSource.getJdbcUrl();
+            //获取数据库名称
+            String name = JdbcUtils.getDbType(url).getName();
+            if (DatabaseType.CACHEDB.getName().equals(name)) {
+                schema = verifySchema(hikariDataSource);
+            } else {
+                schema = this.getConnection().getSchema();
+            }
+
             if (StringUtils.isBlank(schema)) {
                 return null;
             }
@@ -115,6 +125,29 @@ public abstract class AbstractDatabaseQuery implements DatabaseQuery {
         } catch (SQLException e) {
             throw ExceptionUtils.mpe(e);
         }
+    }
+
+    /**
+     * 验证Schema
+     *
+     * @param hikariDataSource hikariDataSource
+     * @return Schema
+     */
+    private String verifySchema(HikariDataSource hikariDataSource) throws SQLException {
+        String schema = hikariDataSource.getSchema();
+        //验证是否有此Schema
+        ResultSet resultSet = this.getConnection().getMetaData().getSchemas();
+        while (resultSet.next()) {
+            int columnCount = resultSet.getMetaData().getColumnCount();
+            for (int i = 1; i <= columnCount; i++) {
+                String columnValue = resultSet.getString(i);
+                System.out.println(columnValue);
+                if (StringUtils.isNotBlank(columnValue) && columnValue.contains(schema)) {
+                    return schema;
+                }
+            }
+        }
+        return null;
     }
 
     /**

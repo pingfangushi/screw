@@ -15,16 +15,24 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cn.smallbun.screw.core.common;
+package cn.smallbun.screw.core.query.cachedb.model;
+
+import cn.smallbun.screw.core.metadata.Database;
+import lombok.Data;
 
 /**
- * 常量
- * @author SanLi
- * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on 2020/6/16 21:30
+ * 数据库信息
+ *
+ * @author <a href ='jxh98@foxmail.com'>Josway</a>
+ * @date 2020/6/28
+ * @since JDK 1.8
  */
-public class Constants {
+@Data
+public class CacheDbDatabaseModel implements Database {
+
+    private static final long serialVersionUID = 931210775266917894L;
     /**
-     * 文件输出路径
+     * 数据库名称
      */
-    public static final String fileOutputDir = System.getProperty("user.dir");
+    private String            database;
 }
