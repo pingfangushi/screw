@@ -20,7 +20,7 @@ package cn.smallbun.screw.core.engine.freemark;
 import cn.smallbun.screw.core.engine.AbstractTemplateEngine;
 import cn.smallbun.screw.core.engine.EngineConfig;
 import cn.smallbun.screw.core.exception.ProduceException;
-import cn.smallbun.screw.core.metadata.model.DatabaseModel;
+import cn.smallbun.screw.core.metadata.model.DataModel;
 import cn.smallbun.screw.core.util.Assert;
 import cn.smallbun.screw.core.util.ExceptionUtils;
 import cn.smallbun.screw.core.util.FileUtils;
@@ -84,12 +84,12 @@ public class FreemarkerTemplateEngine extends AbstractTemplateEngine {
     /**
      * 生成文档
      *
-     * @param info {@link DatabaseModel}
+     * @param info {@link DataModel}
      * @throws ProduceException ProduceException
      */
     @Override
-    public void produce(DatabaseModel info, String docName) throws ProduceException {
-        Assert.notNull(info, "DatabaseModel can not be empty!");
+    public void produce(DataModel info, String docName) throws ProduceException {
+        Assert.notNull(info, "DataModel can not be empty!");
         String path = getEngineConfig().getCustomTemplate();
         try {
             Template template;

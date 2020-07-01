@@ -18,7 +18,7 @@
 package cn.smallbun.screw.core.engine;
 
 import cn.smallbun.screw.core.exception.ProduceException;
-import cn.smallbun.screw.core.metadata.model.DatabaseModel;
+import cn.smallbun.screw.core.metadata.model.DataModel;
 
 import java.io.Serializable;
 
@@ -32,10 +32,10 @@ public interface TemplateEngine extends Serializable {
     /**
      * 生成文档
      *
-     * @param info    {@link DatabaseModel}
+     * @param info    {@link DataModel}
      * @param docName {@link String}
      * @throws ProduceException ProduceException
      */
-    void produce(DatabaseModel info, String docName) throws ProduceException;
+    void produce(DataModel info, String docName) throws ProduceException;
 
 }
