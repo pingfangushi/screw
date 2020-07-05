@@ -39,10 +39,6 @@ public enum EngineFileType implements Serializable {
                                                      */
                                                     WORD(".doc", "documentation_word", "WORD文件"),
                                                     /**
-                                                     * EXCEL
-                                                     */
-                                                    EXCEL(".xsl", "documentation_excel", "EXCEL文件"),
-                                                    /**
                                                      * MD
                                                      */
                                                     MD(".md", "documentation_md", "Markdown文件");
