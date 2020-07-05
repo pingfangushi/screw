@@ -27,6 +27,7 @@ import cn.smallbun.screw.core.metadata.model.DataModel;
 import cn.smallbun.screw.core.metadata.model.TableModel;
 import cn.smallbun.screw.core.query.DatabaseQuery;
 import cn.smallbun.screw.core.query.DatabaseQueryFactory;
+import cn.smallbun.screw.core.util.BeanUtils;
 import cn.smallbun.screw.core.util.CollectionUtils;
 import cn.smallbun.screw.core.util.StringUtils;
 
@@ -128,10 +129,18 @@ public class DataModelProcess extends AbstractProcess {
             for (Column column : columnsCaching.get(table.getTableName())) {
                 packageColumn(columnModels, keyList, column);
             }
+            //去除空格
+            columnModels.forEach(BeanUtils::beanAttributeValueTrim);
             //放入列
             tableModel.setColumns(columnModels);
         }
-        model.setTables(handleIgnore(tableModels));
+        //处理忽略表
+        List<TableModel> ignore = handleIgnore(tableModels);
+        //处理字段非空
+        ignore.forEach(BeanUtils::beanAttributeValueTrim);
+        model.setTables(ignore);
+        //去除model空格
+        BeanUtils.beanAttributeValueTrim(model);
         /*封装数据结束*/
         logger.debug("encapsulation processing data time consuming:{}ms",
             (System.currentTimeMillis() - start));
