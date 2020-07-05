@@ -83,7 +83,7 @@
                             <w:rPr>
                                 <w:rFonts w:hint="eastAsia"/>
                             </w:rPr>
-                            <w:t><![CDATA[${title!'数据库表结构文档'}]]>}</w:t>
+                            <w:t><![CDATA[${title!'数据库表结构文档'}]]></w:t>
                         </w:r>
                     </w:p>
                     <w:p w14:paraId="11B80088" w14:textId="77777777" w:rsidR="005153C0" w:rsidRPr="006012B2"
@@ -205,7 +205,7 @@
                             <w:sz w:val="21"/>
                             <w:szCs w:val="21"/>
                         </w:rPr>
-                        <w:t>${t.tableName!''}</w:t>
+                        <w:t><![CDATA[${t.tableName!''}]]></w:t>
                     </w:r></w:p><#--页面设置-->
                     <w:tbl>
                     <w:tblPr>
