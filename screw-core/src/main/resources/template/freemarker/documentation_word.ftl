@@ -83,7 +83,7 @@
                             <w:rPr>
                                 <w:rFonts w:hint="eastAsia"/>
                             </w:rPr>
-                            <w:t>${title!'数据库表结构文档'?replace('<','&lt;')? replace('>','&gt;')? replace('&','&amp;')}</w:t>
+                            <w:t><![CDATA[${title!'数据库表结构文档'}]]>}</w:t>
                         </w:r>
                     </w:p>
                     <w:p w14:paraId="11B80088" w14:textId="77777777" w:rsidR="005153C0" w:rsidRPr="006012B2"
@@ -111,7 +111,7 @@
                                 <w:sz w:val="18"/>
                                 <w:szCs w:val="18"/>
                             </w:rPr>
-                            <w:t>${database!''?replace('<','&lt;')? replace('>','&gt;')? replace('&','&amp;')}</w:t>
+                            <w:t><![CDATA[${database!''}]]></w:t>
                         </w:r>
                     </w:p><#if (version)??>
                     <w:p w14:paraId="5AF9097E" w14:textId="77777777" w:rsidR="005153C0" w:rsidRPr="006012B2"
@@ -139,7 +139,7 @@
                                 <w:sz w:val="18"/>
                                 <w:szCs w:val="18"/>
                             </w:rPr>
-                            <w:t>${version!''?replace('<','&lt;')? replace('>','&gt;')? replace('&','&amp;')}</w:t>
+                            <w:t><![CDATA[${version!''}]]></w:t>
                         </w:r></w:p></#if><#if (description)??>
                         <w:p w14:paraId="1EEE076F" w14:textId="77777777" w:rsidR="005153C0" w:rsidRPr="006012B2"
                              w:rsidRDefault="005153C0">
@@ -167,7 +167,7 @@
                                 <w:sz w:val="18"/>
                                 <w:szCs w:val="18"/>
                             </w:rPr>
-                            <w:t>${description!''?replace('<','&lt;')? replace('>','&gt;')? replace('&','&amp;')}</w:t>
+                            <w:t><![CDATA[${description!''}]]></w:t>
                         </w:r></w:p></#if><#--表--><#list tables><#items as t>
                     <w:p w14:paraId="2C9FECF1" w14:textId="77777777" w:rsidR="005153C0" w:rsidRPr="00CB1EBF"
                          w:rsidRDefault="00F13AF0" w:rsidP="00C040D4">
@@ -181,7 +181,7 @@
                         </w:rPr>
                     </w:pPr>
                     <w:bookmarkStart w:id="${t?index}"
-                                     w:name="${'_'+t.tableName!''?replace('<','&lt;')? replace('>','&gt;')? replace('&','&amp;')}"/>
+                                     w:name="${'_'+t.tableName!''}"/>
                     <w:bookmarkEnd w:id="${t?index}"/>
                     <w:r w:rsidRPr="00CB1EBF">
                         <w:rPr>
@@ -205,7 +205,7 @@
                             <w:sz w:val="21"/>
                             <w:szCs w:val="21"/>
                         </w:rPr>
-                        <w:t>${t.tableName!''?replace('<','&lt;')? replace('>','&gt;')? replace('&','&amp;')}</w:t>
+                        <w:t>${t.tableName!''}</w:t>
                     </w:r></w:p><#--页面设置-->
                     <w:tbl>
                     <w:tblPr>
@@ -514,7 +514,7 @@
                                         <w:sz w:val="18"/>
                                         <w:szCs w:val="18"/>
                                     </w:rPr>
-                                    <w:t>${c.columnName!''?replace('<','&lt;')? replace('>','&gt;')? replace('&','&amp;')}</w:t>
+                                    <w:t><![CDATA[${c.columnName!''}]]></w:t>
                                 </w:r>
                             </w:p>
                         </w:tc>
@@ -538,7 +538,7 @@
                                         <w:sz w:val="18"/>
                                         <w:szCs w:val="18"/>
                                     </w:rPr>
-                                    <w:t>${c.typeName!''?replace('<','&lt;')? replace('>','&gt;')? replace('&','&amp;')}</w:t>
+                                    <w:t><![CDATA[${c.typeName!''}]]></w:t>
                                 </w:r>
                             </w:p>
                         </w:tc>
@@ -562,7 +562,7 @@
                                         <w:sz w:val="18"/>
                                         <w:szCs w:val="18"/>
                                     </w:rPr>
-                                    <w:t>${c.columnSize!''?replace('<','&lt;')? replace('>','&gt;')? replace('&','&amp;')}</w:t>
+                                    <w:t><![CDATA[${c.columnSize!''}]]></w:t>
                                 </w:r>
                             </w:p>
                         </w:tc>
@@ -586,7 +586,7 @@
                                         <w:sz w:val="18"/>
                                         <w:szCs w:val="18"/>
                                     </w:rPr>
-                                    <w:t>${c.decimalDigits!'0'}</w:t>
+                                    <w:t><![CDATA[${c.decimalDigits!'0'}]]></w:t>
                                 </w:r>
                             </w:p>
                         </w:tc>
@@ -610,7 +610,7 @@
                                         <w:sz w:val="18"/>
                                         <w:szCs w:val="18"/>
                                     </w:rPr>
-                                    <w:t>${c.nullable!''?replace('<','&lt;')? replace('>','&gt;')? replace('&','&amp;')}</w:t>
+                                    <w:t><![CDATA[${c.nullable!''}]]></w:t>
                                 </w:r>
                             </w:p>
                         </w:tc>
@@ -634,7 +634,7 @@
                                         <w:sz w:val="18"/>
                                         <w:szCs w:val="18"/>
                                     </w:rPr>
-                                    <w:t>${c.primaryKey!''?replace('<','&lt;')? replace('>','&gt;')? replace('&','&amp;')}</w:t>
+                                    <w:t><![CDATA[${c.primaryKey!''}]]></w:t>
                                 </w:r>
                             </w:p>
                         </w:tc>
@@ -658,7 +658,7 @@
                                         <w:sz w:val="18"/>
                                         <w:szCs w:val="18"/>
                                     </w:rPr>
-                                    <w:t>${c.columnDef!''?replace('<','&lt;')? replace('>','&gt;')? replace('&','&amp;')}</w:t>
+                                    <w:t><![CDATA[${c.columnDef!''}]]></w:t>
                                 </w:r>
                             </w:p>
                         </w:tc>
@@ -682,7 +682,7 @@
                                         <w:sz w:val="18"/>
                                         <w:szCs w:val="18"/>
                                     </w:rPr>
-                                    <w:t>${c.remarks!''?replace('<','&lt;')? replace('>','&gt;')? replace('&','&amp;')}</w:t>
+                                    <w:t><![CDATA[${c.remarks!''}]]></w:t>
                                 </w:r>
                             </w:p>
                         </w:tc></w:tr></#items></#list></w:tbl></#items></#list>
@@ -1932,7 +1932,7 @@
                                xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/"
                                xmlns:dcmitype="http://purl.org/dc/dcmitype/"
                                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-                <dc:title>${title!'数据库表结构文档'?replace('<','&lt;')? replace('>','&gt;')? replace('&','&amp;')}</dc:title>
+                <dc:title><![CDATA[${title!'数据库表结构文档'}]]></dc:title>
                 <dc:subject/>
                 <dc:creator>screw</dc:creator>
                 <cp:keywords/>
