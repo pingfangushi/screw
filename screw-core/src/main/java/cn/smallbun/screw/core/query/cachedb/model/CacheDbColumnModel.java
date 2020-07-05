@@ -24,8 +24,7 @@ import lombok.Data;
 /**
  * 表字段信息
  *
- * @author <a href ='jxh98@foxmail.com'>Josway</a>
- * @date 2020/6/28
+ * @author <a href ='jxh98@foxmail.com'>Josway</a> 2020/6/28
  * @since JDK 1.8
  */
 @Data

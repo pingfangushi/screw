@@ -42,8 +42,7 @@ import static cn.smallbun.screw.core.constant.DefaultConstants.PERCENT_SIGN;
 /**
  * CacheDB 数据库查询
  *
- * @author <a href ='jxh98@foxmail.com'>Josway</a>
- * @date 2020/6/28
+ * @author <a href ='jxh98@foxmail.com'>Josway</a> 2020/6/28
  * @since JDK 1.8
  */
 public class CacheDbDataBaseQuery extends AbstractDatabaseQuery {
