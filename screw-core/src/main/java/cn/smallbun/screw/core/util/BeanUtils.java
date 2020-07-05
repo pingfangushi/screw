@@ -17,6 +17,9 @@
  */
 package cn.smallbun.screw.core.util;
 
+import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang.StringUtils;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
@@ -45,7 +48,8 @@ public class BeanUtils {
                             continue;
                         }
 
-                        setFieldValue(bean, key, value.toString().trim());
+                        setFieldValue(bean, key,
+                            StringEscapeUtils.escapeXml(value.toString().trim()));
                     }
                 }
             }
