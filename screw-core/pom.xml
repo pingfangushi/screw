@@ -13,6 +13,11 @@
 
     <artifactId>screw-core</artifactId>
     <dependencies>
+        <!--commons-lang-->
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+        </dependency>
         <!--poi-->
         <dependency>
             <groupId>org.apache.poi</groupId>
