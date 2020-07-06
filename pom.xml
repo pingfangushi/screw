@@ -70,12 +70,12 @@
         <orai18n.version>12.1.0.2.0</orai18n.version>
         <postgresql.version>42.2.11</postgresql.version>
         <h2.version>1.4.200</h2.version>
-        <db2-jdbc.version>11.5.0.0</db2-jdbc.version>
+        <db2-jdbc.version>11.5.4.0</db2-jdbc.version>
         <sqlite-jdbc.version>3.32.3</sqlite-jdbc.version>
-        <hsqldb.version>2.5.0</hsqldb.version>
+        <hsqldb.version>2.5.1</hsqldb.version>
         <slf4j-api.version>1.7.30</slf4j-api.version>
         <logback-classic.version>1.2.3</logback-classic.version>
-        <fastjson.version>1.2.71</fastjson.version>
+        <fastjson.version>1.2.72</fastjson.version>
         <poi.version>4.1.2</poi.version>
         <commons-lang.version>2.6</commons-lang.version>
         <maven-plugin-api.version>3.6.3</maven-plugin-api.version>
