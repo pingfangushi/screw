@@ -220,10 +220,12 @@ void documentGeneration() {
   <tr>
     <td align="center"><img src="https://images.gitee.com/uploads/images/2020/0622/161414_eaa2819d_1407605.jpeg" width="200" height="200"  alt="WeChat"/> </td>
     <td align="center"><img src="https://images.gitee.com/uploads/images/2020/0707/173905_c26c9414_1407605.png" width="200" height="200"  alt="WeChat"/></td>
+    <td align="center"><img src="https://images.gitee.com/uploads/images/2020/0707/191620_9a63fb23_1407605.png" width="200" height="200"  alt="QQ"/></td>
   </tr>
   <tr>
-    <td align="center">公众号</td>
-    <td align="center">交流群</td>
+    <td align="center">微信公众号</td>
+    <td align="center">微信交流群</td>
+    <td align="center">QQ交流群</td>
   </tr>
 </table>
 
