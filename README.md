@@ -240,6 +240,33 @@ void documentGeneration() {
  + 上海德邦物流有限公司
  + 兰州百格网络科技有限公司
  
+## 常见问题
+
+ + 生成后文档乱码
+
+   MySQL：URL加入`?characterEncoding=UTF-8`
+
+ + Caused by: java.lang.NoSuchFieldError: VERSION_2_3_30
+
+   检查项目`freemarker`依赖，这是由于本地freemarker版本过低造成的，升级版本为`2.3.30`即可
+
+ + java.lang.AbstractMethodError: oracle.jdbc.driver.T4CConnection.getSchema()Ljava/lang/String;
+
+   这是因为oracle驱动版本过低造成的，删除或屏蔽目前驱动版本，驱动添加升级为以下版本：
+
+``` xml
+<dependency>
+   <groupId>com.oracle.ojdbc</groupId>
+   <artifactId>ojdbc8</artifactId>
+   <version>19.3.0.0</version>
+</dependency>
+<dependency>
+   <groupId>cn.easyproject</groupId>
+   <artifactId>orai18n</artifactId>
+   <version>12.1.0.2.0</version>
+</dependency>
+```
+
 ## 参与贡献
 
 恳请的希望有兴趣的同学能够参与到**screw**建设中来，让我们共同完善它，让我们共同成长，帮助更多开发者，解决更多的问题。
