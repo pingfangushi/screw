@@ -45,7 +45,6 @@
 - [x] SqlServer 
 - [x] PostgreSQL
 - [x] Cache DB
-- [ ] Phoenix HBase（开发中）
 - [ ] H2 （开发中）
 - [ ] DB2  （开发中）
 - [ ] HSQL  （开发中）
@@ -248,7 +247,7 @@ void documentGeneration() {
 
  + Caused by: java.lang.NoSuchFieldError: VERSION_2_3_30
 
-   检查项目`freemarker`依赖，这是由于本地freemarker版本过低造成的，升级版本为`2.3.30`即可
+   检查项目`freemarker`依赖，这是由于版本过低造成的，升级版本为`2.3.30`即可
 
  + java.lang.AbstractMethodError: oracle.jdbc.driver.T4CConnection.getSchema()Ljava/lang/String;
 
