@@ -219,7 +219,7 @@ void documentGeneration() {
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td align="center"><img src="https://images.gitee.com/uploads/images/2020/0622/161414_eaa2819d_1407605.jpeg" width="200" height="200"  alt="WeChat"/> </td>
-    <td align="center"><img src="https://images.gitee.com/uploads/images/2020/0701/094259_a378b220_1407605.png" width="200" height="200"  alt="WeChat"/></td>
+    <td align="center"><img src="https://images.gitee.com/uploads/images/2020/0707/173334_69837853_1407605.png" width="200" height="200"  alt="WeChat"/></td>
   </tr>
   <tr>
     <td align="center">公众号</td>
