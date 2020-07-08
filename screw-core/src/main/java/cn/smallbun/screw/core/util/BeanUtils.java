@@ -22,12 +22,67 @@ import org.apache.commons.lang.StringEscapeUtils;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
+import static cn.smallbun.screw.core.util.StringUtils.replaceBlank;
+
 /**
  * BeanUtils
  * @author SanLi
  * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on 2020/7/5 19:58
  */
 public class BeanUtils {
+    /**
+     * 转义bean中所有属性为字符串的
+     * @param bean {@link Object}
+     */
+    public static void beanAttributeValueEscapeXml(Object bean) {
+        try {
+            if (bean != null) {
+                //获取所有的字段包括public,private,protected,private
+                Field[] fields = bean.getClass().getDeclaredFields();
+                for (Field f : fields) {
+                    if ("java.lang.String".equals(f.getType().getName())) {
+                        //获取字段名
+                        String key = f.getName();
+                        Object value = getFieldValue(bean, key);
+
+                        if (value == null) {
+                            continue;
+                        }
+                        setFieldValue(bean, key, StringEscapeUtils.escapeXml(value.toString()));
+                    }
+                }
+            }
+        } catch (Exception e) {
+            throw ExceptionUtils.mpe(e);
+        }
+    }
+
+    /**
+     * bean 中所有属性为字符串的进行\n\t\s处理
+     * @param bean {@link Object}
+     */
+    public static void beanAttributeValueReplaceBlank(Object bean) {
+        try {
+            if (bean != null) {
+                //获取所有的字段包括public,private,protected,private
+                Field[] fields = bean.getClass().getDeclaredFields();
+                for (Field f : fields) {
+                    if ("java.lang.String".equals(f.getType().getName())) {
+                        //获取字段名
+                        String key = f.getName();
+                        Object value = getFieldValue(bean, key);
+                        if (value == null) {
+                            continue;
+                        }
+                        setFieldValue(bean, key, replaceBlank(value.toString()));
+                    }
+                }
+            }
+        } catch (Exception e) {
+            throw ExceptionUtils.mpe(e);
+        }
+    }
+
     /**
      * 去掉bean中所有属性为字符串的前后空格
      * @param bean {@link Object}
@@ -46,9 +101,7 @@ public class BeanUtils {
                         if (value == null) {
                             continue;
                         }
-
-                        setFieldValue(bean, key,
-                            StringEscapeUtils.escapeXml(value.toString().trim()));
+                        setFieldValue(bean, key, value.toString().trim());
                     }
                 }
             }

@@ -18,6 +18,7 @@
 package cn.smallbun.screw.core.process;
 
 import cn.smallbun.screw.core.Configuration;
+import cn.smallbun.screw.core.engine.EngineFileType;
 import cn.smallbun.screw.core.metadata.Column;
 import cn.smallbun.screw.core.metadata.Database;
 import cn.smallbun.screw.core.metadata.PrimaryKey;
@@ -37,6 +38,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static cn.smallbun.screw.core.constant.DefaultConstants.*;
+import static cn.smallbun.screw.core.util.BeanUtils.*;
 
 /**
  * 数据模型处理
@@ -129,18 +131,13 @@ public class DataModelProcess extends AbstractProcess {
             for (Column column : columnsCaching.get(table.getTableName())) {
                 packageColumn(columnModels, keyList, column);
             }
-            //去除空格
-            columnModels.forEach(BeanUtils::beanAttributeValueTrim);
             //放入列
             tableModel.setColumns(columnModels);
         }
         //处理忽略表
-        List<TableModel> ignore = handleIgnore(tableModels);
-        //处理字段非空
-        ignore.forEach(BeanUtils::beanAttributeValueTrim);
-        model.setTables(ignore);
-        //去除model空格
-        BeanUtils.beanAttributeValueTrim(model);
+        model.setTables(handleIgnore(tableModels));
+        //优化数据
+        optimizeData(model);
         /*封装数据结束*/
         logger.debug("encapsulation processing data time consuming:{}ms",
             (System.currentTimeMillis() - start));
@@ -214,5 +211,50 @@ public class DataModelProcess extends AbstractProcess {
             return tables;
         }
         return tables;
+    }
+
+    /**
+     *  优化数据
+     * @param dataModel {@link DataModel}
+     */
+    public void optimizeData(DataModel dataModel) {
+        //trim
+        beanAttributeValueTrim(dataModel);
+        //tables
+        List<TableModel> tables = dataModel.getTables();
+        //columns
+        tables.forEach(i -> {
+            //table escape xml
+            beanAttributeValueTrim(i);
+            List<ColumnModel> columns = i.getColumns();
+            //columns escape xml
+            columns.forEach(BeanUtils::beanAttributeValueTrim);
+        });
+        //if file type is word
+        if (config.getEngineConfig().getFileType().equals(EngineFileType.WORD)) {
+            //escape xml
+            beanAttributeValueEscapeXml(dataModel);
+            //tables
+            tables.forEach(i -> {
+                //table escape xml
+                beanAttributeValueEscapeXml(i);
+                List<ColumnModel> columns = i.getColumns();
+                //columns escape xml
+                columns.forEach(BeanUtils::beanAttributeValueEscapeXml);
+            });
+        }
+        //if file type is markdown
+        if (config.getEngineConfig().getFileType().equals(EngineFileType.MD)) {
+            //escape xml
+            beanAttributeValueReplaceBlank(dataModel);
+            //columns
+            tables.forEach(i -> {
+                //table escape xml
+                beanAttributeValueReplaceBlank(i);
+                List<ColumnModel> columns = i.getColumns();
+                //columns escape xml
+                columns.forEach(BeanUtils::beanAttributeValueReplaceBlank);
+            });
+        }
     }
 }

@@ -17,6 +17,9 @@
  */
 package cn.smallbun.screw.core.util;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * @author SanLi
  * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on 2020/3/30 22:21
@@ -53,6 +56,25 @@ public class StringUtils {
 
     public static boolean isNotBlank(final CharSequence cs) {
         return !isBlank(cs);
+    }
+
+    /**
+     * 去除换行
+     */
+    static final Pattern REPLACE_BLANK_PATTERN = Pattern.compile("\\s*|\t|\r|\n");
+
+    /**
+     * replaceBlank
+     * @param str {@link String}
+     * @return {@link String}
+     */
+    public static String replaceBlank(String str) {
+        String dest = "";
+        if (str != null) {
+            Matcher m = REPLACE_BLANK_PATTERN.matcher(str);
+            dest = m.replaceAll("");
+        }
+        return dest;
     }
 
     /**
