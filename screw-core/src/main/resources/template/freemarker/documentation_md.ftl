@@ -33,9 +33,9 @@
 | 表名                  | 说明       |
 | :-------------------- | :--------- |
 <#list tables>
-    <#items as t>
-        | [${t.tableName!''}](#${t.tableName!''}) | ${t.remarks!''} |
-    </#items>
+<#items as t>
+| [${t.tableName!''}](#${t.tableName!''}) | ${t.remarks!''} |
+</#items>
 </#list>
 <#list tables><#items as t>
 **表名：** <a id="${t.tableName!''}">${t.tableName!''}</a>
