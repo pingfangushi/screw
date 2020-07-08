@@ -18,7 +18,6 @@
 package cn.smallbun.screw.core.process;
 
 import cn.smallbun.screw.core.Configuration;
-import cn.smallbun.screw.core.engine.EngineFileType;
 import cn.smallbun.screw.core.metadata.Column;
 import cn.smallbun.screw.core.metadata.Database;
 import cn.smallbun.screw.core.metadata.PrimaryKey;
@@ -28,17 +27,13 @@ import cn.smallbun.screw.core.metadata.model.DataModel;
 import cn.smallbun.screw.core.metadata.model.TableModel;
 import cn.smallbun.screw.core.query.DatabaseQuery;
 import cn.smallbun.screw.core.query.DatabaseQueryFactory;
-import cn.smallbun.screw.core.util.BeanUtils;
-import cn.smallbun.screw.core.util.CollectionUtils;
 import cn.smallbun.screw.core.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static cn.smallbun.screw.core.constant.DefaultConstants.*;
-import static cn.smallbun.screw.core.util.BeanUtils.*;
 
 /**
  * 数据模型处理
@@ -134,8 +129,8 @@ public class DataModelProcess extends AbstractProcess {
             //放入列
             tableModel.setColumns(columnModels);
         }
-        //处理忽略表
-        model.setTables(handleIgnore(tableModels));
+        //设置表
+        model.setTables(filterTables(tableModels));
         //优化数据
         optimizeData(model);
         /*封装数据结束*/
@@ -176,85 +171,4 @@ public class DataModelProcess extends AbstractProcess {
         columnModels.add(columnModel);
     }
 
-    /**
-     * 处理忽略
-     *
-     * @param tables {@link List<TableModel>} 处理前数据
-     * @return {@link List<TableModel>} 处理过后的数据
-     */
-    private List<TableModel> handleIgnore(List<TableModel> tables) {
-        if (!Objects.isNull(config) && !Objects.isNull(config.getProduceConfig())) {
-            //处理忽略表名
-            if (CollectionUtils.isNotEmpty(config.getProduceConfig().getIgnoreTableName())) {
-                List<String> list = config.getProduceConfig().getIgnoreTableName();
-                for (String name : list) {
-                    tables = tables.stream().filter(j -> !j.getTableName().equals(name))
-                        .collect(Collectors.toList());
-                }
-            }
-            //忽略表名前缀
-            if (CollectionUtils.isNotEmpty(config.getProduceConfig().getIgnoreTablePrefix())) {
-                List<String> list = config.getProduceConfig().getIgnoreTablePrefix();
-                for (String prefix : list) {
-                    tables = tables.stream().filter(j -> !j.getTableName().startsWith(prefix))
-                        .collect(Collectors.toList());
-                }
-            }
-            //忽略表名后缀
-            if (CollectionUtils.isNotEmpty(config.getProduceConfig().getIgnoreTableSuffix())) {
-                List<String> list = config.getProduceConfig().getIgnoreTableSuffix();
-                for (String suffix : list) {
-                    tables = tables.stream().filter(j -> !j.getTableName().endsWith(suffix))
-                        .collect(Collectors.toList());
-                }
-            }
-            return tables;
-        }
-        return tables;
-    }
-
-    /**
-     *  优化数据
-     * @param dataModel {@link DataModel}
-     */
-    public void optimizeData(DataModel dataModel) {
-        //trim
-        beanAttributeValueTrim(dataModel);
-        //tables
-        List<TableModel> tables = dataModel.getTables();
-        //columns
-        tables.forEach(i -> {
-            //table escape xml
-            beanAttributeValueTrim(i);
-            List<ColumnModel> columns = i.getColumns();
-            //columns escape xml
-            columns.forEach(BeanUtils::beanAttributeValueTrim);
-        });
-        //if file type is word
-        if (config.getEngineConfig().getFileType().equals(EngineFileType.WORD)) {
-            //escape xml
-            beanAttributeValueEscapeXml(dataModel);
-            //tables
-            tables.forEach(i -> {
-                //table escape xml
-                beanAttributeValueEscapeXml(i);
-                List<ColumnModel> columns = i.getColumns();
-                //columns escape xml
-                columns.forEach(BeanUtils::beanAttributeValueEscapeXml);
-            });
-        }
-        //if file type is markdown
-        if (config.getEngineConfig().getFileType().equals(EngineFileType.MD)) {
-            //escape xml
-            beanAttributeValueReplaceBlank(dataModel);
-            //columns
-            tables.forEach(i -> {
-                //table escape xml
-                beanAttributeValueReplaceBlank(i);
-                List<ColumnModel> columns = i.getColumns();
-                //columns escape xml
-                columns.forEach(BeanUtils::beanAttributeValueReplaceBlank);
-            });
-        }
-    }
 }
