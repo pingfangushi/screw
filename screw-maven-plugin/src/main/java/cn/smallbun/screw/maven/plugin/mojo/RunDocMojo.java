@@ -120,6 +120,24 @@ public class RunDocMojo extends AbstractMojo {
      */
     @Parameter
     private List<String>       tableSuffix;
+    /**
+     * 指定生成表名
+     * @see 1.0.3
+     */
+    @Parameter
+    private List<String>       designatedTableName;
+    /**
+     * 指定生成表前缀
+     * @see 1.0.3
+     */
+    @Parameter
+    private List<String>       designatedTablePrefix;
+    /**
+     * 指定生成表后缀
+     * @see 1.0.3
+     */
+    @Parameter
+    private List<String>       designatedTableSuffix;
 
     //====================生成引擎配置====================//
     /**
@@ -211,7 +229,13 @@ public class RunDocMojo extends AbstractMojo {
             //忽略表前缀
             .ignoreTablePrefix(getTablePrefix())
             //忽略表后缀
-            .ignoreTableSuffix(getTableSuffix()).build();
+            .ignoreTableSuffix(getTableSuffix())
+            //指定生成表名
+            .designatedTableName(getDesignatedTableName())
+            //指定生成表前缀
+            .designatedTablePrefix(getDesignatedTablePrefix())
+            //指定生成表后缀
+            .designatedTableSuffix(getDesignatedTableSuffix()).build();
     }
 
     /**

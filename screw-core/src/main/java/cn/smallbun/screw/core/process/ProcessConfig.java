@@ -44,4 +44,19 @@ public class ProcessConfig implements Serializable {
      * 忽略表后缀
      */
     private List<String> ignoreTableSuffix;
+    /**
+     * 指定生成表名
+     * @see "1.0.3"
+     */
+    private List<String> designatedTableName;
+    /**
+     * 指定生成表前缀
+     * @see "1.0.3"
+     */
+    private List<String> designatedTablePrefix;
+    /**
+     * 指定生成表后缀
+     * @see "1.0.3"
+     */
+    private List<String> designatedTableSuffix;
 }
