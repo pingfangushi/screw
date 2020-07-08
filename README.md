@@ -212,6 +212,9 @@ void documentGeneration() {
     </plugins>
 </build>
 ```
+### 使用文章
+
++ [SpringBoot整合screw生成数据库文档](https://my.oschina.net/mdxlcj/blog/4341399) 
 
 ## 更多支持
 
