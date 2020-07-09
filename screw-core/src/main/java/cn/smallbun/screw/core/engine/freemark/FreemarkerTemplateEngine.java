@@ -48,9 +48,10 @@ import static cn.smallbun.screw.core.util.FileUtils.isFileExists;
  */
 public class FreemarkerTemplateEngine extends AbstractTemplateEngine {
     /**
-     * freemarker 配置实例化 采用VERSION_2_3_30版本
+     * freemarker 配置实例化
      */
-    private final Configuration configuration = new Configuration(Configuration.VERSION_2_3_30);
+    private final Configuration configuration = new Configuration(
+        Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENTS);
 
     {
         try {
