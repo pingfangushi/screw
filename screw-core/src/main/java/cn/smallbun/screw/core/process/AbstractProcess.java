@@ -143,7 +143,7 @@ public abstract class AbstractProcess implements Process {
                 List<String> list = produceConfig.getDesignatedTableSuffix();
                 for (String suffix : list) {
                     tableModels
-                        .addAll(tables.stream().filter(j -> j.getTableName().startsWith(suffix))
+                        .addAll(tables.stream().filter(j -> j.getTableName().endsWith(suffix))
                             .collect(Collectors.toList()));
                 }
             }
