@@ -87,8 +87,8 @@ public abstract class AbstractProcess implements Process {
      * 过滤表
      * 存在指定生成和指定不生成，优先级为：如果指定生成，只会生成指定的表，未指定的不会生成，也不会处理忽略表
      *
-     * @param tables {@link List<TableModel>} 处理前数据
-     * @return {@link List<TableModel>} 处理过后的数据
+     * @param tables {@link List} 处理前数据
+     * @return {@link List} 处理过后的数据
      * @see "1.0.3"
      */
     protected List<TableModel> filterTables(List<TableModel> tables) {
@@ -113,8 +113,8 @@ public abstract class AbstractProcess implements Process {
     /**
      * 处理指定表
      *
-     * @param tables {@link List<TableModel>} 处理前数据
-     * @return {@link List<TableModel>} 处理过后的数据
+     * @param tables {@link List} 处理前数据
+     * @return {@link List} 处理过后的数据
      * @see "1.0.3"
      */
     private List<TableModel> handleDesignated(List<TableModel> tables) {
@@ -155,8 +155,8 @@ public abstract class AbstractProcess implements Process {
     /**
      * 处理忽略
      *
-     * @param tables {@link List<TableModel>} 处理前数据
-     * @return {@link List<TableModel>} 处理过后的数据
+     * @param tables {@link List} 处理前数据
+     * @return {@link List} 处理过后的数据
      */
     private List<TableModel> handleIgnore(List<TableModel> tables) {
         ProcessConfig produceConfig = this.config.getProduceConfig();
