@@ -132,6 +132,13 @@ void documentGeneration() {
    ArrayList<String> ignoreSuffix = new ArrayList<>();
    ignoreSuffix.add("_test");
    ProcessConfig processConfig = ProcessConfig.builder()
+         //指定生成逻辑、当存在指定表、指定表前缀、指定表后缀时，将生成指定表，其余表不生成、并跳过忽略表配置	
+		 //根据名称指定表生成
+		 .designatedTableName(new ArrayList<>())
+		 //根据表前缀生成
+		 .designatedTablePrefix(new ArrayList<>())
+		 //根据表后缀生成	
+		 .designatedTableSuffix(new ArrayList<>())
          //忽略表名
          .ignoreTableName(ignoreTableName)
          //忽略表前缀
