@@ -276,6 +276,12 @@ void documentGeneration() {
 </dependency>
 ```
 
+## 推荐开源项目
+
+| 项目名称       | 项目描述          |  
+| ------------- |:-------------:|
+|[api-boot](https://gitee.com/minbox-projects/api-boot)|为组件化构建Api服务而生| 
+
 ## 参与贡献
 
 恳请的希望有兴趣的同学能够参与到**screw**建设中来，让我们共同完善它，让我们共同成长，帮助更多开发者，解决更多的问题。
