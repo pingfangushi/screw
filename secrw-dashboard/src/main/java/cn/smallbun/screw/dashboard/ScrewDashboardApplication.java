@@ -22,7 +22,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.core.env.Environment;
+import org.springframework.util.StringUtils;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -35,7 +37,7 @@ import static cn.smallbun.screw.dashboard.constant.ScrewDashboardConstants.*;
  * @author SanLi
  * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on  2020/7/14
  */
-@SpringBootApplication
+@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
 public class ScrewDashboardApplication {
 
 	private final static Logger logger = LoggerFactory.getLogger(SpringApplication.class);
@@ -56,9 +58,11 @@ public class ScrewDashboardApplication {
 		logger.info("\n----------------------------------------------------------\n\t"
 						+ "名称:\t'{}' is running! Access URLs:\n\t" + "本地:\t {}://localhost:{}\n\t" + "外部:\t {}://{}:{}\n\t"
 						+ "环境:\t {}\n\t" + "用时:\t {}\n----------------------------------------------------------",
-				env.getProperty("spring.application.name"), protocol, env.getProperty("local.server.port"), protocol,
-				InetAddress.getLocalHost().getHostAddress(), env.getProperty("local.server.port"),
-				env.getActiveProfiles(), (end - start) + "ms");
+				StringUtils.isEmpty(env.getProperty("spring.application.name")) ?
+						"screw dashboard" :
+						env.getProperty("spring.application.name"), protocol, env.getProperty("local.server.port"),
+				protocol, InetAddress.getLocalHost().getHostAddress(), env.getProperty("local.server.port"), env.getActiveProfiles(),
+				(end - start) + "ms");
 	}
 
 }
