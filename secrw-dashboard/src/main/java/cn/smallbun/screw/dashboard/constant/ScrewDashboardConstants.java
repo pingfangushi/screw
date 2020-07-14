@@ -15,9 +15,26 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package cn.smallbun.screw.dashboard.constant;
+
+import java.io.Serializable;
+
 /**
- * Controller
+ * screw dashboard constants
  * @author SanLi
- * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on 2020/7/14 14:56
+ * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on 2020/7/14 17:58
  */
-package cn.smallbun.screw.dashboard.controller;
+public class ScrewDashboardConstants implements Serializable {
+	/**
+	 * HTTP
+	 */
+	public static final String HTTP                        = "http";
+	/**
+	 * HTTPS
+	 */
+	public static final String HTTPS                       = "https";
+	/**
+	 * SSL
+	 */
+	public static final String SERVER_SSL_KEY_STORE        = "server.ssl.key-store";
+}

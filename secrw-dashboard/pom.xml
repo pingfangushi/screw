@@ -11,8 +11,7 @@
     <groupId>cn.smallbun.screw</groupId>
     <artifactId>screw-dashboard</artifactId>
     <version>0.0.1</version>
-    <packaging>war</packaging>
-    <name>screw-dashboard</name>
+    <packaging>jar</packaging>
     <description>简洁好用的数据库表结构文档生成工具</description>
 
     <properties>
@@ -108,6 +107,13 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
             </plugin>
         </plugins>
     </build>
