@@ -141,7 +141,6 @@ public abstract class AbstractDatabaseQuery implements DatabaseQuery {
             int columnCount = resultSet.getMetaData().getColumnCount();
             for (int i = 1; i <= columnCount; i++) {
                 String columnValue = resultSet.getString(i);
-                System.out.println(columnValue);
                 if (StringUtils.isNotBlank(columnValue) && columnValue.contains(schema)) {
                     return schema;
                 }
