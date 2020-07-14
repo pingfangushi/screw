@@ -26,6 +26,9 @@ import java.io.Serializable;
  * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on 2020/3/28 15:02
  */
 public class Version implements Serializable {
+    private Version() {
+    }
+
     /**
      * 获取版本号
      *
