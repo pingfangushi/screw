@@ -389,6 +389,8 @@
                         <exclude>**/.gitkeep</exclude>
                         <exclude>**/mvnw</exclude>
                         <exclude>**/.mvn/**</exclude>
+                        <exclude>**/.gitkeep</exclude>
+                        <exclude>**/spring.factories</exclude>
                         <exclude>**/resources/template/**</exclude>
                     </excludes>
                     <strictCheck>true</strictCheck>
