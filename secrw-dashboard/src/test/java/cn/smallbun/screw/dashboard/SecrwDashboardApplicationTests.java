@@ -20,8 +20,13 @@ package cn.smallbun.screw.dashboard;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class SecrwDashboardApplicationTests {
+/**
+ * 单元测试
+ * @author SanLi
+ * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on  2020/7/14
+ */
+@SpringBootTest(classes = ScrewDashboardApplication.class)
+class ScrewDashboardApplicationTests {
 
 	@Test
 	void contextLoads() {
