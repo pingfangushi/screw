@@ -387,6 +387,7 @@
                         <exclude>**/*.xml</exclude>
                         <exclude>**/codestyle/HEADER</exclude>
                         <exclude>**/.gitkeep</exclude>
+                        <exclude>**/mvnw</exclude>
                         <exclude>**/.mvn/**</exclude>
                         <exclude>**/resources/template/**</exclude>
                     </excludes>
