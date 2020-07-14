@@ -228,7 +228,7 @@ void documentGeneration() {
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td align="center"><img src="https://images.gitee.com/uploads/images/2020/0622/161414_eaa2819d_1407605.jpeg" width="200" height="200"  alt="WeChat"/> </td>
-    <td align="center"><img src="https://images.gitee.com/uploads/images/2020/0707/173905_c26c9414_1407605.png" width="200" height="200"  alt="WeChat"/></td>
+    <td align="center"><img src="https://images.gitee.com/uploads/images/2020/0714/155352_74d70ce1_1407605.png" width="200" height="200"  alt="WeChat"/></td>
     <td align="center"><img src="https://images.gitee.com/uploads/images/2020/0707/191620_9a63fb23_1407605.png" width="200" height="200"  alt="QQ"/></td>
   </tr>
   <tr>
@@ -262,7 +262,11 @@ void documentGeneration() {
  + java.lang.AbstractMethodError: oracle.jdbc.driver.T4CConnection.getSchema()Ljava/lang/String;
 
    这是因为oracle驱动版本过低造成的，删除或屏蔽目前驱动版本，驱动添加升级为以下版本：
-
+ 
+ + MySQL数据库表和列字段有说明、生成文档没有说明
+   
+   URL链接加入`useInformationSchema=true`即可
+   
 ``` xml
 <dependency>
    <groupId>com.oracle.ojdbc</groupId>
