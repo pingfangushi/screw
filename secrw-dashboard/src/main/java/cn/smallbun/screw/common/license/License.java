@@ -15,19 +15,20 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cn.smallbun.screw.dashboard.license;
+package cn.smallbun.screw.common.license;
 
 /**
  * @author SanLi
  * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on 2020/7/14 18:20
  */
 
+import cn.smallbun.screw.common.Version;
 import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.lang.NonNull;
-import cn.smallbun.screw.core.Version;
+
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -53,7 +54,7 @@ public class License implements ApplicationListener<ApplicationEnvironmentPrepar
 
 		System.err.println(chineseText);
 		System.err.println(englishText);
-		System.err.println("screw-core Version: " + cn.smallbun.screw.core.Version.getVersion());
+		System.err.println("screw-core Version: " + cn.smallbun.screw.common.Version.getVersion());
 		System.err.println("screw-dashboard Version: " + Version.getVersion());
 		// mark processed to be true
 		PROCESSED.compareAndSet(false, true);

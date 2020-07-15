@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cn.smallbun.screw.dashboard;
+package cn.smallbun.screw;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,16 +29,16 @@ import org.springframework.util.StringUtils;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-import static cn.smallbun.screw.dashboard.constant.ScrewDashboardConstants.*;
+import static cn.smallbun.screw.common.constants.DashboardConstants.*;
 
 /**
- * Application
+ * Screw Application
  *
  * @author SanLi
  * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on  2020/7/14
  */
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
-public class ScrewDashboardApplication {
+public class Screw {
 
 	private final static Logger logger = LoggerFactory.getLogger(SpringApplication.class);
 
@@ -46,7 +46,7 @@ public class ScrewDashboardApplication {
 	public static void main(String[] args) throws UnknownHostException {
 		//获取开始时间
 		long start = System.currentTimeMillis();
-		SpringApplication app = new SpringApplication(ScrewDashboardApplication.class);
+		SpringApplication app = new SpringApplication(Screw.class);
 		app.setBannerMode(Banner.Mode.OFF);
 		Environment env = app.run(args).getEnvironment();
 		String protocol = HTTP;
@@ -61,8 +61,8 @@ public class ScrewDashboardApplication {
 				StringUtils.isEmpty(env.getProperty("spring.application.name")) ?
 						"screw dashboard" :
 						env.getProperty("spring.application.name"), protocol, env.getProperty("local.server.port"),
-				protocol, InetAddress.getLocalHost().getHostAddress(), env.getProperty("local.server.port"), env.getActiveProfiles(),
-				(end - start) + "ms");
+				protocol, InetAddress.getLocalHost().getHostAddress(), env.getProperty("local.server.port"),
+				env.getActiveProfiles(), (end - start) + "ms");
 	}
 
 }

@@ -17,6 +17,6 @@
  */
 /**
  * @author SanLi
- * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on 2020/7/14 18:25
+ * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on 2020/7/15 9:04
  */
-package cn.smallbun.screw.dashboard.utils;
+package cn.smallbun.screw.common.filter;

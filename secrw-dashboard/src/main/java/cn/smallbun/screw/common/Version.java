@@ -15,22 +15,27 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cn.smallbun.screw.dashboard;
+package cn.smallbun.screw.common;
 
-import cn.smallbun.screw.Screw;
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import java.io.Serializable;
 
 /**
- * 单元测试
+ * Screw Version
+ *
  * @author SanLi
- * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on  2020/7/14
+ * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on 2020/3/28 15:02
  */
-@SpringBootTest(classes = Screw.class)
-class ScrewDashboardApplicationTests {
-
-	@Test
-	void contextLoads() {
+public class Version implements Serializable {
+	private Version() {
 	}
 
+	/**
+     * 获取版本号
+     *
+     * @return {@link String} 版本号
+     */
+    public static String getVersion() {
+        Package pkg = Version.class.getPackage();
+        return (pkg != null ? pkg.getImplementationVersion() : null);
+    }
 }

@@ -16,8 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * Screw Dashboard Configuration
  * @author SanLi
- * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on 2020/7/14 14:55
+ * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on 2020/7/14 18:20
  */
-package cn.smallbun.screw.dashboard.configuration;
+package cn.smallbun.screw.common.license;

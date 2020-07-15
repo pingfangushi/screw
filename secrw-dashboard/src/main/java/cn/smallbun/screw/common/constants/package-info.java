@@ -20,4 +20,4 @@
  * @author SanLi
  * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on 2020/7/14 17:59
  */
-package cn.smallbun.screw.dashboard.constant;
+package cn.smallbun.screw.common.constants;

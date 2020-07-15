@@ -15,22 +15,21 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cn.smallbun.screw.dashboard;
+package cn.smallbun.screw;
 
-import cn.smallbun.screw.Screw;
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 /**
- * 单元测试
+ * Servlet 3+
  * @author SanLi
  * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on  2020/7/14
  */
-@SpringBootTest(classes = Screw.class)
-class ScrewDashboardApplicationTests {
+public class ServletInitializer extends SpringBootServletInitializer {
 
-	@Test
-	void contextLoads() {
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+		return application.sources(Screw.class);
 	}
 
 }

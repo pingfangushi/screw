@@ -15,21 +15,9 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cn.smallbun.screw.dashboard;
-
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
-
 /**
- * Servlet 3+
+ * Trace
  * @author SanLi
- * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on  2020/7/14
+ * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on 2020/7/15 9:17
  */
-public class ServletInitializer extends SpringBootServletInitializer {
-
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-		return application.sources(ScrewDashboardApplication.class);
-	}
-
-}
+package cn.smallbun.screw.common.trace;

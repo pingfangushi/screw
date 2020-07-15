@@ -1,2 +1,2 @@
 org.springframework.context.ApplicationListener=\
-cn.smallbun.screw.dashboard.license.License
+cn.smallbun.screw.common.license.License

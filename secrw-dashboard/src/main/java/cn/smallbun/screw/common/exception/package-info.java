@@ -15,27 +15,8 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cn.smallbun.screw.dashboard;
-
-import java.io.Serializable;
-
 /**
- * Screw Version
- *
  * @author SanLi
- * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on 2020/3/28 15:02
+ * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on 2020/7/15 9:07
  */
-public class Version implements Serializable {
-	private Version() {
-	}
-
-	/**
-     * 获取版本号
-     *
-     * @return {@link String} 版本号
-     */
-    public static String getVersion() {
-        Package pkg = Version.class.getPackage();
-        return (pkg != null ? pkg.getImplementationVersion() : null);
-    }
-}
+package cn.smallbun.screw.common.exception;
