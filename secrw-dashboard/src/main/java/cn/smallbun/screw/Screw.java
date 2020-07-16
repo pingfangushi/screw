@@ -50,7 +50,7 @@ public class Screw {
 		app.setBannerMode(Banner.Mode.OFF);
 		Environment env = app.run(args).getEnvironment();
 		String protocol = HTTP;
-		if (env.getProperty(SERVER_SSL_KEY_STORE) != null) {
+		if (!StringUtils.isEmpty(env.getProperty(SERVER_SSL_KEY_STORE))) {
 			protocol = HTTPS;
 		}
 		//获取结束时间
