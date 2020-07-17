@@ -167,10 +167,10 @@ public class RunDocMojo extends AbstractMojo {
     private String             template;
 
     /**
-     * 自定义文档名称
+     * 文件名称
      */
     @Parameter
-    private String             docName;
+    private String             fileName;
 
     /**
      * 文档生成
@@ -198,9 +198,7 @@ public class RunDocMojo extends AbstractMojo {
             //引擎模板配置
             .engineConfig(getEngineConfig())
             //数据处理配置
-            .produceConfig(getProcessConfig())
-            //自定义文档名称
-            .docName(getDocName()).build();
+            .produceConfig(getProcessConfig()).build();
         //生成文档
         new DocumentationExecute(config).execute();
         getLog().info(String.format(LOGGER_COMPLETE, (System.currentTimeMillis() - start) / 1000));
@@ -222,7 +220,9 @@ public class RunDocMojo extends AbstractMojo {
             //生成模板实现
             .produceType(getProduceType())
             //自定义模板位置
-            .customTemplate(getTemplate()).build();
+            .customTemplate(getTemplate())
+            //文件名称
+            .fileName(getFileName()).build();
     }
 
     /**

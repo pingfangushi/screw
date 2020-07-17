@@ -69,10 +69,6 @@ public class Configuration implements Serializable {
      * 引擎配置，关于数据库文档生成相关配置
      */
     private EngineConfig  engineConfig;
-    /**
-     * 自定义文档名称
-     */
-    private String        docName;
 
     /**
      * 构造函数
@@ -84,11 +80,10 @@ public class Configuration implements Serializable {
      * @param dataSource    {@link DataSource} 数据源
      * @param produceConfig {@link ProcessConfig} 生成配置
      * @param engineConfig  {@link EngineConfig} 生成配置
-     * @param docName       {@link String} 自定义文档名称
      */
     private Configuration(String organization, String organizationUrl, String title, String version,
                           String description, DataSource dataSource, ProcessConfig produceConfig,
-                          EngineConfig engineConfig, String docName) {
+                          EngineConfig engineConfig) {
         Assert.notNull(dataSource, "DataSource can not be empty!");
         Assert.notNull(engineConfig, "EngineConfig can not be empty!");
         this.title = title;
@@ -99,7 +94,6 @@ public class Configuration implements Serializable {
         this.dataSource = dataSource;
         this.engineConfig = engineConfig;
         this.produceConfig = produceConfig;
-        this.docName = docName;
     }
 
     /**
@@ -121,7 +115,6 @@ public class Configuration implements Serializable {
         private DataSource    dataSource;
         private ProcessConfig produceConfig;
         private EngineConfig  engineConfig;
-        private String        docName;
 
         ConfigurationBuilder() {
         }
@@ -166,11 +159,6 @@ public class Configuration implements Serializable {
             return this;
         }
 
-        public Configuration.ConfigurationBuilder docName(String docName) {
-            this.docName = docName;
-            return this;
-        }
-
         /**
          * build
          *
@@ -179,7 +167,7 @@ public class Configuration implements Serializable {
         public Configuration build() {
             return new Configuration(this.organization, this.organizationUrl, this.title,
                 this.version, this.description, this.dataSource, this.produceConfig,
-                this.engineConfig, this.docName);
+                this.engineConfig);
         }
     }
 }

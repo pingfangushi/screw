@@ -119,7 +119,9 @@ void documentGeneration() {
          //文件类型
          .fileType(EngineFileType.HTML)
          //生成模板实现
-         .produceType(EngineTemplateType.freemarker).build();
+         .produceType(EngineTemplateType.freemarker)
+         //自定义文件名称
+         .fileName("自定义文件名称").build();
 
    //忽略表
    ArrayList<String> ignoreTableName = new ArrayList<>();
@@ -157,8 +159,7 @@ void documentGeneration() {
          .engineConfig(engineConfig)
          //生成配置
          .produceConfig(processConfig)
-         //自定义文档名称
-         .docName(getDocName()).build();
+         .build();
    //执行生成
    new DocumentationExecute(config).execute();
 }
@@ -202,14 +203,14 @@ void documentGeneration() {
                 <openOutputDir>false</openOutputDir>
                 <!--生成模板-->
                 <produceType>freemarker</produceType>
+                <!--文档名称 为空时:将采用[数据库名称-描述-版本号]作为文档名称-->
+                <fileName>测试文档名称</docName>
                 <!--描述-->
                 <description>数据库文档生成</description>
                 <!--版本-->
                 <version>${project.version}</version>
                 <!--标题-->
                 <title>数据库文档</title>
-                <!--文档名称 为空时:将采用[dbName-description-version]作为文档名称-->
-                <docName>测试文档名称</docName>
             </configuration>
             <executions>
                 <execution>

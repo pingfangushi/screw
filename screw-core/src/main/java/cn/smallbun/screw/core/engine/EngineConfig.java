@@ -51,4 +51,8 @@ public class EngineConfig implements Serializable {
      * 自定义模板，模板需要和文件类型和使用模板的语法进行编写和处理，否则将会生成错误
      */
     private String             customTemplate;
+    /**
+     * 文件名称
+     */
+    private String             fileName;
 }
