@@ -167,6 +167,12 @@ public class RunDocMojo extends AbstractMojo {
     private String             template;
 
     /**
+     * 自定义文档名称
+     */
+    @Parameter
+    private String             docName;
+
+    /**
      * 文档生成
      */
     @Override
@@ -192,7 +198,9 @@ public class RunDocMojo extends AbstractMojo {
             //引擎模板配置
             .engineConfig(getEngineConfig())
             //数据处理配置
-            .produceConfig(getProcessConfig()).build();
+            .produceConfig(getProcessConfig())
+            //自定义文档名称
+            .docName(getDocName()).build();
         //生成文档
         new DocumentationExecute(config).execute();
         getLog().info(String.format(LOGGER_COMPLETE, (System.currentTimeMillis() - start) / 1000));

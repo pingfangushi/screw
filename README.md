@@ -156,7 +156,9 @@ void documentGeneration() {
          //生成配置
          .engineConfig(engineConfig)
          //生成配置
-         .produceConfig(processConfig).build();
+         .produceConfig(processConfig)
+         //自定义文档名称
+         .docName(getDocName()).build();
    //执行生成
    new DocumentationExecute(config).execute();
 }
@@ -206,6 +208,8 @@ void documentGeneration() {
                 <version>${project.version}</version>
                 <!--标题-->
                 <title>数据库文档</title>
+                <!--文档名称 为空时:将采用[dbName-description-version]作为文档名称-->
+                <docName>测试文档名称</docName>
             </configuration>
             <executions>
                 <execution>

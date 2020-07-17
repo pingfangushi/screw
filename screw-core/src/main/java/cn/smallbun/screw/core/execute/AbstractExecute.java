@@ -51,6 +51,9 @@ public abstract class AbstractExecute implements Execute {
      * @return {@link String} 名称
      */
     String getDocName(String database) {
+        if (StringUtils.isNotBlank(config.getDocName())) {
+            return config.getDocName();
+        }
         //描述
         String description = config.getDescription();
         if (StringUtils.isBlank(description)) {
