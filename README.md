@@ -261,34 +261,39 @@ void documentGeneration() {
  
 ## 常见问题
 
- + 生成后文档乱码
+ + 生成后文档乱码？
 
-   MySQL：URL加入`?characterEncoding=UTF-8`
+   MySQL：URL加入`?characterEncoding=UTF-8`。
 
- + Caused by: java.lang.NoSuchFieldError: VERSION_2_3_30
+ + Caused by: java.lang.NoSuchFieldError: VERSION_2_3_30？
 
-   检查项目`freemarker`依赖，这是由于版本过低造成的，升级版本为`2.3.30`即可
+   检查项目`freemarker`依赖，这是由于版本过低造成的，升级版本为`2.3.30`即可。
 
  + java.lang.AbstractMethodError: oracle.jdbc.driver.T4CConnection.getSchema()Ljava/lang/String;
 
    这是因为oracle驱动版本过低造成的，删除或屏蔽目前驱动版本，驱动添加升级为以下版本：
- 
- + MySQL数据库表和列字段有说明、生成文档没有说明
    
-   URL链接加入`useInformationSchema=true`即可
+ ``` xml
+ <dependency>
+    <groupId>com.oracle.ojdbc</groupId>
+    <artifactId>ojdbc8</artifactId>
+    <version>19.3.0.0</version>
+ </dependency>
+ <dependency>
+    <groupId>cn.easyproject</groupId>
+    <artifactId>orai18n</artifactId>
+    <version>12.1.0.2.0</version>
+ </dependency>
+ ```
+
+ + MySQL数据库表和列字段有说明、生成文档没有说明？
    
-``` xml
-<dependency>
-   <groupId>com.oracle.ojdbc</groupId>
-   <artifactId>ojdbc8</artifactId>
-   <version>19.3.0.0</version>
-</dependency>
-<dependency>
-   <groupId>cn.easyproject</groupId>
-   <artifactId>orai18n</artifactId>
-   <version>12.1.0.2.0</version>
-</dependency>
-```
+   URL链接加入`useInformationSchema=true`即可。
+   
+ + java.lang.AbstractMethodError: com.mysql.jdbc.JDBC4Connection.getSchema()Ljava/lang/String;
+    
+   这是因为mysql驱动版本过低造成的，升级mysql驱动版本为最新即可。
+   
 
 ## 推荐开源项目
 
