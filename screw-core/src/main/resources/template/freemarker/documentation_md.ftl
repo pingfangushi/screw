@@ -30,6 +30,7 @@
 <#if (description)??>
 **文档描述：** ${description!''}
 </#if>
+
 | 表名                  | 说明       |
 | :-------------------- | :--------- |
 <#list tables>
@@ -38,6 +39,7 @@
 </#items>
 </#list>
 <#list tables><#items as t>
+
 **表名：** <a id="${t.tableName!''}">${t.tableName!''}</a>
 
 **说明：** ${t.remarks!''}
