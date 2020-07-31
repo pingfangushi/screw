@@ -273,7 +273,7 @@ void documentGeneration() {
 
    这是因为oracle驱动版本过低造成的，删除或屏蔽目前驱动版本，驱动添加升级为以下版本：
    
- ``` xml
+    ``` xml
     <dependency>
        <groupId>com.oracle.ojdbc</groupId>
        <artifactId>ojdbc8</artifactId>
@@ -284,7 +284,7 @@ void documentGeneration() {
        <artifactId>orai18n</artifactId>
        <version>12.1.0.2.0</version>
     </dependency>
- ```
+    ```
 
  + MySQL数据库表和列字段有说明、生成文档没有说明？
    
