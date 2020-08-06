@@ -237,6 +237,7 @@ void documentGeneration() {
     </plugins>
 </build>
 ```
+
 ### 使用文章
 
 + [SpringBoot整合screw生成数据库文档](https://my.oschina.net/mdxlcj/blog/4341399) 
@@ -244,6 +245,10 @@ void documentGeneration() {
 + [还在手动整理数据库文档？试试这个工具](https://mp.weixin.qq.com/s/Bo_U5_cl82hfQ6GmRs2vtA) 
 
 + [实用！一键生成数据库文档，堪称数据库界的Swagger](https://mp.weixin.qq.com/s/nPwFV7DN8Ogg54_crLlP3g) 
+
+### 使用视频
+
++ [使用screw数据库文档生成工具快速生成数据库文档](https://www.bilibili.com/video/av456302504/)
 
 ## 更多支持
 
