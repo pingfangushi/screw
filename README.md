@@ -217,7 +217,7 @@ void documentGeneration() {
                 <!--生成模板-->
                 <produceType>freemarker</produceType>
                 <!--文档名称 为空时:将采用[数据库名称-描述-版本号]作为文档名称-->
-                <fileName>测试文档名称</docName>
+                <fileName>测试文档名称</fileName>
                 <!--描述-->
                 <description>数据库文档生成</description>
                 <!--版本-->
