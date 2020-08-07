@@ -250,6 +250,8 @@ void documentGeneration() {
 
 + [使用screw数据库文档生成工具快速生成数据库文档](https://www.bilibili.com/video/av456302504/)
 
++ [微人事一键生成数据库文档！炫！](https://mp.weixin.qq.com/s/rUde6XSGSG0jKuy0Wgf1Mw)
+
 ## 更多支持
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
