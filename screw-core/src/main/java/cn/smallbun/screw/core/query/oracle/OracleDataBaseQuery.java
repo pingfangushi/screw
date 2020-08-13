@@ -102,7 +102,8 @@ public class OracleDataBaseQuery extends AbstractDatabaseQuery {
             //由于ORACLE 查询 REMARKS 非常耗费性能，所以这里使用自定义SQL查询
             //https://docs.oracle.com/en/database/oracle/oracle-database/20/jjdbc/performance-extensions.html#GUID-15865071-39F2-430F-9EDA-EB34D0B2D560
             //获取所有表 查询表名、说明
-            String sql = "SELECT TABLE_NAME,COMMENTS AS REMARKS FROM USER_TAB_COMMENTS WHERE TABLE_TYPE = 'TABLE'";
+            String sql = "SELECT TABLE_NAME,COMMENTS AS REMARKS FROM DBA_TAB_COMMENTS WHERE TABLE_TYPE = 'TABLE' AND OWNER = '"
+                         + getSchema() + "'";
             resultSet = prepareStatement(String.format(sql, getSchema())).executeQuery();
             List<OracleTableModel> inquires = Mapping.convertList(resultSet,
                 OracleTableModel.class);
@@ -143,7 +144,8 @@ public class OracleDataBaseQuery extends AbstractDatabaseQuery {
             if (CollectionUtils.isEmpty(columnsCaching)) {
                 //查询全部
                 if (table.equals(PERCENT_SIGN)) {
-                    String sql = "SELECT TABLE_NAME, COLUMN_NAME, COMMENTS AS REMARKS FROM USER_COL_COMMENTS";
+                    String sql = "SELECT TABLE_NAME, COLUMN_NAME, COMMENTS AS REMARKS FROM DBA_COL_COMMENTS WHERE OWNER = '"
+                                 + getSchema() + "'";
                     PreparedStatement statement = prepareStatement(sql);
                     resultSet = statement.executeQuery();
                     int fetchSize = 4284;
