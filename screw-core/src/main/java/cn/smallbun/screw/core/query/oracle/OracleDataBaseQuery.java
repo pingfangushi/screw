@@ -166,7 +166,6 @@ public class OracleDataBaseQuery extends AbstractDatabaseQuery {
                     if (isDda()) {
                         sql = "SELECT TABLE_NAME, COLUMN_NAME, COMMENTS AS REMARKS FROM DBA_COL_COMMENTS WHERE TABLE_NAME = '%s' AND OWNER = '"
                               + getSchema() + "'";
-                        ;
                     }
                     resultSet = prepareStatement(String.format(sql, table)).executeQuery();
                 }
