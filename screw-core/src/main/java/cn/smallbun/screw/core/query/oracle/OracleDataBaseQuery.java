@@ -148,8 +148,11 @@ public class OracleDataBaseQuery extends AbstractDatabaseQuery {
             if (CollectionUtils.isEmpty(columnsCaching)) {
                 //查询全部
                 if (table.equals(PERCENT_SIGN)) {
-                    String sql = "SELECT TABLE_NAME, COLUMN_NAME, COMMENTS AS REMARKS FROM DBA_COL_COMMENTS WHERE OWNER = '"
-                                 + getSchema() + "'";
+                    String sql = "SELECT TABLE_NAME, COLUMN_NAME, COMMENTS AS REMARKS FROM USER_COL_COMMENTS";
+                    if (isDda()) {
+                        sql = "SELECT TABLE_NAME, COLUMN_NAME, COMMENTS AS REMARKS FROM DBA_COL_COMMENTS WHERE OWNER = '"
+                              + getSchema() + "'";
+                    }
                     PreparedStatement statement = prepareStatement(sql);
                     resultSet = statement.executeQuery();
                     int fetchSize = 4284;
@@ -160,6 +163,11 @@ public class OracleDataBaseQuery extends AbstractDatabaseQuery {
                 //单表查询
                 else {
                     String sql = "SELECT TABLE_NAME, COLUMN_NAME, COMMENTS AS REMARKS FROM USER_COL_COMMENTS WHERE TABLE_NAME = '%s'";
+                    if (isDda()) {
+                        sql = "SELECT TABLE_NAME, COLUMN_NAME, COMMENTS AS REMARKS FROM DBA_COL_COMMENTS WHERE TABLE_NAME = '%s' AND OWNER = '"
+                              + getSchema() + "'";
+                        ;
+                    }
                     resultSet = prepareStatement(String.format(sql, table)).executeQuery();
                 }
                 List<OracleColumnModel> inquires = Mapping.convertList(resultSet,
