@@ -102,8 +102,12 @@ public class OracleDataBaseQuery extends AbstractDatabaseQuery {
             //由于ORACLE 查询 REMARKS 非常耗费性能，所以这里使用自定义SQL查询
             //https://docs.oracle.com/en/database/oracle/oracle-database/20/jjdbc/performance-extensions.html#GUID-15865071-39F2-430F-9EDA-EB34D0B2D560
             //获取所有表 查询表名、说明
-            String sql = "SELECT TABLE_NAME,COMMENTS AS REMARKS FROM DBA_TAB_COMMENTS WHERE TABLE_TYPE = 'TABLE' AND OWNER = '"
-                         + getSchema() + "'";
+            String sql = "SELECT TABLE_NAME,COMMENTS AS REMARKS FROM USER_TAB_COMMENTS WHERE TABLE_TYPE = 'TABLE'";
+            if (isDda()) {
+                //DBA 使用 DBA_TAB_COMMENTS 进行查询 Oracle连接用户和schema不同问题。dba连接用户可以生成不同schema下的表结构
+                sql = "SELECT TABLE_NAME,COMMENTS AS REMARKS FROM DBA_TAB_COMMENTS WHERE TABLE_TYPE = 'TABLE' AND OWNER = '"
+                      + getSchema() + "'";
+            }
             resultSet = prepareStatement(String.format(sql, getSchema())).executeQuery();
             List<OracleTableModel> inquires = Mapping.convertList(resultSet,
                 OracleTableModel.class);
@@ -234,6 +238,28 @@ public class OracleDataBaseQuery extends AbstractDatabaseQuery {
             resultSet = prepareStatement(String.format(sql, getDataBase().getDatabase()))
                 .executeQuery();
             return Mapping.convertList(resultSet, OraclePrimaryKeyModel.class);
+        } catch (SQLException e) {
+            throw new QueryException(e);
+        } finally {
+            JdbcUtils.close(resultSet);
+        }
+    }
+
+    /**
+     *
+     * 当前用户是否为DBA
+     *
+     * @return {@link Boolean}
+     */
+    private boolean isDda() {
+        ResultSet resultSet = null;
+        try {
+            //判断是否是DBA
+            resultSet = prepareStatement("SELECT USERENV('isdba') as IS_DBA FROM DUAL")
+                .executeQuery();
+            String dbaColumn = "IS_DBA";
+            resultSet.next();
+            return resultSet.getBoolean(dbaColumn);
         } catch (SQLException e) {
             throw new QueryException(e);
         } finally {
