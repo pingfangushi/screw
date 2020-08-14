@@ -34,6 +34,7 @@ import cn.smallbun.screw.core.util.JdbcUtils;
 import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 
 import static cn.smallbun.screw.core.constant.DefaultConstants.PERCENT_SIGN;
@@ -95,13 +96,32 @@ public class MariaDbDataBaseQuery extends AbstractDatabaseQuery {
      */
     @Override
     public List<MariadbColumnModel> getTableColumns(String table) throws QueryException {
+        String unsigned = "UNSIGNED";
         Assert.notEmpty(table, "Table name can not be empty!");
         ResultSet resultSet = null;
         try {
             //查询
             resultSet = getMetaData().getColumns(getCatalog(), getSchema(), table, PERCENT_SIGN);
             //映射
-            return Mapping.convertList(resultSet, MariadbColumnModel.class);
+            List<MariadbColumnModel> list = Mapping.convertList(resultSet,
+                MariadbColumnModel.class);
+            //处理长度问题
+            for (MariadbColumnModel model : list) {
+                // 字段类型
+                String dbType = model.getTypeName();
+                if (dbType.contains(unsigned)) {
+                    // 无符号
+                    model.setTypeName(dbType.replace(" UNSIGNED", ""));
+                } else {
+                    // 有符号
+                    if (isNumberType(dbType)) {
+                        // 数字类型
+                        model.setColumnSize(
+                            String.valueOf(Integer.parseInt(model.getColumnSize()) + 1));
+                    }
+                }
+            }
+            return list;
         } catch (SQLException e) {
             throw ExceptionUtils.mpe(e);
         } finally {
@@ -166,5 +186,11 @@ public class MariaDbDataBaseQuery extends AbstractDatabaseQuery {
         } finally {
             JdbcUtils.close(resultSet);
         }
+    }
+
+    protected static boolean isNumberType(String dbType) {
+        String[] arr = { "NUMERIC", "DECIMAL", "TINYINT", "SMALLINT", "INTEGER", "BIGINT", "REAL",
+                         "FLOAT", "DOUBLE" };
+        return Arrays.asList(arr).contains(dbType);
     }
 }
