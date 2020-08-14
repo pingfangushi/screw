@@ -109,17 +109,17 @@ public class RunDocMojo extends AbstractMojo {
      * 忽略表名
      */
     @Parameter
-    private List<String>       tableName;
+    private List<String>       ignoreTableName;
     /**
      * 忽略表前缀
      */
     @Parameter
-    private List<String>       tablePrefix;
+    private List<String>       ignoreTablePrefix;
     /**
      * 忽略表后缀
      */
     @Parameter
-    private List<String>       tableSuffix;
+    private List<String>       ignoreTableSuffix;
     /**
      * 指定生成表名
      * @see 1.0.3
@@ -233,11 +233,11 @@ public class RunDocMojo extends AbstractMojo {
     private ProcessConfig getProcessConfig() {
         return ProcessConfig.builder()
             //忽略表名
-            .ignoreTableName(getTableName())
+            .ignoreTableName(getIgnoreTableName())
             //忽略表前缀
-            .ignoreTablePrefix(getTablePrefix())
+            .ignoreTablePrefix(getIgnoreTablePrefix())
             //忽略表后缀
-            .ignoreTableSuffix(getTableSuffix())
+            .ignoreTableSuffix(getIgnoreTableSuffix())
             //指定生成表名
             .designatedTableName(getDesignatedTableName())
             //指定生成表前缀
