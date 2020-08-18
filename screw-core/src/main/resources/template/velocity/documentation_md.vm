@@ -30,7 +30,7 @@
 #end
 
 | 表名                  | 说明       |
-| :-------------------- | :--------- |
+| :---: | :---: |
 #foreach($t in $_data.tables)
 | [$!{t.tableName}](#$!{t.tableName}) | $!{t.remarks} |
 #end
@@ -43,7 +43,7 @@
 **数据列：**
 
 | 序号 | 名称 | 数据类型 |  长度  | 小数位 | 允许空值 | 主键 | 默认值 | 说明 |
-| :--: | :--- | :------: | :----: | :----: | :------: | :--: | :----: | :--: |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 #foreach($c in $t.columns)
 | $!{velocityCount} | $!{c.columnName} | $!{c.typeName} | $!{c.columnSize} | #if($!{c.decimalDigits})$!{c.decimalDigits}#else 0#end | $!{c.nullable}| $!{c.primaryKey} | $!{c.columnDef} | $!{c.remarks} |
 #end
