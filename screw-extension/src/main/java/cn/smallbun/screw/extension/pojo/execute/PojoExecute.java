@@ -42,9 +42,9 @@ public class PojoExecute implements Execute {
     /**
      * LOGGER
      */
-    private final Logger      logger = LoggerFactory.getLogger(this.getClass());
+    private final Logger            logger = LoggerFactory.getLogger(this.getClass());
 
-    private PojoConfiguration configuration;
+    private final PojoConfiguration configuration;
 
     public PojoExecute(PojoConfiguration config) {
         String validate = validate(config);

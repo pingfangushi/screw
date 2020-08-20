@@ -28,7 +28,7 @@ import java.util.regex.Pattern;
  */
 public class HumpNameStrategy implements NameStrategy {
 
-    private Pattern linePattern = Pattern.compile("_(\\w)");
+    private final Pattern linePattern = Pattern.compile("_(\\w)");
 
     @Override
     public String transClassName(String name) {
@@ -36,17 +36,17 @@ public class HumpNameStrategy implements NameStrategy {
     }
 
     @Override
-    public String transFieldName(String name, Class type) {
+    public String transFieldName(String name, Class<?> type) {
         return lineToHump(name);
     }
 
     @Override
-    public String transSetName(String name, Class type) {
+    public String transSetName(String name, Class<?> type) {
         return "set" + upperCase(lineToHump(name));
     }
 
     @Override
-    public String transGetName(String name, Class type) {
+    public String transGetName(String name, Class<?> type) {
         if (Boolean.class.isAssignableFrom(type)) {
             return "is" + upperCase(lineToHump(name));
         }
@@ -69,8 +69,8 @@ public class HumpNameStrategy implements NameStrategy {
     /**
      * 首字母转大写
      *
-     * @param str
-     * @return
+     * @param str {@link String}
+     * @return  {@link String}
      */
     private String upperCase(String str) {
         char[] ch = str.toCharArray();

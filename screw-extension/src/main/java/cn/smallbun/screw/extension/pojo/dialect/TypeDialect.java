@@ -26,8 +26,12 @@ import java.util.Map;
  * Created by 15952866402@163.com on 2020-08-17
  */
 public interface TypeDialect {
-
-    Class getClassTypeByFieldType(String type);
+    /**
+     * 通过字段类型获取类类型
+     * @param type {@link String}
+     * @return {@link Class}
+     */
+    Class<?> getClassTypeByFieldType(String type);
 
     /**
      * 根据提供的map查询对应的java类型
@@ -36,43 +40,61 @@ public interface TypeDialect {
      * @param type 提供的类型
      * @return 查找类型，可能null
      */
-    default Class getTypeByMap(Map<String, Class> map, String type) {
-        if (type == null || map == null || map.size() == 0)
+    default Class<?> getTypeByMap(Map<String, Class<?>> map, String type) {
+        if (type == null || map == null || map.size() == 0) {
             return null;
-        if (type.startsWith("date"))
+        }
+        if (type.startsWith("date")) {
             return map.get("date");
-        if (type.startsWith("mediumint"))
+        }
+        if (type.startsWith("mediumint")) {
             return map.get("mediumint");
-        if (type.startsWith("double"))
+        }
+        if (type.startsWith("double")) {
             return map.get("double");
-        if (type.startsWith("varchar"))
+        }
+        if (type.startsWith("varchar")) {
             return map.get("varchar");
-        if (type.startsWith("tinyint"))
+        }
+        if (type.startsWith("tinyint")) {
             return map.get("tinyint");
-        if (type.startsWith("bit"))
+        }
+        if (type.startsWith("bit")) {
             return map.get("bit");
-        if (type.startsWith("float"))
+        }
+        if (type.startsWith("float")) {
             return map.get("float");
-        if (type.startsWith("int"))
+        }
+        if (type.startsWith("int")) {
             return map.get("int");
-        if (type.startsWith("smallint"))
+        }
+        if (type.startsWith("smallint")) {
             return map.get("smallint");
-        if (type.startsWith("datetime"))
+        }
+        if (type.startsWith("datetime")) {
             return map.get("datetime");
-        if (type.startsWith("blob"))
+        }
+        if (type.startsWith("blob")) {
             return map.get("blob");
-        if (type.startsWith("char"))
+        }
+        if (type.startsWith("char")) {
             return map.get("char");
-        if (type.startsWith("text"))
+        }
+        if (type.startsWith("text")) {
             return map.get("text");
-        if (type.startsWith("time"))
+        }
+        if (type.startsWith("time")) {
             return map.get("time");
-        if (type.startsWith("decimal"))
+        }
+        if (type.startsWith("decimal")) {
             return map.get("decimal");
-        if (type.startsWith("bigint"))
+        }
+        if (type.startsWith("bigint")) {
             return map.get("bigint");
-        if (type.startsWith("timestamp"))
+        }
+        if (type.startsWith("timestamp")) {
             return map.get("timestamp");
+        }
         return null;
     }
 

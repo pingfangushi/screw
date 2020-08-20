@@ -25,9 +25,9 @@ public class ${className} {
 
     <#items as field>
     <#if (field.remarks)??&&field.remarks?length gt 0>
-    //数据库字段注释: ${field.remarks}
+    /**数据库字段注释: ${field.remarks}*/
     </#if>
-    //数据库字段类型: ${field.fieldType},数据库字段名: ${field.fieldName}
+    /**数据库字段类型: ${field.fieldType},数据库字段名: ${field.fieldName}**/
     private ${field.classType} ${field.className};
 
     </#items>

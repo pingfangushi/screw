@@ -31,17 +31,17 @@ public class NoOpNameStrategy implements NameStrategy {
     }
 
     @Override
-    public String transFieldName(String name, Class type) {
+    public String transFieldName(String name, Class<?> type) {
         return name;
     }
 
     @Override
-    public String transSetName(String name, Class type) {
+    public String transSetName(String name, Class<?> type) {
         return "set" + name;
     }
 
     @Override
-    public String transGetName(String name, Class type) {
+    public String transGetName(String name, Class<?> type) {
         return "get" + name;
     }
 

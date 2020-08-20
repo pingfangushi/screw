@@ -21,11 +21,19 @@ import cn.smallbun.screw.core.exception.ProduceException;
 import cn.smallbun.screw.extension.pojo.metadata.model.PojoModel;
 
 /**
+ * POJO 引擎
+ *
  * @author liu·yu
  * Created by 15952866402@163.com on 2020-08-14
  */
 public interface PojoEngine {
-
-    void produce(PojoModel info, String docName) throws ProduceException;
+    /**
+     * 生成
+     *
+     * @param info {@link PojoModel}
+     * @param file {@link String}
+     * @throws ProduceException ProduceException
+     */
+    void produce(PojoModel info, String file) throws ProduceException;
 
 }

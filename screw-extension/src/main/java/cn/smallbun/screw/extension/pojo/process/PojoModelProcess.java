@@ -41,7 +41,7 @@ import java.util.*;
  */
 public class PojoModelProcess implements PojoProcess {
 
-    private PojoConfiguration pojoConfiguration;
+    private final PojoConfiguration pojoConfiguration;
 
     /**
      * 构造方法
@@ -68,7 +68,7 @@ public class PojoModelProcess implements PojoProcess {
         NameStrategy nameStrategy = pojoConfiguration.getNameStrategy();
 
         //获取用户自定义的类型转换
-        Map<String, Class> customType = pojoConfiguration.getCustomType();
+        Map<String, Class<?>> customType = pojoConfiguration.getCustomType();
 
         //进行数据转换
         for (TableModel model : tableModels) {
@@ -91,7 +91,7 @@ public class PojoModelProcess implements PojoProcess {
                 typeModel.setRemarks(column.getRemarks());
 
                 //先判断用户是否自定义
-                Class classType = dialect.getTypeByMap(customType, column.getTypeName());
+                Class<?> classType = dialect.getTypeByMap(customType, column.getTypeName());
                 if (classType == null) {
                     classType = dialect.getClassTypeByFieldType(column.getTypeName());
                 }
