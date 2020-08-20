@@ -15,10 +15,34 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package cn.smallbun.screw.extension.pojo.strategy;
+
 /**
- * Screw extension
+ * 没有任何操作的命名策略
  *
- * @author SanLi
- * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on 2020/8/20 9:29
+ * @author liu·yu
+ * Created by 15952866402@163.com on 2020-08-17
  */
-package cn.smallbun.screw.extension;
+public class NoOpNameStrategy implements NameStrategy {
+
+    @Override
+    public String transClassName(String name) {
+        return name;
+    }
+
+    @Override
+    public String transFieldName(String name, Class type) {
+        return name;
+    }
+
+    @Override
+    public String transSetName(String name, Class type) {
+        return "set" + name;
+    }
+
+    @Override
+    public String transGetName(String name, Class type) {
+        return "get" + name;
+    }
+
+}
