@@ -15,10 +15,17 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package cn.smallbun.screw.extension.pojo.engine;
+
+import cn.smallbun.screw.core.exception.ProduceException;
+import cn.smallbun.screw.extension.pojo.metadata.model.PojoModel;
+
 /**
- * Screw extension
- *
- * @author SanLi
- * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on 2020/8/20 9:29
+ * @author liu·yu
+ * Created by 15952866402@163.com on 2020-08-14
  */
-package cn.smallbun.screw.extension;
+public interface PojoEngine {
+
+    void produce(PojoModel info, String docName) throws ProduceException;
+
+}

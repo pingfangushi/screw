@@ -16,9 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * Screw extension
- *
+ * Metadata model
  * @author SanLi
- * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on 2020/8/20 9:29
+ * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on 2020/6/19 15:59
  */
-package cn.smallbun.screw.extension;
+package cn.smallbun.screw.extension.pojo.metadata.model;
