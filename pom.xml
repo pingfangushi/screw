@@ -287,6 +287,7 @@
     <modules>
         <module>screw-core</module>
         <module>screw-maven-plugin</module>
+        <module>screw-extension</module>
     </modules>
     <distributionManagement>
         <snapshotRepository>
