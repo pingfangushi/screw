@@ -29,7 +29,7 @@
 
 ## 简介
 
-&emsp;&emsp;&emsp;在企业级开发中、我们经常会有编写数据库表结构文档的时间付出，从业以来，待过几家企业，关于数据库表结构文档状态：要么没有、要么有、但都是手写、后期运维开发，需要手动进行维护到文档中，很是繁琐、如果忘记一次维护、就会给以后工作造成很多困扰、无形中制造了很多坑留给自己和后人，于是萌生了要自己写一个插件工具的想法，但由于自己前期在程序设计上没有很多造诣，且能力偏低，有想法并不能很好实现，随着工作阅历的增加，和知识的不断储备，终于在2020年的3月中旬开始进行编写，4月上旬完成初版，想完善差不多在开源，但由于工作太忙，业余时间不足，没有在进行完善，到了6月份由于工作原因、频繁设计和更改数据库、经常使用自己写的此插件、节省了很多时间，解决了很多问题 ，在仅有且不多的业余时间中、进行开源准备，于2020年6月22日，开源，欢迎大家使用、建议、并贡献。<br/>
+&emsp;&emsp;在企业级开发中、我们经常会有编写数据库表结构文档的时间付出，从业以来，待过几家企业，关于数据库表结构文档状态：要么没有、要么有、但都是手写、后期运维开发，需要手动进行维护到文档中，很是繁琐、如果忘记一次维护、就会给以后工作造成很多困扰、无形中制造了很多坑留给自己和后人，于是萌生了要自己写一个插件工具的想法，但由于自己前期在程序设计上没有很多造诣，且能力偏低，有想法并不能很好实现，随着工作阅历的增加，和知识的不断储备，终于在2020年的3月中旬开始进行编写，4月上旬完成初版，想完善差不多在开源，但由于工作太忙，业余时间不足，没有在进行完善，到了6月份由于工作原因、频繁设计和更改数据库、经常使用自己写的此插件、节省了很多时间，解决了很多问题 ，在仅有且不多的业余时间中、进行开源准备，于2020年6月22日，开源，欢迎大家使用、建议、并贡献。<br/>
 &emsp;&emsp;关于名字，想一个太难了，好在我这个聪明的小脑瓜灵感一现，怎么突出它的小，但重要呢？从小就学过雷锋的螺丝钉精神，摘自雷锋日记：**虽然是细小的螺丝钉，是个细微的小齿轮，然而如果缺了它，那整个的机器就无法运转了，慢说是缺了它，即使是一枚小螺丝钉没拧紧，一个小齿轮略有破损，也要使机器的运转发生故障的...**，感觉自己写的这个工具，很有这意味，虽然很小、但是开发中缺了它还不行，于是便起名为**screw**（螺丝钉）。<br/>
 
 ## 特点
@@ -251,6 +251,89 @@ void documentGeneration() {
 + [使用screw数据库文档生成工具快速生成数据库文档](https://www.bilibili.com/video/av456302504/)
 
 + [微人事一键生成数据库文档！炫！](https://mp.weixin.qq.com/s/rUde6XSGSG0jKuy0Wgf1Mw)
+
+## 扩展模块
+
+### pojo生成功能
+
+#### 功能简介
+&emsp;&emsp;pojo生成功能是基于screw延伸出的扩展模块,目前处于初步开发的状态。在日常的开发中,经过需求分析、建模之后,往往会先在数据库中建表,其次在进行代码的开发。那么pojo生成功能在这个阶段就可以帮助大家节省一些重复劳动了。使用pojo生成功能可以直接根据数据库生成对应的java pojo对象。这样后续的修改，开发都会很方便。
+
+#### 数据库支持
+
+- [x] MySQL 
+
+#### 使用方式
+
++ **引入依赖**
+
+```xml
+<dependency>
+    <groupId>cn.smallbun.screw</groupId>
+    <artifactId>screw-extension</artifactId>
+    <version>${lastVersion}</version>
+ </dependency>
+```
+
++ **编写代码**
+
+``` java
+/**
+ * pojo生成
+ */
+void pojoGeneration() {
+    //数据源
+    HikariConfig hikariConfig = new HikariConfig();
+    hikariConfig.setDriverClassName("com.mysql.cj.jdbc.Driver");
+    hikariConfig.setJdbcUrl("jdbc:mysql://127.0.0.1:3306/screw");
+    hikariConfig.setUsername("screw");
+    hikariConfig.setPassword("screw");
+    //设置可以获取tables remarks信息
+    hikariConfig.addDataSourceProperty("useInformationSchema", "true");
+    hikariConfig.setMinimumIdle(2);
+    hikariConfig.setMaximumPoolSize(5);
+    DataSource dataSource = new HikariDataSource(hikariConfig);
+
+    ProcessConfig processConfig = ProcessConfig.builder()
+                                               //指定生成逻辑、当存在指定表、指定表前缀、指定表后缀时，将生成指定表，其余表不生成、并跳过忽略表配置
+                                               //根据名称指定表生成
+                                               .designatedTableName(new ArrayList<>())
+                                               //根据表前缀生成
+                                               .designatedTablePrefix(new ArrayList<>())
+                                               //根据表后缀生成
+                                               .designatedTableSuffix(new ArrayList<>()).build();
+
+    //设置生成pojo相关配置
+    PojoConfiguration config = new PojoConfiguration();
+    //设置文件存放路径
+    config.setPath("/cn/smallbun/screw/");
+    //设置包名
+    config.setPackageName("cn.smallbun.screw");
+    //设置是否使用lombok
+    config.setUseLombok(false);
+    //设置数据源
+    config.setDataSource(dataSource);
+    //设置命名策略
+    config.setNameStrategy(new HumpNameStrategy());
+    //设置表过滤逻辑
+    config.setProcessConfig(processConfig);
+
+    //也可以使用builder方式生成pojo相关配置
+//    PojoConfiguration build = PojoConfiguration.builder()
+//                                               .path("/Users/liuyu/IdeaProjects/MyselfStudy/template/src/main/java/com/haizhi/template/bean/dto/")
+//                                               .packageName("com.haizhi.template.bean.dto")
+//                                               .useLombok(true)
+//                                               .dataSource(dataSource)
+//                                               .nameStrategy(new HumpNameStrategy())
+//                                               .processConfig(processConfig)
+//                                               .build();
+
+    //执行生成
+    new PojoExecute(config).execute();
+}
+```
+
+
 
 ## 更多支持
 
