@@ -257,6 +257,7 @@ void documentGeneration() {
 ### pojo生成功能
 
 #### 功能简介
+
 &emsp;&emsp;pojo生成功能是基于screw延伸出的扩展模块,目前处于初步开发的状态。在日常的开发中,经过需求分析、建模之后,往往会先在数据库中建表,其次在进行代码的开发。那么pojo生成功能在这个阶段就可以帮助大家节省一些重复劳动了。使用pojo生成功能可以直接根据数据库生成对应的java pojo对象。这样后续的修改，开发都会很方便。
 
 #### 数据库支持
@@ -295,13 +296,13 @@ void pojoGeneration() {
     DataSource dataSource = new HikariDataSource(hikariConfig);
 
     ProcessConfig processConfig = ProcessConfig.builder()
-                                               //指定生成逻辑、当存在指定表、指定表前缀、指定表后缀时，将生成指定表，其余表不生成、并跳过忽略表配置
-                                               //根据名称指定表生成
-                                               .designatedTableName(new ArrayList<>())
-                                               //根据表前缀生成
-                                               .designatedTablePrefix(new ArrayList<>())
-                                               //根据表后缀生成
-                                               .designatedTableSuffix(new ArrayList<>()).build();
+        //指定生成逻辑、当存在指定表、指定表前缀、指定表后缀时，将生成指定表，其余表不生成、并跳过忽略表配置
+        //根据名称指定表生成
+        .designatedTableName(new ArrayList<>())
+        //根据表前缀生成
+        .designatedTablePrefix(new ArrayList<>())
+        //根据表后缀生成
+        .designatedTableSuffix(new ArrayList<>()).build();
 
     //设置生成pojo相关配置
     PojoConfiguration config = new PojoConfiguration();
@@ -317,17 +318,6 @@ void pojoGeneration() {
     config.setNameStrategy(new HumpNameStrategy());
     //设置表过滤逻辑
     config.setProcessConfig(processConfig);
-
-    //也可以使用builder方式生成pojo相关配置
-//    PojoConfiguration build = PojoConfiguration.builder()
-//                                               .path("/Users/liuyu/IdeaProjects/MyselfStudy/template/src/main/java/com/haizhi/template/bean/dto/")
-//                                               .packageName("com.haizhi.template.bean.dto")
-//                                               .useLombok(true)
-//                                               .dataSource(dataSource)
-//                                               .nameStrategy(new HumpNameStrategy())
-//                                               .processConfig(processConfig)
-//                                               .build();
-
     //执行生成
     new PojoExecute(config).execute();
 }
@@ -340,7 +330,7 @@ void pojoGeneration() {
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td align="center"><img src="https://images.gitee.com/uploads/images/2020/0622/161414_eaa2819d_1407605.jpeg" width="200" height="200"  alt="WeChat"/> </td>
-    <td align="center"><img src="https://images.gitee.com/uploads/images/2020/0818/091246_8fb68a19_1407605.png" width="200" height="200"  alt="WeChat"/></td>
+    <td align="center"><img src="https://images.gitee.com/uploads/images/2020/0825/145707_b559060f_1407605.png" width="200" height="200"  alt="WeChat"/></td>
     <td align="center"><img src="https://images.gitee.com/uploads/images/2020/0707/191620_9a63fb23_1407605.png" width="200" height="200"  alt="QQ"/></td>
   </tr>
   <tr>
