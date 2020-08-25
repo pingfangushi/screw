@@ -24,10 +24,7 @@ import cn.smallbun.screw.core.metadata.Database;
 import cn.smallbun.screw.core.metadata.PrimaryKey;
 import cn.smallbun.screw.core.metadata.Table;
 import cn.smallbun.screw.core.query.AbstractDatabaseQuery;
-import cn.smallbun.screw.core.query.cachedb.model.CacheDbColumnModel;
-import cn.smallbun.screw.core.query.cachedb.model.CacheDbDatabaseModel;
-import cn.smallbun.screw.core.query.cachedb.model.CacheDbPrimaryKeyModel;
-import cn.smallbun.screw.core.query.cachedb.model.CacheDbTableModel;
+import cn.smallbun.screw.core.query.cachedb.model.*;
 import cn.smallbun.screw.core.util.Assert;
 import cn.smallbun.screw.core.util.ExceptionUtils;
 import cn.smallbun.screw.core.util.JdbcUtils;
@@ -35,6 +32,7 @@ import cn.smallbun.screw.core.util.JdbcUtils;
 import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static cn.smallbun.screw.core.constant.DefaultConstants.PERCENT_SIGN;
@@ -170,5 +168,16 @@ public class CacheDbDataBaseQuery extends AbstractDatabaseQuery {
         } finally {
             JdbcUtils.close(resultSet);
         }
+    }
+
+    /**
+     * 获取列长度
+     *
+     * @return {@link List}
+     * @throws QueryException QueryException
+     */
+    @Override
+    public List<CacheDbColumnLengthModel> getColumnLength() throws QueryException {
+        return new ArrayList<>();
     }
 }

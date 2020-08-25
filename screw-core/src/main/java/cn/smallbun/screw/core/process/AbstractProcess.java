@@ -20,6 +20,7 @@ package cn.smallbun.screw.core.process;
 import cn.smallbun.screw.core.Configuration;
 import cn.smallbun.screw.core.engine.EngineFileType;
 import cn.smallbun.screw.core.metadata.Column;
+import cn.smallbun.screw.core.metadata.ColumnLength;
 import cn.smallbun.screw.core.metadata.PrimaryKey;
 import cn.smallbun.screw.core.metadata.Table;
 import cn.smallbun.screw.core.metadata.model.ColumnModel;
@@ -50,20 +51,24 @@ public abstract class AbstractProcess implements Process {
     /**
      * LOGGER
      */
-    final Logger                                logger             = LoggerFactory
+    final Logger                                logger               = LoggerFactory
         .getLogger(this.getClass());
     /**
      * 表信息缓存
      */
-    volatile Map<String, List<? extends Table>> tablesCaching      = new ConcurrentHashMap<>();
+    volatile Map<String, List<? extends Table>> tablesCaching        = new ConcurrentHashMap<>();
     /**
      * 列信息缓存
      */
-    volatile Map<String, List<Column>>          columnsCaching     = new ConcurrentHashMap<>();
+    volatile Map<String, List<Column>>          columnsCaching       = new ConcurrentHashMap<>();
     /**
      * 主键信息缓存
      */
-    volatile Map<String, List<PrimaryKey>>      primaryKeysCaching = new ConcurrentHashMap<>();
+    volatile Map<String, List<PrimaryKey>>      primaryKeysCaching   = new ConcurrentHashMap<>();
+    /**
+     * 列长度信息缓存
+     */
+    volatile Map<String, List<ColumnLength>>    columnLengthsCaching = new ConcurrentHashMap<>();
 
     /**
      * Configuration

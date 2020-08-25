@@ -23,10 +23,7 @@ import cn.smallbun.screw.core.metadata.Column;
 import cn.smallbun.screw.core.metadata.Database;
 import cn.smallbun.screw.core.metadata.PrimaryKey;
 import cn.smallbun.screw.core.query.AbstractDatabaseQuery;
-import cn.smallbun.screw.core.query.mariadb.model.MariadbColumnModel;
-import cn.smallbun.screw.core.query.mariadb.model.MariadbDatabaseModel;
-import cn.smallbun.screw.core.query.mariadb.model.MariadbPrimaryKeyModel;
-import cn.smallbun.screw.core.query.mariadb.model.MariadbTableModel;
+import cn.smallbun.screw.core.query.mariadb.model.*;
 import cn.smallbun.screw.core.util.Assert;
 import cn.smallbun.screw.core.util.ExceptionUtils;
 import cn.smallbun.screw.core.util.JdbcUtils;
@@ -34,6 +31,7 @@ import cn.smallbun.screw.core.util.JdbcUtils;
 import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static cn.smallbun.screw.core.constant.DefaultConstants.PERCENT_SIGN;
@@ -166,5 +164,16 @@ public class MariaDbDataBaseQuery extends AbstractDatabaseQuery {
         } finally {
             JdbcUtils.close(resultSet);
         }
+    }
+
+    /**
+     * 获取列长度
+     *
+     * @return {@link List}
+     * @throws QueryException QueryException
+     */
+    @Override
+    public List<MariadbColumnLengthModel> getColumnLength() throws QueryException {
+        return new ArrayList<>();
     }
 }

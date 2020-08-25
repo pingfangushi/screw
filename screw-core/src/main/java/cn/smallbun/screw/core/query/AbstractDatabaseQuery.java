@@ -18,6 +18,7 @@
 package cn.smallbun.screw.core.query;
 
 import cn.smallbun.screw.core.exception.QueryException;
+import cn.smallbun.screw.core.metadata.ColumnLength;
 import cn.smallbun.screw.core.metadata.PrimaryKey;
 import cn.smallbun.screw.core.util.Assert;
 import cn.smallbun.screw.core.util.ExceptionUtils;
@@ -187,6 +188,17 @@ public abstract class AbstractDatabaseQuery implements DatabaseQuery {
      */
     @Override
     public List<? extends PrimaryKey> getPrimaryKeys() throws QueryException {
+        throw ExceptionUtils.mpe(NOT_SUPPORTED);
+    }
+
+    /**
+     * 获取列长度
+     *
+     * @return {@link List}
+     * @throws QueryException QueryException
+     */
+    @Override
+    public List<? extends ColumnLength> getColumnLength() throws QueryException {
         throw ExceptionUtils.mpe(NOT_SUPPORTED);
     }
 }

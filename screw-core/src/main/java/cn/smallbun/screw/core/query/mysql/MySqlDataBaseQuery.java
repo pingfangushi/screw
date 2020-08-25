@@ -23,10 +23,7 @@ import cn.smallbun.screw.core.metadata.Column;
 import cn.smallbun.screw.core.metadata.Database;
 import cn.smallbun.screw.core.metadata.PrimaryKey;
 import cn.smallbun.screw.core.query.AbstractDatabaseQuery;
-import cn.smallbun.screw.core.query.mysql.model.MySqlColumnModel;
-import cn.smallbun.screw.core.query.mysql.model.MySqlDatabaseModel;
-import cn.smallbun.screw.core.query.mysql.model.MySqlPrimaryKeyModel;
-import cn.smallbun.screw.core.query.mysql.model.MySqlTableModel;
+import cn.smallbun.screw.core.query.mysql.model.*;
 import cn.smallbun.screw.core.util.Assert;
 import cn.smallbun.screw.core.util.ExceptionUtils;
 import cn.smallbun.screw.core.util.JdbcUtils;
@@ -34,6 +31,7 @@ import cn.smallbun.screw.core.util.JdbcUtils;
 import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static cn.smallbun.screw.core.constant.DefaultConstants.PERCENT_SIGN;
@@ -165,6 +163,29 @@ public class MySqlDataBaseQuery extends AbstractDatabaseQuery {
             resultSet = prepareStatement(String.format(sql, getDataBase().getDatabase()))
                 .executeQuery();
             return Mapping.convertList(resultSet, MySqlPrimaryKeyModel.class);
+        } catch (SQLException e) {
+            throw new QueryException(e);
+        } finally {
+            JdbcUtils.close(resultSet);
+        }
+    }
+
+    /**
+     * 获取列长度
+     *
+     * @return {@link List}
+     * @throws QueryException QueryException
+     */
+    @Override
+    public List<MySqlColumnLengthModel> getColumnLength() throws QueryException {
+        ResultSet resultSet = null;
+        try {
+            // 由于单条循环查询存在性能问题，所以这里通过自定义SQL查询数据库主键信息
+            String sql = "SELECT A.TABLE_NAME, A.COLUMN_NAME, A.COLUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS A WHERE A.TABLE_SCHEMA = '%s' ORDER BY A.COLUMN_NAME";
+            // 拼接参数
+            resultSet = prepareStatement(String.format(sql, getDataBase().getDatabase()))
+                .executeQuery();
+            return Mapping.convertList(resultSet, MySqlColumnLengthModel.class);
         } catch (SQLException e) {
             throw new QueryException(e);
         } finally {

@@ -27,6 +27,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * mysql 类型字典
+ *
  * @author liu·yu
  * Created by 15952866402@163.com on 2020-08-17
  */

@@ -23,10 +23,7 @@ import cn.smallbun.screw.core.metadata.Column;
 import cn.smallbun.screw.core.metadata.Database;
 import cn.smallbun.screw.core.metadata.PrimaryKey;
 import cn.smallbun.screw.core.query.AbstractDatabaseQuery;
-import cn.smallbun.screw.core.query.oracle.model.OracleColumnModel;
-import cn.smallbun.screw.core.query.oracle.model.OracleDatabaseModel;
-import cn.smallbun.screw.core.query.oracle.model.OraclePrimaryKeyModel;
-import cn.smallbun.screw.core.query.oracle.model.OracleTableModel;
+import cn.smallbun.screw.core.query.oracle.model.*;
 import cn.smallbun.screw.core.util.Assert;
 import cn.smallbun.screw.core.util.CollectionUtils;
 import cn.smallbun.screw.core.util.ExceptionUtils;
@@ -36,6 +33,7 @@ import javax.sql.DataSource;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -272,5 +270,16 @@ public class OracleDataBaseQuery extends AbstractDatabaseQuery {
         } finally {
             JdbcUtils.close(resultSet);
         }
+    }
+
+    /**
+     * 获取列长度
+     *
+     * @return {@link List}
+     * @throws QueryException QueryException
+     */
+    @Override
+    public List<OracleColumnLengthModel> getColumnLength() throws QueryException {
+        return new ArrayList<>();
     }
 }
