@@ -24,6 +24,7 @@ import cn.smallbun.screw.core.metadata.Database;
 import cn.smallbun.screw.core.metadata.PrimaryKey;
 import cn.smallbun.screw.core.query.AbstractDatabaseQuery;
 import cn.smallbun.screw.core.query.mariadb.model.*;
+import cn.smallbun.screw.core.query.mysql.model.MySqlColumnLengthModel;
 import cn.smallbun.screw.core.util.Assert;
 import cn.smallbun.screw.core.util.ExceptionUtils;
 import cn.smallbun.screw.core.util.JdbcUtils;
@@ -174,6 +175,18 @@ public class MariaDbDataBaseQuery extends AbstractDatabaseQuery {
      */
     @Override
     public List<MariadbColumnLengthModel> getColumnLength() throws QueryException {
-        return new ArrayList<>();
+        ResultSet resultSet = null;
+        try {
+            // 由于单条循环查询存在性能问题，所以这里通过自定义SQL查询数据库主键信息
+            String sql = "SELECT A.TABLE_NAME, A.COLUMN_NAME, A.COLUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS A WHERE A.TABLE_SCHEMA = '%s' ORDER BY A.COLUMN_NAME";
+            // 拼接参数
+            resultSet = prepareStatement(String.format(sql, getDataBase().getDatabase()))
+                .executeQuery();
+            return Mapping.convertList(resultSet, MariadbColumnLengthModel.class);
+        } catch (SQLException e) {
+            throw new QueryException(e);
+        } finally {
+            JdbcUtils.close(resultSet);
+        }
     }
 }
