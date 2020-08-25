@@ -19,6 +19,7 @@ package cn.smallbun.screw.extension.pojo.metadata.model;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
@@ -29,7 +30,7 @@ import java.util.Set;
  * Created by 15952866402@163.com on 2020-08-14
  */
 @Data
-public class PojoModel {
+public class PojoModel implements Serializable {
 
     /**
      * 包名

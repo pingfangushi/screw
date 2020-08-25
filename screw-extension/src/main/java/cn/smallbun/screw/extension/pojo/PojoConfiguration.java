@@ -37,37 +37,37 @@ public class PojoConfiguration {
     /**
      * 包名
      */
-    private String             packageName;
+    private String                packageName;
 
     /**
      * 生成文件路径
      */
-    private String             path;
+    private String                path;
 
     /**
      * 是否使用lombok
      */
-    private boolean            useLombok;
+    private boolean               useLombok;
 
     /**
      * 数据源对象
      */
-    private DataSource         dataSource;
+    private DataSource            dataSource;
 
     /**
      * 生成配置
      */
-    private ProcessConfig      processConfig;
+    private ProcessConfig         processConfig;
 
     /**
      * 命名策略
      */
-    private NameStrategy       nameStrategy;
+    private NameStrategy          nameStrategy;
 
     /**
      * 自定义类型转换
      */
-    private Map<String, Class> customType;
+    private Map<String, Class<?>> customType;
 
     /**
      * builder
@@ -79,7 +79,7 @@ public class PojoConfiguration {
 
     public static class Builder {
 
-        private PojoConfiguration configuration;
+        private final PojoConfiguration configuration;
 
         public Builder() {
             this.configuration = new PojoConfiguration();
@@ -115,7 +115,7 @@ public class PojoConfiguration {
             return this;
         }
 
-        public Builder customType(String type, Class clazz) {
+        public Builder customType(String type, Class<?> clazz) {
             if (configuration.getCustomType() == null) {
                 configuration.setCustomType(new HashMap<>());
             }

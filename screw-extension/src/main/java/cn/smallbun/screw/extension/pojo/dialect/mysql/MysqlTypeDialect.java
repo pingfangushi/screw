@@ -32,7 +32,7 @@ import java.util.Map;
  */
 public class MysqlTypeDialect implements TypeDialect {
 
-    private Map<String, Class> map = new HashMap<>();
+    private final Map<String, Class<?>> map = new HashMap<>();
 
     public MysqlTypeDialect() {
         map.put("varchar", String.class);
@@ -55,8 +55,8 @@ public class MysqlTypeDialect implements TypeDialect {
     }
 
     @Override
-    public Class getClassTypeByFieldType(String type) {
-        Class clazz = getTypeByMap(map, type);
+    public Class<?> getClassTypeByFieldType(String type) {
+        Class<?> clazz = getTypeByMap(map, type);
         if (clazz == null) {
             clazz = Object.class;
         }

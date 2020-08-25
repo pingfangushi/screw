@@ -44,9 +44,9 @@ public class TypeDialectFactory {
      * DataSource
      */
     @Getter
-    private DataSource                                      dataSource;
+    private final DataSource                                      dataSource;
 
-    private Map<DatabaseType, Class<? extends TypeDialect>> dialectMap;
+    private final Map<DatabaseType, Class<? extends TypeDialect>> dialectMap;
 
     {
         dialectMap = new HashMap<>();

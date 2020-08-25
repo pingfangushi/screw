@@ -37,24 +37,27 @@ public interface NameStrategy {
      * 转换字段名
      *
      * @param name 输入的字段名
+     * @param type {@link Class}
      * @return 输出转换后的名字
      */
-    String transFieldName(String name, Class type);
+    String transFieldName(String name, Class<?> type);
 
     /**
      * 转换set方法名
      *
      * @param name 输入的字段名
+     * @param type {@link Class}
      * @return 输出的set方法名
      */
-    String transSetName(String name, Class type);
+    String transSetName(String name, Class<?> type);
 
     /**
      * 转换get方法名
      *
      * @param name 输入的字段名
+     * @param type {@link Class}
      * @return 输出的方法名
      */
-    String transGetName(String name, Class type);
+    String transGetName(String name, Class<?> type);
 
 }

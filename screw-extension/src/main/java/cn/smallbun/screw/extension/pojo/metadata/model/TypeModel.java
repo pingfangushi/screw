@@ -19,6 +19,8 @@ package cn.smallbun.screw.extension.pojo.metadata.model;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * TypeModel
  *
@@ -26,7 +28,7 @@ import lombok.Data;
  * Created by 15952866402@163.com on 2020-08-14
  */
 @Data
-public class TypeModel {
+public class TypeModel implements Serializable {
 
     /**
      * 数据库字段类型

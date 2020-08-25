@@ -47,3 +47,4 @@ public class ${className} {
     </#list>
 </#if>
 }
+

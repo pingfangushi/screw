@@ -28,7 +28,11 @@ import java.util.List;
  * Created by 15952866402@163.com on 2020-08-20
  */
 public interface PojoProcess {
-
+    /**
+     * 获取pojo模型
+     *
+     * @return {@link PojoModel}
+     */
     List<PojoModel> getPojoModel();
 
 }
