@@ -51,24 +51,20 @@ public abstract class AbstractProcess implements Process {
     /**
      * LOGGER
      */
-    final Logger                                logger               = LoggerFactory
+    final Logger                                logger             = LoggerFactory
         .getLogger(this.getClass());
     /**
      * 表信息缓存
      */
-    volatile Map<String, List<? extends Table>> tablesCaching        = new ConcurrentHashMap<>();
+    volatile Map<String, List<? extends Table>> tablesCaching      = new ConcurrentHashMap<>();
     /**
      * 列信息缓存
      */
-    volatile Map<String, List<Column>>          columnsCaching       = new ConcurrentHashMap<>();
+    volatile Map<String, List<Column>>          columnsCaching     = new ConcurrentHashMap<>();
     /**
      * 主键信息缓存
      */
-    volatile Map<String, List<PrimaryKey>>      primaryKeysCaching   = new ConcurrentHashMap<>();
-    /**
-     * 列长度信息缓存
-     */
-    volatile Map<String, List<ColumnLength>>    columnLengthsCaching = new ConcurrentHashMap<>();
+    volatile Map<String, List<PrimaryKey>>      primaryKeysCaching = new ConcurrentHashMap<>();
 
     /**
      * Configuration

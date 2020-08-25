@@ -57,11 +57,6 @@ import static cn.smallbun.screw.core.constant.DefaultConstants.PERCENT_SIGN;
 @SuppressWarnings("Duplicates")
 public class OracleDataBaseQuery extends AbstractDatabaseQuery {
     /**
-     * 缓存
-     */
-    private final Map<String, List<Column>> columnsCaching = new ConcurrentHashMap<>();
-
-    /**
      * 构造函数
      *
      * @param dataSource {@link DataSource}
@@ -270,16 +265,5 @@ public class OracleDataBaseQuery extends AbstractDatabaseQuery {
         } finally {
             JdbcUtils.close(resultSet);
         }
-    }
-
-    /**
-     * 获取列长度
-     *
-     * @return {@link List}
-     * @throws QueryException QueryException
-     */
-    @Override
-    public List<OracleColumnLengthModel> getColumnLength() throws QueryException {
-        return new ArrayList<>();
     }
 }

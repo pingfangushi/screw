@@ -24,7 +24,6 @@ import cn.smallbun.screw.core.metadata.model.DataModel;
 import cn.smallbun.screw.core.metadata.model.TableModel;
 import cn.smallbun.screw.core.query.DatabaseQuery;
 import cn.smallbun.screw.core.query.DatabaseQueryFactory;
-import cn.smallbun.screw.core.util.CollectionUtils;
 import cn.smallbun.screw.core.util.StringUtils;
 
 import java.util.ArrayList;
@@ -85,8 +84,6 @@ public class DataModelProcess extends AbstractProcess {
         //获取全部列
         start = System.currentTimeMillis();
         List<? extends Column> columns = query.getTableColumns();
-        //获取列长度
-        List<? extends ColumnLength> lengths = query.getColumnLength();
         logger.debug("query the column time consuming:{}ms", (System.currentTimeMillis() - start));
         //获取主键
         start = System.currentTimeMillis();
@@ -108,10 +105,6 @@ public class DataModelProcess extends AbstractProcess {
             primaryKeysCaching.put(table.getTableName(),
                 primaryKeys.stream().filter(i -> i.getTableName().equals(table.getTableName()))
                     .collect(Collectors.toList()));
-            //处理列长度
-            columnLengthsCaching.put(table.getTableName(),
-                lengths.stream().filter(i -> i.getTableName().equals(table.getTableName()))
-                    .collect(Collectors.toList()));
         }
         for (Table table : tables) {
             /*封装数据开始*/
@@ -127,19 +120,8 @@ public class DataModelProcess extends AbstractProcess {
             //获取主键
             List<String> key = primaryKeysCaching.get(table.getTableName()).stream()
                 .map(PrimaryKey::getColumnName).collect(Collectors.toList());
-            //获取列长度
-            List<ColumnLength> columnLengths = new ArrayList<>(
-                columnLengthsCaching.get(table.getTableName()));
             for (Column column : columnsCaching.get(table.getTableName())) {
-                //获取列长度
-                List<String> lengthList = columnLengths.stream()
-                    .filter(i -> i.getColumnName().equals(column.getColumnName()))
-                    .map(ColumnLength::getColumnLength).collect(Collectors.toList());
-                String length = "";
-                if (CollectionUtils.isNotEmpty(lengthList)) {
-                    length = lengthList.get(0);
-                }
-                packageColumn(columnModels, key, length, column);
+                packageColumn(columnModels, key, column);
             }
             //放入列
             tableModel.setColumns(columnModels);
@@ -158,20 +140,17 @@ public class DataModelProcess extends AbstractProcess {
      * packageColumn
      * @param columnModels {@link List}
      * @param keyList {@link List}
-     * @param columnLength {@link String} 列长度
      * @param column {@link Column}
      */
     private void packageColumn(List<ColumnModel> columnModels, List<String> keyList,
-                               String columnLength, Column column) {
+                               Column column) {
         ColumnModel columnModel = new ColumnModel();
         //表中的列的索引（从 1 开始）
         columnModel.setOrdinalPosition(column.getOrdinalPosition());
         //列名称
         columnModel.setColumnName(column.getColumnName());
         //类型
-        columnModel.setTypeName(column.getTypeName().toLowerCase());
-        //指定列大小
-        columnModel.setColumnLength(columnLength);
+        columnModel.setColumnType(column.getColumnType());
         //小数位
         columnModel.setDecimalDigits(
             StringUtils.defaultString(column.getDecimalDigits(), ZERO_DECIMAL_DIGITS));

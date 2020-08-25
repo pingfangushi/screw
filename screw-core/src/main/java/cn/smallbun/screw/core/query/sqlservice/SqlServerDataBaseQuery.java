@@ -54,11 +54,6 @@ import static cn.smallbun.screw.core.constant.DefaultConstants.PERCENT_SIGN;
 public class SqlServerDataBaseQuery extends AbstractDatabaseQuery {
 
     /**
-     * 缓存
-     */
-    private final Map<String, List<Column>> columnsCaching = new ConcurrentHashMap<>();
-
-    /**
      * 构造函数
      *
      * @param dataSource {@link DataSource}
@@ -236,16 +231,5 @@ public class SqlServerDataBaseQuery extends AbstractDatabaseQuery {
         } finally {
             JdbcUtils.close(resultSet);
         }
-    }
-
-    /**
-     * 获取列长度
-     *
-     * @return {@link List}
-     * @throws QueryException QueryException
-     */
-    @Override
-    public List<SqlServerColumnLengthModel> getColumnLength() throws QueryException {
-        return new ArrayList<>();
     }
 }

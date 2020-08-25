@@ -23,16 +23,18 @@ import cn.smallbun.screw.core.metadata.Column;
 import cn.smallbun.screw.core.metadata.Database;
 import cn.smallbun.screw.core.metadata.PrimaryKey;
 import cn.smallbun.screw.core.query.AbstractDatabaseQuery;
-import cn.smallbun.screw.core.query.mariadb.model.*;
-import cn.smallbun.screw.core.query.mysql.model.MySqlColumnLengthModel;
+import cn.smallbun.screw.core.query.mariadb.model.MariadbColumnModel;
+import cn.smallbun.screw.core.query.mariadb.model.MariadbDatabaseModel;
+import cn.smallbun.screw.core.query.mariadb.model.MariadbPrimaryKeyModel;
+import cn.smallbun.screw.core.query.mariadb.model.MariadbTableModel;
 import cn.smallbun.screw.core.util.Assert;
 import cn.smallbun.screw.core.util.ExceptionUtils;
 import cn.smallbun.screw.core.util.JdbcUtils;
 
 import javax.sql.DataSource;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import static cn.smallbun.screw.core.constant.DefaultConstants.PERCENT_SIGN;
@@ -100,11 +102,26 @@ public class MariaDbDataBaseQuery extends AbstractDatabaseQuery {
             //查询
             resultSet = getMetaData().getColumns(getCatalog(), getSchema(), table, PERCENT_SIGN);
             //映射
-            return Mapping.convertList(resultSet, MariadbColumnModel.class);
+            List<MariadbColumnModel> list = Mapping.convertList(resultSet,
+                MariadbColumnModel.class);
+            //通过SQL获取具体的列类型（带长度）
+            String sql = "SELECT A.TABLE_NAME, A.COLUMN_NAME, A.COLUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS A WHERE A.TABLE_SCHEMA = '%s' and A.TABLE_NAME='%s' ORDER BY A.COLUMN_NAME";
+            PreparedStatement statement = prepareStatement(
+                String.format(sql, getDataBase(), table));
+            resultSet = statement.executeQuery();
+            List<MariadbColumnModel> columns = Mapping.convertList(resultSet,
+                MariadbColumnModel.class);
+            for (MariadbColumnModel model : list) {
+                for (MariadbColumnModel column : columns) {
+                    if (model.getColumnName().equals(column.getColumnName())) {
+                        model.setColumnType(column.getColumnType());
+                    }
+                }
+            }
+            return list;
         } catch (SQLException e) {
             throw ExceptionUtils.mpe(e);
         } finally {
-
             JdbcUtils.close(resultSet);
         }
     }
@@ -160,29 +177,6 @@ public class MariaDbDataBaseQuery extends AbstractDatabaseQuery {
             String database = getDataBase().getDatabase();
             resultSet = prepareStatement(String.format(sql, database, database)).executeQuery();
             return Mapping.convertList(resultSet, MariadbPrimaryKeyModel.class);
-        } catch (SQLException e) {
-            throw new QueryException(e);
-        } finally {
-            JdbcUtils.close(resultSet);
-        }
-    }
-
-    /**
-     * 获取列长度
-     *
-     * @return {@link List}
-     * @throws QueryException QueryException
-     */
-    @Override
-    public List<MariadbColumnLengthModel> getColumnLength() throws QueryException {
-        ResultSet resultSet = null;
-        try {
-            // 由于单条循环查询存在性能问题，所以这里通过自定义SQL查询数据库主键信息
-            String sql = "SELECT A.TABLE_NAME, A.COLUMN_NAME, A.COLUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS A WHERE A.TABLE_SCHEMA = '%s' ORDER BY A.COLUMN_NAME";
-            // 拼接参数
-            resultSet = prepareStatement(String.format(sql, getDataBase().getDatabase()))
-                .executeQuery();
-            return Mapping.convertList(resultSet, MariadbColumnLengthModel.class);
         } catch (SQLException e) {
             throw new QueryException(e);
         } finally {

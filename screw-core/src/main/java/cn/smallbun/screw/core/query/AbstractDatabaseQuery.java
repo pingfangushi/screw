@@ -18,6 +18,7 @@
 package cn.smallbun.screw.core.query;
 
 import cn.smallbun.screw.core.exception.QueryException;
+import cn.smallbun.screw.core.metadata.Column;
 import cn.smallbun.screw.core.metadata.ColumnLength;
 import cn.smallbun.screw.core.metadata.PrimaryKey;
 import cn.smallbun.screw.core.util.Assert;
@@ -30,7 +31,9 @@ import lombok.Getter;
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
 
 import static cn.smallbun.screw.core.constant.DefaultConstants.NOT_SUPPORTED;
 
@@ -42,15 +45,19 @@ import static cn.smallbun.screw.core.constant.DefaultConstants.NOT_SUPPORTED;
  */
 public abstract class AbstractDatabaseQuery implements DatabaseQuery {
     /**
+     * 缓存
+     */
+    protected final Map<String, List<Column>> columnsCaching = new ConcurrentHashMap<>();
+    /**
      * DataSource
      */
     @Getter
-    private final DataSource      dataSource;
+    private final DataSource                  dataSource;
 
     /**
      * Connection 双重锁，线程安全
      */
-    volatile protected Connection connection;
+    volatile protected Connection             connection;
 
     public AbstractDatabaseQuery(DataSource dataSource) {
         this.dataSource = dataSource;
@@ -188,17 +195,6 @@ public abstract class AbstractDatabaseQuery implements DatabaseQuery {
      */
     @Override
     public List<? extends PrimaryKey> getPrimaryKeys() throws QueryException {
-        throw ExceptionUtils.mpe(NOT_SUPPORTED);
-    }
-
-    /**
-     * 获取列长度
-     *
-     * @return {@link List}
-     * @throws QueryException QueryException
-     */
-    @Override
-    public List<? extends ColumnLength> getColumnLength() throws QueryException {
         throw ExceptionUtils.mpe(NOT_SUPPORTED);
     }
 }

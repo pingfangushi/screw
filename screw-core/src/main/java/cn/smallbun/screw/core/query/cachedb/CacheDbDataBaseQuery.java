@@ -169,15 +169,4 @@ public class CacheDbDataBaseQuery extends AbstractDatabaseQuery {
             JdbcUtils.close(resultSet);
         }
     }
-
-    /**
-     * 获取列长度
-     *
-     * @return {@link List}
-     * @throws QueryException QueryException
-     */
-    @Override
-    public List<CacheDbColumnLengthModel> getColumnLength() throws QueryException {
-        return new ArrayList<>();
-    }
 }

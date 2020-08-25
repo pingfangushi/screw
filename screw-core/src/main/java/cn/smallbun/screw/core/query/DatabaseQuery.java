@@ -80,12 +80,4 @@ public interface DatabaseQuery extends Serializable {
      * @throws QueryException QueryException
      */
     List<? extends PrimaryKey> getPrimaryKeys() throws QueryException;
-
-    /**
-     * 获取列长度
-     *
-     * @return {@link List}
-     * @throws QueryException QueryException
-     */
-    List<? extends ColumnLength> getColumnLength() throws QueryException;
 }

@@ -60,11 +60,7 @@ public class ColumnModel implements Serializable {
     /**
      * SQL 数据类型 名称
      */
-    private String            typeName;
-    /**
-     * 列长度
-     */
-    private String            columnLength;
+    private String            columnType;
     /**
      * 小数位
      */

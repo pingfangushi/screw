@@ -100,4 +100,10 @@ public interface Column extends Serializable {
      * @return {@link String}
      */
     String getRemarks();
+
+    /**
+     * 获取列类型
+     * @return {@link String}
+     */
+    String getColumnType();
 }

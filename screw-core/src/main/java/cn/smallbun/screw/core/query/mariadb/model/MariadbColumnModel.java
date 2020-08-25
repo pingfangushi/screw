@@ -161,4 +161,10 @@ public class MariadbColumnModel implements Column {
      * 是否主键
      */
     private String            primaryKey;
+
+    /**
+     * 列类型（带长度）
+     */
+    @MappingField(value = "COLUMN_TYPE")
+    private String            columnType;
 }
