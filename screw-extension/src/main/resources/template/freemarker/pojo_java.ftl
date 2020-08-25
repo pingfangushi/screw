@@ -12,9 +12,9 @@ import lombok.Data;
 </#if>
 
 /**
- * 数据库表名: ${tableName}
+ * table name: ${tableName}
 <#if (remarks)??&&remarks?length gt 0>
- * 数据库表注释: ${remarks}
+ * table comment: ${remarks}
 </#if>
  */
 <#if useLombok>
@@ -25,9 +25,9 @@ public class ${className} {
 
     <#items as field>
     <#if (field.remarks)??&&field.remarks?length gt 0>
-    /**数据库字段注释: ${field.remarks}*/
+    //comment: ${field.remarks}
     </#if>
-    /**数据库字段类型: ${field.fieldType},数据库字段名: ${field.fieldName}**/
+    //name: ${field.fieldName},type: ${field.fieldType}
     private ${field.classType} ${field.className};
 
     </#items>
@@ -47,3 +47,4 @@ public class ${className} {
     </#list>
 </#if>
 }
+

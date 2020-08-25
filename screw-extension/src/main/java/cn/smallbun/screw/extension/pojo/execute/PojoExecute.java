@@ -29,6 +29,7 @@ import cn.smallbun.screw.extension.pojo.process.PojoModelProcess;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -64,11 +65,18 @@ public class PojoExecute implements Execute {
             PojoEngine pojoEngine = new FreeMarkerPojoEngine();
             //确认路径
             String path = configuration.getPath();
-            if (!path.startsWith("/")) {
-                path = "/" + path;
-            }
             if (!path.endsWith("/")) {
                 path = path + "/";
+            }
+            File pathFile = new File(path);
+            if (!pathFile.exists()) {
+                boolean mkdir = pathFile.mkdir();
+                if (!mkdir) {
+                    throw new ScrewException("create directory failed");
+                }
+            }
+            if (!pathFile.isDirectory()) {
+                throw new ScrewException("path is not a directory");
             }
             //逐个产生文档
             for (PojoModel pojoModel : process) {
