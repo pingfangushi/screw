@@ -42,9 +42,9 @@
 
 **数据列：**
 
-| 序号 | 名称 | 数据类型 |  列大小  | 小数位 | 允许空值 | 主键 | 默认值 | 说明 |
-| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| 序号 | 名称 | 数据类型 | 小数位 | 允许空值 | 主键 | 默认值 | 说明 |
+| :---: | :---: | :---: |:---: | :---: | :---: | :---: | :---: |
 #foreach($c in $t.columns)
-| $!{velocityCount} | $!{c.columnName} | $!{c.columnType} | $!{c.columnSize} | #if($!{c.decimalDigits})$!{c.decimalDigits}#else 0#end | $!{c.nullable}| $!{c.primaryKey} | $!{c.columnDef} | $!{c.remarks} |
+| $!{velocityCount} | $!{c.columnName} | $!{c.columnType} | #if($!{c.decimalDigits})$!{c.decimalDigits}#else 0#end | $!{c.nullable}| $!{c.primaryKey} | $!{c.columnDef} | $!{c.remarks} |
 #end
 #end
