@@ -49,7 +49,6 @@ public class OracleDocumentationBuilderTest extends AbstractDocumentationExecute
         hikariConfig.setJdbcUrl(getUrl());
         hikariConfig.setUsername(getUserName());
         hikariConfig.setPassword(getPassword());
-        //   hikariConfig.addDataSourceProperty("remarks", "true");
         hikariConfig.setMinimumIdle(2);
         hikariConfig.setMaximumPoolSize(5);
         HikariDataSource dataSource = new HikariDataSource(hikariConfig);
@@ -58,7 +57,7 @@ public class OracleDocumentationBuilderTest extends AbstractDocumentationExecute
             //生成文件路径
             .fileOutputDir(fileOutputDir)
             //文件类型
-            .fileType(EngineFileType.HTML)
+            .fileType(EngineFileType.WORD)
             //打开文件夹
             .openOutputDir(true)
             //生成模板实现
