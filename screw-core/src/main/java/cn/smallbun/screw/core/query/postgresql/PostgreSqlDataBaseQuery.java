@@ -27,14 +27,18 @@ import cn.smallbun.screw.core.query.postgresql.model.PostgreSqlColumnModel;
 import cn.smallbun.screw.core.query.postgresql.model.PostgreSqlDatabaseModel;
 import cn.smallbun.screw.core.query.postgresql.model.PostgreSqlPrimaryKeyModel;
 import cn.smallbun.screw.core.query.postgresql.model.PostgreSqlTableModel;
+import cn.smallbun.screw.core.query.sqlservice.model.SqlServerColumnModel;
 import cn.smallbun.screw.core.util.Assert;
+import cn.smallbun.screw.core.util.CollectionUtils;
 import cn.smallbun.screw.core.util.ExceptionUtils;
 import cn.smallbun.screw.core.util.JdbcUtils;
 
 import javax.sql.DataSource;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static cn.smallbun.screw.core.constant.DefaultConstants.PERCENT_SIGN;
 
@@ -104,7 +108,54 @@ public class PostgreSqlDataBaseQuery extends AbstractDatabaseQuery {
             //查询
             resultSet = getMetaData().getColumns(getCatalog(), getSchema(), table, PERCENT_SIGN);
             //映射
-            return Mapping.convertList(resultSet, PostgreSqlColumnModel.class);
+            List<PostgreSqlColumnModel> list = Mapping.convertList(resultSet,
+                PostgreSqlColumnModel.class);
+            //这里处理是为了如果是查询全部列呢？所以处理并获取唯一表名
+            List<String> tableNames = list.stream().map(PostgreSqlColumnModel::getTableName)
+                .collect(Collectors.toList()).stream().distinct().collect(Collectors.toList());
+            if (CollectionUtils.isEmpty(columnsCaching)) {
+                //查询全部
+                if (table.equals(PERCENT_SIGN)) {
+                    //获取全部表列信息SQL
+                    String sql = "select TABLE_NAME, TABLE_SCHEM, COLUMN_NAME, Length as COLUMN_LENGTH, concat(udt_name, case when Length isnull then '' else concat('(', concat(Length, ')')) end) as COLUMN_TYPE from(select table_schema as TABLE_SCHEM, column_name as COLUMN_NAME, table_name as TABLE_NAME, udt_name as udt_name, case when coalesce(character_maximum_length, numeric_precision, -1) = -1 then null else coalesce(character_maximum_length, numeric_precision, -1) end as Length from information_schema.columns a where table_schema = '%s' and table_catalog = '%s') t";
+                    PreparedStatement statement = prepareStatement(
+                        String.format(sql, getSchema(), getDataBase().getDatabase()));
+                    resultSet = statement.executeQuery();
+                    int fetchSize = 4284;
+                    if (resultSet.getFetchSize() < fetchSize) {
+                        resultSet.setFetchSize(fetchSize);
+                    }
+                }
+                //单表查询
+                else {
+                    //获取表列信息SQL 查询表名、列名、说明、数据类型
+                    String sql = "select TABLE_NAME, TABLE_SCHEM, COLUMN_NAME, Length as COLUMN_LENGTH, concat(udt_name, case when Length isnull then '' else concat('(', concat(Length, ')')) end) as COLUMN_TYPE from(select table_schema as TABLE_SCHEM, column_name as COLUMN_NAME, table_name as TABLE_NAME, udt_name as udt_name, case when coalesce(character_maximum_length, numeric_precision, -1) = -1 then null else coalesce(character_maximum_length, numeric_precision, -1) end as Length from information_schema.columns a where a.table_name = '%s' and table_schema = '%s' and table_catalog = '%s') t";
+                    resultSet = prepareStatement(
+                        String.format(sql, table, getSchema(), getDataBase().getDatabase()))
+                            .executeQuery();
+                }
+                List<SqlServerColumnModel> inquires = Mapping.convertList(resultSet,
+                    SqlServerColumnModel.class);
+                //处理列，表名为key，列名为值
+                tableNames.forEach(name -> columnsCaching.put(name, inquires.stream()
+                    .filter(i -> i.getTableName().equals(name)).collect(Collectors.toList())));
+            }
+            //处理备注信息
+            list.forEach(i -> {
+                //从缓存中根据表名获取列信息
+                List<Column> columns = columnsCaching.get(i.getTableName());
+                columns.forEach(j -> {
+                    //列名表名一致
+                    if (i.getColumnName().equals(j.getColumnName())
+                        && i.getTableName().equals(j.getTableName())) {
+                        //放入备注
+                        i.setRemarks(j.getRemarks());
+                        i.setColumnLength(j.getColumnLength());
+                        i.setColumnType(j.getColumnType());
+                    }
+                });
+            });
+            return list;
         } catch (SQLException e) {
             throw ExceptionUtils.mpe(e);
         } finally {

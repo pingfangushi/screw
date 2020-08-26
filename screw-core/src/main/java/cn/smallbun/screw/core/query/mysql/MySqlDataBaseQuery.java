@@ -119,9 +119,9 @@ public class MySqlDataBaseQuery extends AbstractDatabaseQuery {
                 //查询全部
                 if (table.equals(PERCENT_SIGN)) {
                     //获取全部表列信息SQL
-                    String sql = "SELECT A.TABLE_NAME, A.COLUMN_NAME, A.COLUMN_TYPE, replace(substring(a.COLUMN_TYPE, LOCATE('(', a.COLUMN_TYPE) + 1), ')', '') COLUMN_LENGTH FROM INFORMATION_SCHEMA.COLUMNS A WHERE A.TABLE_SCHEMA = '%s' ORDER BY A.COLUMN_NAME";
+                    String sql = "SELECT A.TABLE_NAME, A.COLUMN_NAME, A.COLUMN_TYPE, case when LOCATE('(', A.COLUMN_TYPE) > 0 then replace(substring(A.COLUMN_TYPE, LOCATE('(', A.COLUMN_TYPE) + 1), ')', '') else null end COLUMN_LENGTH FROM INFORMATION_SCHEMA.COLUMNS A WHERE A.TABLE_SCHEMA = '%s'";
                     PreparedStatement statement = prepareStatement(
-                        String.format(sql, getDataBase()));
+                        String.format(sql, getDataBase().getDatabase()));
                     resultSet = statement.executeQuery();
                     int fetchSize = 4284;
                     if (resultSet.getFetchSize() < fetchSize) {
@@ -131,9 +131,9 @@ public class MySqlDataBaseQuery extends AbstractDatabaseQuery {
                 //单表查询
                 else {
                     //获取表列信息SQL 查询表名、列名、说明、数据类型
-                    String sql = "SELECT A.TABLE_NAME, A.COLUMN_NAME, A.COLUMN_TYPE, replace(substring(a.COLUMN_TYPE, LOCATE('(', a.COLUMN_TYPE) + 1), ')', '') COLUMN_LENGTH FROM INFORMATION_SCHEMA.COLUMNS A WHERE A.TABLE_SCHEMA = '%s' and A.TABLE_NAME = '%s' ORDER BY A.COLUMN_NAME";
-                    resultSet = prepareStatement(String.format(sql, getDataBase(), table))
-                        .executeQuery();
+                    String sql = "SELECT A.TABLE_NAME, A.COLUMN_NAME, A.COLUMN_TYPE, case when LOCATE('(', A.COLUMN_TYPE) > 0 then replace(substring(A.COLUMN_TYPE, LOCATE('(', A.COLUMN_TYPE) + 1), ')', '') else null end COLUMN_LENGTH FROM INFORMATION_SCHEMA.COLUMNS A WHERE A.TABLE_SCHEMA = '%s' and A.TABLE_NAME = '%s'";
+                    resultSet = prepareStatement(
+                        String.format(sql, getDataBase().getDatabase(), table)).executeQuery();
                 }
                 List<MySqlColumnModel> inquires = Mapping.convertList(resultSet,
                     MySqlColumnModel.class);
@@ -151,7 +151,6 @@ public class MySqlDataBaseQuery extends AbstractDatabaseQuery {
                         && i.getTableName().equals(j.getTableName())) {
                         //放入列类型
                         i.setColumnType(j.getColumnType());
-                        i.setRemarks(j.getRemarks());
                         i.setColumnLength(j.getColumnLength());
                     }
                 });
