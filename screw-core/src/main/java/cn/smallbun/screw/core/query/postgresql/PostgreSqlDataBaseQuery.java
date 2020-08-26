@@ -148,7 +148,6 @@ public class PostgreSqlDataBaseQuery extends AbstractDatabaseQuery {
                     if (i.getColumnName().equals(j.getColumnName())
                         && i.getTableName().equals(j.getTableName())) {
                         //放入备注
-                        i.setRemarks(j.getRemarks());
                         i.setColumnLength(j.getColumnLength());
                         i.setColumnType(j.getColumnType());
                     }
