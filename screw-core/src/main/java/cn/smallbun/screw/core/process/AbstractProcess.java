@@ -20,7 +20,6 @@ package cn.smallbun.screw.core.process;
 import cn.smallbun.screw.core.Configuration;
 import cn.smallbun.screw.core.engine.EngineFileType;
 import cn.smallbun.screw.core.metadata.Column;
-import cn.smallbun.screw.core.metadata.ColumnLength;
 import cn.smallbun.screw.core.metadata.PrimaryKey;
 import cn.smallbun.screw.core.metadata.Table;
 import cn.smallbun.screw.core.metadata.model.ColumnModel;
