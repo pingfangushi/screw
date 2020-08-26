@@ -86,7 +86,7 @@ public class CacheDbDataBaseQuery extends AbstractDatabaseQuery {
         try {
             //查询
             resultSet = getMetaData().getTables(getCatalog(), getSchema(), null,
-                    new String[]{"TABLE"});
+                new String[] { "TABLE" });
             //映射
             return Mapping.convertList(resultSet, CacheDbTableModel.class);
         } catch (SQLException e) {
@@ -111,19 +111,21 @@ public class CacheDbDataBaseQuery extends AbstractDatabaseQuery {
             //查询
             resultSet = getMetaData().getColumns(getCatalog(), getSchema(), table, PERCENT_SIGN);
             //映射
-            final List<CacheDbColumnModel> list = Mapping.convertList(resultSet, CacheDbColumnModel.class);
+            final List<CacheDbColumnModel> list = Mapping.convertList(resultSet,
+                CacheDbColumnModel.class);
             //这里处理是为了如果是查询全部列呢？所以处理并获取唯一表名
             List<String> tableNames = list.stream().map(CacheDbColumnModel::getTableName)
-                    .collect(Collectors.toList()).stream().distinct().collect(Collectors.toList());
+                .collect(Collectors.toList()).stream().distinct().collect(Collectors.toList());
             if (CollectionUtils.isEmpty(columnsCaching)) {
                 //查询全部
                 if (table.equals(PERCENT_SIGN)) {
                     //获取全部表列信息SQL
-                    String sql = MessageFormat.format("select TABLE_NAME as \"TABLE_NAME\",COLUMN_NAME as " +
-                                    "\"COLUMN_NAME\",DESCRIPTION as \"REMARKS\"," +
-                                    "case when CHARACTER_MAXIMUM_LENGTH is null then DATA_TYPE  || '''' " +
-                                    "else DATA_TYPE  || ''(''||CHARACTER_MAXIMUM_LENGTH ||'')'' end as \"COLUMN_TYPE\" " +
-                                    "from INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = ''{0}''",
+                    String sql = MessageFormat
+                        .format("select TABLE_NAME as \"TABLE_NAME\",COLUMN_NAME as "
+                                + "\"COLUMN_NAME\",DESCRIPTION as \"REMARKS\","
+                                + "case when CHARACTER_MAXIMUM_LENGTH is null then DATA_TYPE  || '''' "
+                                + "else DATA_TYPE  || ''(''||CHARACTER_MAXIMUM_LENGTH ||'')'' end as \"COLUMN_TYPE\" "
+                                + "from INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = ''{0}''",
                             getSchema());
                     PreparedStatement statement = prepareStatement(sql);
                     resultSet = statement.executeQuery();
@@ -135,20 +137,21 @@ public class CacheDbDataBaseQuery extends AbstractDatabaseQuery {
                 //单表查询
                 else {
                     //获取表列信息SQL 查询表名、列名、说明、数据类型
-                    String sql = MessageFormat.format("select TABLE_NAME as \"TABLE_NAME\",COLUMN_NAME as " +
-                                    "\"COLUMN_NAME\",DESCRIPTION as \"REMARKS\"," +
-                                    "case when CHARACTER_MAXIMUM_LENGTH is null then DATA_TYPE  || ''''" +
-                                    "else DATA_TYPE  || ''(''||CHARACTER_MAXIMUM_LENGTH ||'')'' end as \"COLUMN_TYPE\" " +
-                                    "from INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = ''{0}'' and TABLE_NAME = " +
-                                    "''{1}''",
+                    String sql = MessageFormat
+                        .format("select TABLE_NAME as \"TABLE_NAME\",COLUMN_NAME as "
+                                + "\"COLUMN_NAME\",DESCRIPTION as \"REMARKS\","
+                                + "case when CHARACTER_MAXIMUM_LENGTH is null then DATA_TYPE  || ''''"
+                                + "else DATA_TYPE  || ''(''||CHARACTER_MAXIMUM_LENGTH ||'')'' end as \"COLUMN_TYPE\" "
+                                + "from INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = ''{0}'' and TABLE_NAME = "
+                                + "''{1}''",
                             getSchema(), table);
                     resultSet = prepareStatement(sql).executeQuery();
                 }
                 List<CacheDbColumnModel> inquires = Mapping.convertList(resultSet,
-                        CacheDbColumnModel.class);
+                    CacheDbColumnModel.class);
                 //处理列，表名为key，列名为值
                 tableNames.forEach(name -> columnsCaching.put(name, inquires.stream()
-                        .filter(i -> i.getTableName().equals(name)).collect(Collectors.toList())));
+                    .filter(i -> i.getTableName().equals(name)).collect(Collectors.toList())));
             }
             //处理备注信息
             list.forEach(i -> {
@@ -157,7 +160,7 @@ public class CacheDbDataBaseQuery extends AbstractDatabaseQuery {
                 columns.forEach(j -> {
                     //列名表名一致
                     if (i.getColumnName().equals(j.getColumnName())
-                            && i.getTableName().equals(j.getTableName())) {
+                        && i.getTableName().equals(j.getTableName())) {
                         //放入列类型
                         i.setColumnType(j.getColumnType());
                         i.setColumnLength(j.getColumnLength());
@@ -222,7 +225,7 @@ public class CacheDbDataBaseQuery extends AbstractDatabaseQuery {
             String sql = "select TABLE_CATALOG ,TABLE_NAME as \"TABLE_NAME\",TABLE_SCHEMA as \"TABLE_SCHEM\",COLUMN_NAME as \"COLUMN_NAME\",ORDINAL_POSITION as \"KEY_SEQ\" from INFORMATION_SCHEMA.COLUMNS where PRIMARY_KEY='YES' and TABLE_SCHEMA='%s'";
             // 拼接参数
             resultSet = prepareStatement(String.format(sql, getDataBase().getDatabase()))
-                    .executeQuery();
+                .executeQuery();
             return Mapping.convertList(resultSet, CacheDbPrimaryKeyModel.class);
         } catch (SQLException e) {
             throw new QueryException(e);
