@@ -141,12 +141,12 @@ public class OracleDataBaseQuery extends AbstractDatabaseQuery {
             if (CollectionUtils.isEmpty(columnsCaching)) {
                 //查询全部
                 if (table.equals(PERCENT_SIGN)) {
-                    String sql = "SELECT ut.TABLE_NAME, ut.COLUMN_NAME,--字段名称 uc.comments AS REMARKS,--字段注释 ut.DATA_TYPE AS COLUMN_TYPE,--字典类型 ut.DATA_LENGTH AS COLUMN_LENGTH--字典长度 FROM user_tab_columns ut INNER JOIN user_col_comments uc ON ut.TABLE_NAME = uc.table_name AND ut.COLUMN_NAME = uc.column_name";
+                    String sql = "SELECT ut.TABLE_NAME, -- 表名称 ut.COLUMN_NAME,--字段名称 uc.comments as REMARKS,--字段注释 concat(concat(concat(ut.DATA_TYPE, '('), ut.DATA_LENGTH), ')') AS COLUMN_TYPE,--字典类型 ut.DATA_LENGTH as COLUMN_LENGTH--字典长度 FROM user_tab_columns ut INNER JOIN user_col_comments uc ON ut.TABLE_NAME = uc.table_name AND ut.COLUMN_NAME = uc.column_name";
                     if (isDda()) {
-                        sql = "SELECT ut.TABLE_NAME, -- 表名 ut.COLUMN_NAME,--字段名称 uc.comments AS REMARKS,--字段注释 ut.DATA_TYPE AS COLUMN_TYPE,--字典类型 ut.DATA_LENGTH AS COLUMN_LENGTH--字典长度 FROM dba_tab_columns ut INNER JOIN dba_col_comments uc ON ut.TABLE_NAME = uc.table_name AND ut.COLUMN_NAME = uc.column_name AND ut.OWNER = uc.OWNER WHERE  ut.OWNER='%s'";
+                        sql = "SELECT ut.TABLE_NAME, -- 表名称 ut.COLUMN_NAME,--字段名称 uc.comments as REMARKS,--字段注释 concat(concat(concat(ut.DATA_TYPE, '('), ut.DATA_LENGTH), ')') AS COLUMN_TYPE,--字典类型 ut.DATA_LENGTH as COLUMN_LENGTH--字典长度 FROM dba_tab_columns ut INNER JOIN dba_col_comments uc ON ut.TABLE_NAME = uc.table_name AND ut.COLUMN_NAME = uc.column_name and ut.OWNER = uc.OWNER WHERE ut.OWNER = '"
+                              + getDataBase() + "'";
                     }
-                    PreparedStatement statement = prepareStatement(
-                        String.format(sql, getDataBase()));
+                    PreparedStatement statement = prepareStatement(sql);
                     resultSet = statement.executeQuery();
                     int fetchSize = 4284;
                     if (resultSet.getFetchSize() < fetchSize) {
@@ -155,12 +155,12 @@ public class OracleDataBaseQuery extends AbstractDatabaseQuery {
                 }
                 //单表查询
                 else {
-                    String sql = "SELECT ut.TABLE_NAME, ut.COLUMN_NAME,--字段名称 uc.comments AS REMARKS,--字段注释 ut.DATA_TYPE AS COLUMN_TYPE,--字典类型 ut.DATA_LENGTH AS COLUMN_LENGTH--字典长度 FROM user_tab_columns ut INNER JOIN user_col_comments uc ON ut.TABLE_NAME = uc.table_name AND ut.COLUMN_NAME = uc.column_name WHERE ut.Table_Name = '%s'";
+                    String sql = "SELECT ut.TABLE_NAME, -- 表名称 ut.COLUMN_NAME,--字段名称 uc.comments as REMARKS,--字段注释 concat(concat(concat(ut.DATA_TYPE, '('), ut.DATA_LENGTH), ')') AS COLUMN_TYPE,--字典类型 ut.DATA_LENGTH as COLUMN_LENGTH--字典长度 FROM user_tab_columns ut INNER JOIN user_col_comments uc ON ut.TABLE_NAME = uc.table_name AND ut.COLUMN_NAME = uc.column_name WHERE ut.Table_Name = '%s'";
                     if (isDda()) {
-                        sql = "SELECT ut.TABLE_NAME, -- 表名 ut.COLUMN_NAME,--字段名称 uc.comments AS REMARKS,--字段注释 ut.DATA_TYPE AS COLUMN_TYPE,--字典类型 ut.DATA_LENGTH AS COLUMN_LENGTH--字典长度 FROM dba_tab_columns ut INNER JOIN dba_col_comments uc ON ut.TABLE_NAME = uc.table_name AND ut.COLUMN_NAME = uc.column_name AND ut.OWNER = uc.OWNER WHERE ut.Table_Name = '%s' and ut.OWNER='%s'";
+                        sql = "SELECT ut.TABLE_NAME, -- 表名称 ut.COLUMN_NAME,--字段名称 uc.comments as REMARKS,--字段注释 concat(concat(concat(ut.DATA_TYPE, '('), ut.DATA_LENGTH), ')') AS COLUMN_TYPE,--字典类型 ut.DATA_LENGTH as COLUMN_LENGTH--字典长度 FROM dba_tab_columns ut INNER JOIN dba_col_comments uc ON ut.TABLE_NAME = uc.table_name AND ut.COLUMN_NAME = uc.column_name and ut.OWNER = uc.OWNER WHERE ut.Table_Name = '%s' ut.OWNER = '"
+                              + getDataBase() + "'";
                     }
-                    resultSet = prepareStatement(String.format(sql, table, getDataBase()))
-                        .executeQuery();
+                    resultSet = prepareStatement(String.format(sql, table)).executeQuery();
                 }
                 List<OracleColumnModel> inquires = Mapping.convertList(resultSet,
                     OracleColumnModel.class);
@@ -178,6 +178,8 @@ public class OracleDataBaseQuery extends AbstractDatabaseQuery {
                         && i.getTableName().equals(j.getTableName())) {
                         //放入备注
                         i.setRemarks(j.getRemarks());
+                        i.setColumnLength(j.getColumnLength());
+                        i.setColumnType(j.getColumnType());
                     }
                 });
             }

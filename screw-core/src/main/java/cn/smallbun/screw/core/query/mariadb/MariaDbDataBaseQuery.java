@@ -146,6 +146,8 @@ public class MariaDbDataBaseQuery extends AbstractDatabaseQuery {
                         && i.getTableName().equals(j.getTableName())) {
                         //放入列类型
                         i.setColumnType(j.getColumnType());
+                        i.setRemarks(j.getRemarks());
+                        i.setColumnLength(j.getColumnLength());
                     }
                 });
             });

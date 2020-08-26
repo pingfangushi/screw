@@ -165,6 +165,8 @@ public class SqlServerDataBaseQuery extends AbstractDatabaseQuery {
                         && i.getTableName().equals(j.getTableName())) {
                         //放入备注
                         i.setRemarks(j.getRemarks());
+                        i.setColumnLength(j.getColumnLength());
+                        i.setColumnType(j.getColumnType());
                     }
                 });
             });
