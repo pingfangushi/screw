@@ -152,5 +152,19 @@ public class CacheDbColumnModel implements Column {
      */
     @MappingField(value = "COLUMN_SIZE")
     private String            columnSize;
+    /**
+     * 是否主键
+     */
     private String            primaryKey;
+    /**
+     * 列类型（带长度）
+     */
+    @MappingField(value = "COLUMN_TYPE")
+    private String            columnType;
+
+    /**
+     * 列长度
+     */
+    @MappingField(value = "COLUMN_LENGTH")
+    private String            columnLength;
 }

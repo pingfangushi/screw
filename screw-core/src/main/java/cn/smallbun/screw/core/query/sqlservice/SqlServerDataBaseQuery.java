@@ -23,7 +23,10 @@ import cn.smallbun.screw.core.metadata.Column;
 import cn.smallbun.screw.core.metadata.Database;
 import cn.smallbun.screw.core.metadata.PrimaryKey;
 import cn.smallbun.screw.core.query.AbstractDatabaseQuery;
-import cn.smallbun.screw.core.query.sqlservice.model.*;
+import cn.smallbun.screw.core.query.sqlservice.model.SqlServerColumnModel;
+import cn.smallbun.screw.core.query.sqlservice.model.SqlServerDatabaseModel;
+import cn.smallbun.screw.core.query.sqlservice.model.SqlServerPrimaryKeyModel;
+import cn.smallbun.screw.core.query.sqlservice.model.SqlServerTableModel;
 import cn.smallbun.screw.core.util.Assert;
 import cn.smallbun.screw.core.util.CollectionUtils;
 import cn.smallbun.screw.core.util.ExceptionUtils;
@@ -33,10 +36,7 @@ import javax.sql.DataSource;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 import static cn.smallbun.screw.core.constant.DefaultConstants.PERCENT_SIGN;
@@ -135,7 +135,7 @@ public class SqlServerDataBaseQuery extends AbstractDatabaseQuery {
                 //查询全部
                 if (table.equals(PERCENT_SIGN)) {
                     //获取全部表列信息SQL
-                    String sql = "SELECT cast(a.name AS VARCHAR(500)) AS TABLE_NAME, cast(b.name AS VARCHAR(500)) AS COLUMN_NAME, cast(c.VALUE AS NVARCHAR(500)) AS REMARKS, cast(sys.types.name AS VARCHAR(500)) AS DATA_TYPE FROM (select name, object_id from sys.tables UNION all select name, object_id from sys.views) a INNER JOIN sys.columns b ON b.object_id = a.object_id LEFT JOIN sys.types ON b.user_type_id = sys.types.user_type_id LEFT JOIN sys.extended_properties c ON c.major_id = b.object_id AND c.minor_id = b.column_id";
+                    String sql = "SELECT cast(a.name AS VARCHAR(500)) AS TABLE_NAME, cast(b.name AS VARCHAR(500)) AS COLUMN_NAME, cast(c.VALUE AS NVARCHAR(500)) AS REMARKS, cast(sys.types.name AS VARCHAR(500)) + '(' + cast(b.max_length AS NVARCHAR(500)) + ')' AS DATA_TYPE, cast(b.max_length AS NVARCHAR(500)) AS COLUMN_LENGTH FROM(SELECT name, object_id FROM sys.tables UNION allSELECT name, object_id FROM sys.views) a INNER JOIN sys.columns b ON b.object_id = a.object_id LEFT JOIN sys.types ON b.user_type_id = sys.types.user_type_id LEFT JOIN sys.extended_properties c ON c.major_id = b.object_id AND c.minor_id = b.column_id";
                     PreparedStatement statement = prepareStatement(sql);
                     resultSet = statement.executeQuery();
                     int fetchSize = 4284;
@@ -146,7 +146,7 @@ public class SqlServerDataBaseQuery extends AbstractDatabaseQuery {
                 //单表查询
                 else {
                     //获取表列信息SQL 查询表名、列名、说明、数据类型
-                    String sql = "SELECT cast(a.name AS VARCHAR(500)) AS TABLE_NAME, cast(b.name AS VARCHAR(500)) AS COLUMN_NAME, cast(c.VALUE AS NVARCHAR(500)) AS REMARKS, cast(sys.types.name AS VARCHAR(500)) AS DATA_TYPE FROM (select name, object_id from sys.tables UNION all select name, object_id from sys.views) a INNER JOIN sys.columns b ON b.object_id = a.object_id LEFT JOIN sys.types ON b.user_type_id = sys.types.user_type_id LEFT JOIN sys.extended_properties c ON c.major_id = b.object_id AND c.minor_id = b.column_id where a.name='%s'";
+                    String sql = "SELECT cast(a.name AS VARCHAR(500)) AS TABLE_NAME, cast(b.name AS VARCHAR(500)) AS COLUMN_NAME, cast(c.VALUE AS NVARCHAR(500)) AS REMARKS, cast(sys.types.name AS VARCHAR(500)) + '(' + cast(b.max_length AS NVARCHAR(500)) + ')' AS DATA_TYPE, cast(b.max_length AS NVARCHAR(500)) AS COLUMN_LENGTH FROM(SELECT name, object_id FROM sys.tables UNION allSELECT name, object_id FROM sys.views) a INNER JOIN sys.columns b ON b.object_id = a.object_id LEFT JOIN sys.types ON b.user_type_id = sys.types.user_type_id LEFT JOIN sys.extended_properties c ON c.major_id = b.object_id AND c.minor_id = b.column_id WHERE a.name = '%s'";
                     resultSet = prepareStatement(String.format(sql, table)).executeQuery();
                 }
                 List<SqlServerColumnModel> inquires = Mapping.convertList(resultSet,

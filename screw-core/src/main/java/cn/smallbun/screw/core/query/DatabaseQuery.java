@@ -18,7 +18,10 @@
 package cn.smallbun.screw.core.query;
 
 import cn.smallbun.screw.core.exception.QueryException;
-import cn.smallbun.screw.core.metadata.*;
+import cn.smallbun.screw.core.metadata.Column;
+import cn.smallbun.screw.core.metadata.Database;
+import cn.smallbun.screw.core.metadata.PrimaryKey;
+import cn.smallbun.screw.core.metadata.Table;
 
 import java.io.Serializable;
 import java.util.List;

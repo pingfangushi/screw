@@ -19,7 +19,6 @@ package cn.smallbun.screw.core.query;
 
 import cn.smallbun.screw.core.exception.QueryException;
 import cn.smallbun.screw.core.metadata.Column;
-import cn.smallbun.screw.core.metadata.ColumnLength;
 import cn.smallbun.screw.core.metadata.PrimaryKey;
 import cn.smallbun.screw.core.util.Assert;
 import cn.smallbun.screw.core.util.ExceptionUtils;

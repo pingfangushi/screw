@@ -28,6 +28,7 @@ import cn.smallbun.screw.core.query.mariadb.model.MariadbDatabaseModel;
 import cn.smallbun.screw.core.query.mariadb.model.MariadbPrimaryKeyModel;
 import cn.smallbun.screw.core.query.mariadb.model.MariadbTableModel;
 import cn.smallbun.screw.core.util.Assert;
+import cn.smallbun.screw.core.util.CollectionUtils;
 import cn.smallbun.screw.core.util.ExceptionUtils;
 import cn.smallbun.screw.core.util.JdbcUtils;
 
@@ -36,6 +37,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static cn.smallbun.screw.core.constant.DefaultConstants.PERCENT_SIGN;
 
@@ -94,6 +96,7 @@ public class MariaDbDataBaseQuery extends AbstractDatabaseQuery {
      * @param table {@link String} 表名
      * @return {@link List} 表字段信息
      */
+    @SuppressWarnings("DuplicatedCode")
     @Override
     public List<MariadbColumnModel> getTableColumns(String table) throws QueryException {
         Assert.notEmpty(table, "Table name can not be empty!");
@@ -104,20 +107,48 @@ public class MariaDbDataBaseQuery extends AbstractDatabaseQuery {
             //映射
             List<MariadbColumnModel> list = Mapping.convertList(resultSet,
                 MariadbColumnModel.class);
-            //通过SQL获取具体的列类型（带长度）
-            String sql = "SELECT A.TABLE_NAME, A.COLUMN_NAME, A.COLUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS A WHERE A.TABLE_SCHEMA = '%s' and A.TABLE_NAME='%s' ORDER BY A.COLUMN_NAME";
-            PreparedStatement statement = prepareStatement(
-                String.format(sql, getDataBase(), table));
-            resultSet = statement.executeQuery();
-            List<MariadbColumnModel> columns = Mapping.convertList(resultSet,
-                MariadbColumnModel.class);
-            for (MariadbColumnModel model : list) {
-                for (MariadbColumnModel column : columns) {
-                    if (model.getColumnName().equals(column.getColumnName())) {
-                        model.setColumnType(column.getColumnType());
+            //这里处理是为了如果是查询全部列呢？所以处理并获取唯一表名
+            List<String> tableNames = list.stream().map(MariadbColumnModel::getTableName)
+                .collect(Collectors.toList()).stream().distinct().collect(Collectors.toList());
+            if (CollectionUtils.isEmpty(columnsCaching)) {
+                //查询全部
+                if (table.equals(PERCENT_SIGN)) {
+                    //获取全部表列信息SQL
+                    String sql = "SELECT A.TABLE_NAME, A.COLUMN_NAME, A.COLUMN_TYPE, replace(substring(a.COLUMN_TYPE, LOCATE('(', a.COLUMN_TYPE) + 1), ')', '') COLUMN_LENGTH FROM INFORMATION_SCHEMA.COLUMNS A WHERE A.TABLE_SCHEMA = '%s' ORDER BY A.COLUMN_NAME";
+                    PreparedStatement statement = prepareStatement(
+                        String.format(sql, getDataBase()));
+                    resultSet = statement.executeQuery();
+                    int fetchSize = 4284;
+                    if (resultSet.getFetchSize() < fetchSize) {
+                        resultSet.setFetchSize(fetchSize);
                     }
                 }
+                //单表查询
+                else {
+                    //获取表列信息SQL 查询表名、列名、说明、数据类型
+                    String sql = "SELECT A.TABLE_NAME, A.COLUMN_NAME, A.COLUMN_TYPE, replace(substring(a.COLUMN_TYPE, LOCATE('(', a.COLUMN_TYPE) + 1), ')', '') COLUMN_LENGTH FROM INFORMATION_SCHEMA.COLUMNS A WHERE A.TABLE_SCHEMA = '%s' and A.TABLE_NAME = '%s' ORDER BY A.COLUMN_NAME";
+                    resultSet = prepareStatement(String.format(sql, getDataBase(), table))
+                        .executeQuery();
+                }
+                List<MariadbColumnModel> inquires = Mapping.convertList(resultSet,
+                    MariadbColumnModel.class);
+                //处理列，表名为key，列名为值
+                tableNames.forEach(name -> columnsCaching.put(name, inquires.stream()
+                    .filter(i -> i.getTableName().equals(name)).collect(Collectors.toList())));
             }
+            //处理备注信息
+            list.forEach(i -> {
+                //从缓存中根据表名获取列信息
+                List<Column> columns = columnsCaching.get(i.getTableName());
+                columns.forEach(j -> {
+                    //列名表名一致
+                    if (i.getColumnName().equals(j.getColumnName())
+                        && i.getTableName().equals(j.getTableName())) {
+                        //放入列类型
+                        i.setColumnType(j.getColumnType());
+                    }
+                });
+            });
             return list;
         } catch (SQLException e) {
             throw ExceptionUtils.mpe(e);

@@ -167,4 +167,10 @@ public class MariadbColumnModel implements Column {
      */
     @MappingField(value = "COLUMN_TYPE")
     private String            columnType;
+
+    /**
+     * 列长度
+     */
+    @MappingField(value = "COLUMN_LENGTH")
+    private String            columnLength;
 }
