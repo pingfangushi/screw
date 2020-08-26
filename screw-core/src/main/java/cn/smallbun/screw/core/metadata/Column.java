@@ -106,4 +106,11 @@ public interface Column extends Serializable {
      * @return {@link String}
      */
     String getColumnType();
+
+    /**
+     * 获取列长度
+     *
+     * @return {@link String}
+     */
+    String getColumnLength();
 }
