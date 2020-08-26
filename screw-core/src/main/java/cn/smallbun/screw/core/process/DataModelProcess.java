@@ -155,6 +155,9 @@ public class DataModelProcess extends AbstractProcess {
         columnModel.setTypeName(column.getTypeName());
         //长度
         columnModel.setColumnLength(column.getColumnLength());
+        columnModel.setColumnLength(column.getColumnLength());
+        //size
+        columnModel.setColumnSize(column.getColumnSize());
         //小数位
         columnModel.setDecimalDigits(
             StringUtils.defaultString(column.getDecimalDigits(), ZERO_DECIMAL_DIGITS));

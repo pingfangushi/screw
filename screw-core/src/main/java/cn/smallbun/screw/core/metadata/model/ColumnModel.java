@@ -70,6 +70,10 @@ public class ColumnModel implements Serializable {
      */
     private String            columnLength;
     /**
+     * 列大小
+     */
+    private String            columnSize;
+    /**
      * 小数位
      */
     private String            decimalDigits;
