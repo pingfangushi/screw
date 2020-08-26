@@ -121,8 +121,8 @@ public class CacheDbDataBaseQuery extends AbstractDatabaseQuery {
                 if (table.equals(PERCENT_SIGN)) {
                     //获取全部表列信息SQL
                     String sql = MessageFormat
-                        .format(
-                            "select TABLE_NAME as \"TABLE_NAME\",COLUMN_NAME as \"COLUMN_NAME\","
+                        .format("select TABLE_NAME as \"TABLE_NAME\",COLUMN_NAME as "
+                                + "\"COLUMN_NAME\",DESCRIPTION as \"REMARKS\","
                                 + "case when CHARACTER_MAXIMUM_LENGTH is null then DATA_TYPE  || '''' "
                                 + "else DATA_TYPE  || ''(''||CHARACTER_MAXIMUM_LENGTH ||'')'' end as \"COLUMN_TYPE\" "
                                 + "from INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = ''{0}''",
@@ -138,8 +138,8 @@ public class CacheDbDataBaseQuery extends AbstractDatabaseQuery {
                 else {
                     //获取表列信息SQL 查询表名、列名、说明、数据类型
                     String sql = MessageFormat
-                        .format(
-                            "select TABLE_NAME as \"TABLE_NAME\",COLUMN_NAME as \"COLUMN_NAME\","
+                        .format("select TABLE_NAME as \"TABLE_NAME\",COLUMN_NAME as "
+                                + "\"COLUMN_NAME\",DESCRIPTION as \"REMARKS\","
                                 + "case when CHARACTER_MAXIMUM_LENGTH is null then DATA_TYPE  || ''''"
                                 + "else DATA_TYPE  || ''(''||CHARACTER_MAXIMUM_LENGTH ||'')'' end as \"COLUMN_TYPE\" "
                                 + "from INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = ''{0}'' and TABLE_NAME = "
@@ -164,6 +164,8 @@ public class CacheDbDataBaseQuery extends AbstractDatabaseQuery {
                         //放入列类型
                         i.setColumnType(j.getColumnType());
                         i.setColumnLength(j.getColumnLength());
+                        //放入注释
+                        i.setRemarks(j.getRemarks());
                     }
                 });
             });
