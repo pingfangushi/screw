@@ -84,27 +84,27 @@ public class PojoModelProcess implements PojoProcess {
             Set<String> importList = new HashSet<>();
             List<TypeModel> fieldList = new ArrayList<>();
 
-            /*for (ColumnModel column : model.getColumns()) {
+            for (ColumnModel column : model.getColumns()) {
                 TypeModel typeModel = new TypeModel();
                 typeModel.setFieldName(column.getColumnName());
                 typeModel.setFieldType(column.getTypeName());
                 typeModel.setRemarks(column.getRemarks());
-            
+
                 //先判断用户是否自定义
                 Class<?> classType = dialect.getTypeByMap(customType, column.getTypeName());
                 if (classType == null) {
                     classType = dialect.getClassTypeByFieldType(column.getTypeName());
                 }
-            
+
                 //如果对象不在java.lang包下，需要import
                 if (!classType.getTypeName().startsWith("java.lang")) {
                     importList.add(classType.getTypeName());
                 }
-            
+
                 typeModel
                     .setClassName(nameStrategy.transFieldName(column.getColumnName(), classType));
                 typeModel.setClassType(classType.getSimpleName());
-            
+
                 //如果不使用lombok，需要生成get，set方法
                 if (!pojoConfiguration.isUseLombok()) {
                     typeModel
@@ -112,9 +112,9 @@ public class PojoModelProcess implements PojoProcess {
                     typeModel
                         .setSetName(nameStrategy.transSetName(column.getColumnName(), classType));
                 }
-            
+
                 fieldList.add(typeModel);
-            }*/
+            }
             pojoModel.setImportList(importList);
             pojoModel.setFieldList(fieldList);
             pojoModels.add(pojoModel);
