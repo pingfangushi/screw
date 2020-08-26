@@ -27,7 +27,6 @@ import cn.smallbun.screw.core.query.postgresql.model.PostgreSqlColumnModel;
 import cn.smallbun.screw.core.query.postgresql.model.PostgreSqlDatabaseModel;
 import cn.smallbun.screw.core.query.postgresql.model.PostgreSqlPrimaryKeyModel;
 import cn.smallbun.screw.core.query.postgresql.model.PostgreSqlTableModel;
-import cn.smallbun.screw.core.query.sqlservice.model.SqlServerColumnModel;
 import cn.smallbun.screw.core.util.Assert;
 import cn.smallbun.screw.core.util.CollectionUtils;
 import cn.smallbun.screw.core.util.ExceptionUtils;
@@ -117,7 +116,7 @@ public class PostgreSqlDataBaseQuery extends AbstractDatabaseQuery {
                 //查询全部
                 if (table.equals(PERCENT_SIGN)) {
                     //获取全部表列信息SQL
-                    String sql = "select TABLE_NAME, TABLE_SCHEM, COLUMN_NAME, Length as COLUMN_LENGTH, concat(udt_name, case when Length isnull then '' else concat('(', concat(Length, ')')) end) as COLUMN_TYPE from(select table_schema as TABLE_SCHEM, column_name as COLUMN_NAME, table_name as TABLE_NAME, udt_name as udt_name, case when coalesce(character_maximum_length, numeric_precision, -1) = -1 then null else coalesce(character_maximum_length, numeric_precision, -1) end as Length from information_schema.columns a where table_schema = '%s' and table_catalog = '%s') t";
+                    String sql = "SELECT \"TABLE_NAME\", \"TABLE_SCHEMA\", \"COLUMN_NAME\", \"LENGTH\", concat(\"UDT_NAME\", case when \"LENGTH\" isnull then '' else concat('(', concat(\"LENGTH\", ')')) end) \"COLUMN_TYPE\" FROM(select table_schema as \"TABLE_SCHEMA\", column_name as \"COLUMN_NAME\", table_name as \"TABLE_NAME\", udt_name as \"UDT_NAME\", case when coalesce(character_maximum_length, numeric_precision, -1) = -1 then null else coalesce(character_maximum_length, numeric_precision, -1) end as \"LENGTH\" from information_schema.columns a where  table_schema = '%s' and table_catalog = '%s') t";
                     PreparedStatement statement = prepareStatement(
                         String.format(sql, getSchema(), getDataBase().getDatabase()));
                     resultSet = statement.executeQuery();
@@ -129,13 +128,13 @@ public class PostgreSqlDataBaseQuery extends AbstractDatabaseQuery {
                 //单表查询
                 else {
                     //获取表列信息SQL 查询表名、列名、说明、数据类型
-                    String sql = "select TABLE_NAME, TABLE_SCHEM, COLUMN_NAME, Length as COLUMN_LENGTH, concat(udt_name, case when Length isnull then '' else concat('(', concat(Length, ')')) end) as COLUMN_TYPE from(select table_schema as TABLE_SCHEM, column_name as COLUMN_NAME, table_name as TABLE_NAME, udt_name as udt_name, case when coalesce(character_maximum_length, numeric_precision, -1) = -1 then null else coalesce(character_maximum_length, numeric_precision, -1) end as Length from information_schema.columns a where a.table_name = '%s' and table_schema = '%s' and table_catalog = '%s') t";
+                    String sql = "SELECT \"TABLE_NAME\", \"TABLE_SCHEMA\", \"COLUMN_NAME\", \"LENGTH\", concat(\"UDT_NAME\", case when \"LENGTH\" isnull then '' else concat('(', concat(\"LENGTH\", ')')) end) \"COLUMN_TYPE\" FROM(select table_schema as \"TABLE_SCHEMA\", column_name as \"COLUMN_NAME\", table_name as \"TABLE_NAME\", udt_name as \"UDT_NAME\", case when coalesce(character_maximum_length, numeric_precision, -1) = -1 then null else coalesce(character_maximum_length, numeric_precision, -1) end as \"LENGTH\" from information_schema.columns a where table_name = '%s' and table_schema = '%s' and table_catalog = '%s') t";
                     resultSet = prepareStatement(
                         String.format(sql, table, getSchema(), getDataBase().getDatabase()))
                             .executeQuery();
                 }
-                List<SqlServerColumnModel> inquires = Mapping.convertList(resultSet,
-                    SqlServerColumnModel.class);
+                List<PostgreSqlColumnModel> inquires = Mapping.convertList(resultSet,
+                    PostgreSqlColumnModel.class);
                 //处理列，表名为key，列名为值
                 tableNames.forEach(name -> columnsCaching.put(name, inquires.stream()
                     .filter(i -> i.getTableName().equals(name)).collect(Collectors.toList())));
