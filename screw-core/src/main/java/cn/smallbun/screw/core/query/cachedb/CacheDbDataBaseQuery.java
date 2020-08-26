@@ -29,20 +29,24 @@ import cn.smallbun.screw.core.query.cachedb.model.CacheDbDatabaseModel;
 import cn.smallbun.screw.core.query.cachedb.model.CacheDbPrimaryKeyModel;
 import cn.smallbun.screw.core.query.cachedb.model.CacheDbTableModel;
 import cn.smallbun.screw.core.util.Assert;
+import cn.smallbun.screw.core.util.CollectionUtils;
 import cn.smallbun.screw.core.util.ExceptionUtils;
 import cn.smallbun.screw.core.util.JdbcUtils;
 
 import javax.sql.DataSource;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.MessageFormat;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static cn.smallbun.screw.core.constant.DefaultConstants.PERCENT_SIGN;
 
 /**
  * CacheDB 数据库查询
  *
- * @author <a href ='jxh98@foxmail.com'>Josway</a> 2020/6/28
+ * @author <a href ='jxh98@foxmail.com'>Josway</a> 2020/8/26
  * @since JDK 1.8
  */
 public class CacheDbDataBaseQuery extends AbstractDatabaseQuery {
@@ -82,7 +86,7 @@ public class CacheDbDataBaseQuery extends AbstractDatabaseQuery {
         try {
             //查询
             resultSet = getMetaData().getTables(getCatalog(), getSchema(), null,
-                new String[] { "TABLE" });
+                    new String[]{"TABLE"});
             //映射
             return Mapping.convertList(resultSet, CacheDbTableModel.class);
         } catch (SQLException e) {
@@ -107,7 +111,58 @@ public class CacheDbDataBaseQuery extends AbstractDatabaseQuery {
             //查询
             resultSet = getMetaData().getColumns(getCatalog(), getSchema(), table, PERCENT_SIGN);
             //映射
-            return Mapping.convertList(resultSet, CacheDbColumnModel.class);
+            final List<CacheDbColumnModel> list = Mapping.convertList(resultSet, CacheDbColumnModel.class);
+            //这里处理是为了如果是查询全部列呢？所以处理并获取唯一表名
+            List<String> tableNames = list.stream().map(CacheDbColumnModel::getTableName)
+                    .collect(Collectors.toList()).stream().distinct().collect(Collectors.toList());
+            if (CollectionUtils.isEmpty(columnsCaching)) {
+                //查询全部
+                if (table.equals(PERCENT_SIGN)) {
+                    //获取全部表列信息SQL
+                    String sql = MessageFormat.format("select TABLE_NAME as \"TABLE_NAME\",COLUMN_NAME as \"COLUMN_NAME\"," +
+                                    "case when CHARACTER_MAXIMUM_LENGTH is null then DATA_TYPE  || '''' " +
+                                    "else DATA_TYPE  || ''(''||CHARACTER_MAXIMUM_LENGTH ||'')'' end as \"COLUMN_TYPE\" " +
+                                    "from INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = ''{0}''",
+                            getSchema());
+                    PreparedStatement statement = prepareStatement(sql);
+                    resultSet = statement.executeQuery();
+                    int fetchSize = 4284;
+                    if (resultSet.getFetchSize() < fetchSize) {
+                        resultSet.setFetchSize(fetchSize);
+                    }
+                }
+                //单表查询
+                else {
+                    //获取表列信息SQL 查询表名、列名、说明、数据类型
+                    String sql = MessageFormat.format("select TABLE_NAME as \"TABLE_NAME\",COLUMN_NAME as \"COLUMN_NAME\"," +
+                                    "case when CHARACTER_MAXIMUM_LENGTH is null then DATA_TYPE  || ''''" +
+                                    "else DATA_TYPE  || ''(''||CHARACTER_MAXIMUM_LENGTH ||'')'' end as \"COLUMN_TYPE\" " +
+                                    "from INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = ''{0}'' and TABLE_NAME = " +
+                                    "''{1}''",
+                            getSchema(), table);
+                    resultSet = prepareStatement(sql).executeQuery();
+                }
+                List<CacheDbColumnModel> inquires = Mapping.convertList(resultSet,
+                        CacheDbColumnModel.class);
+                //处理列，表名为key，列名为值
+                tableNames.forEach(name -> columnsCaching.put(name, inquires.stream()
+                        .filter(i -> i.getTableName().equals(name)).collect(Collectors.toList())));
+            }
+            //处理备注信息
+            list.forEach(i -> {
+                //从缓存中根据表名获取列信息
+                List<Column> columns = columnsCaching.get(i.getTableName());
+                columns.forEach(j -> {
+                    //列名表名一致
+                    if (i.getColumnName().equals(j.getColumnName())
+                            && i.getTableName().equals(j.getTableName())) {
+                        //放入列类型
+                        i.setColumnType(j.getColumnType());
+                        i.setColumnLength(j.getColumnLength());
+                    }
+                });
+            });
+            return list;
         } catch (SQLException e) {
             throw ExceptionUtils.mpe(e);
         } finally {
@@ -163,7 +218,7 @@ public class CacheDbDataBaseQuery extends AbstractDatabaseQuery {
             String sql = "select TABLE_CATALOG ,TABLE_NAME as \"TABLE_NAME\",TABLE_SCHEMA as \"TABLE_SCHEM\",COLUMN_NAME as \"COLUMN_NAME\",ORDINAL_POSITION as \"KEY_SEQ\" from INFORMATION_SCHEMA.COLUMNS where PRIMARY_KEY='YES' and TABLE_SCHEMA='%s'";
             // 拼接参数
             resultSet = prepareStatement(String.format(sql, getDataBase().getDatabase()))
-                .executeQuery();
+                    .executeQuery();
             return Mapping.convertList(resultSet, CacheDbPrimaryKeyModel.class);
         } catch (SQLException e) {
             throw new QueryException(e);
