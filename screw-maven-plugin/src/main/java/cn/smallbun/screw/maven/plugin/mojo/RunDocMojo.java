@@ -39,6 +39,7 @@ import org.apache.maven.plugins.annotations.Parameter;
 
 import javax.sql.DataSource;
 import java.util.List;
+import java.util.Properties;
 
 import static cn.smallbun.screw.core.constant.DefaultConstants.*;
 import static cn.smallbun.screw.core.util.FileUtils.getRealFilePath;
@@ -266,6 +267,11 @@ public class RunDocMojo extends AbstractMojo {
         if (JdbcUtils.getDbType(getJdbcUrl()).equals(DatabaseType.MYSQL)
             || JdbcUtils.getDbType(getJdbcUrl()).equals(DatabaseType.MARIADB)) {
             hikariConfig.addDataSourceProperty(USE_INFORMATION_SCHEMA, "true");
+        }
+        //phoenix
+        if (JdbcUtils.getDbType(getJdbcUrl()).equals(DatabaseType.PHOENIX)) {
+            hikariConfig.addDataSourceProperty(PHOENIX_SYS_NAMESPACE_MAPPING,true);
+            hikariConfig.addDataSourceProperty(PHOENIX_NAMESPACE_MAPPING,true);
         }
         //oracle
         if (JdbcUtils.getDbType(getJdbcUrl()).equals(DatabaseType.ORACLE)) {

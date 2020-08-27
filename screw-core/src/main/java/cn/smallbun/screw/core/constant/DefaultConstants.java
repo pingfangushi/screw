@@ -92,4 +92,16 @@ public class DefaultConstants implements Serializable {
      * Y
      */
     public static final String Y                      = "Y";
+
+    /**
+     * phoenix 命名空间
+     */
+    public static final String PHOENIX_NAMESPACE_MAPPING                    = "phoenix.schema.isNamespaceMappingEnabled";
+
+    /**
+     * phoenix 系统命名空间
+     */
+    public static final String PHOENIX_SYS_NAMESPACE_MAPPING                      = "phoenix.schema.mapSystemTablesToNamespace";
+
+
 }
