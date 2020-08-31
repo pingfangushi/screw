@@ -113,14 +113,13 @@ public abstract class AbstractDatabaseQuery implements DatabaseQuery {
      */
     protected String getSchema() throws QueryException {
         try {
-            String schema = null;
+            String schema;
             //获取数据库URL 用于判断数据库类型
-            HikariDataSource hikariDataSource = (HikariDataSource) this.getDataSource();
-            String url = hikariDataSource.getJdbcUrl();
+            String url = this.getDataSource().getConnection().getMetaData().getURL();
             //获取数据库名称
             String name = JdbcUtils.getDbType(url).getName();
             if (DatabaseType.CACHEDB.getName().equals(name)) {
-                schema = verifySchema(hikariDataSource);
+                schema = verifySchema(this.getDataSource());
             } else {
                 schema = this.getConnection().getSchema();
             }
@@ -140,8 +139,8 @@ public abstract class AbstractDatabaseQuery implements DatabaseQuery {
      * @param hikariDataSource hikariDataSource
      * @return Schema
      */
-    private String verifySchema(HikariDataSource hikariDataSource) throws SQLException {
-        String schema = hikariDataSource.getSchema();
+    private String verifySchema(DataSource hikariDataSource) throws SQLException {
+        String schema = hikariDataSource.getConnection().getSchema();
         //验证是否有此Schema
         ResultSet resultSet = this.getConnection().getMetaData().getSchemas();
         while (resultSet.next()) {
