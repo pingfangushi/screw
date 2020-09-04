@@ -140,7 +140,13 @@ public abstract class AbstractDatabaseQuery implements DatabaseQuery {
      * @return Schema
      */
     private String verifySchema(DataSource dataSource) throws SQLException {
-        String schema = dataSource.getConnection().getSchema();
+        String schema;
+        if (dataSource instanceof HikariDataSource) {
+            schema = ((HikariDataSource) dataSource).getSchema();
+        } else {
+            schema = dataSource.getConnection().getSchema();
+        }
+
         //验证是否有此Schema
         ResultSet resultSet = this.getConnection().getMetaData().getSchemas();
         while (resultSet.next()) {
