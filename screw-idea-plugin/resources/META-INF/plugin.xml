@@ -1,0 +1,48 @@
+<idea-plugin>
+  <id>cn.smallbun.screw.idea.action</id>
+  <name>Screw</name>
+  <version>1.0</version>
+  <vendor url="https://github.com/yuanwenjian/screw-idea-plugin" >yuanwj</vendor>
+
+  <description><![CDATA[
+    <p>简洁好用的数据库表结构文档生成器</p>
+    <br/>
+         <a href="https://github.com/yuanwenjian/screw-idea-plugin">GitHub</a>
+    <br/>
+
+    <p><b>特点:</b></p>
+    <ul>
+      <li>简洁、轻量、设计良好</li>
+      <li>多数据库支持</li>
+      <li>多种格式文档</li>
+      <li>多种格式文档</li>
+      <li>灵活扩展</li>
+      <li>支持自定义模板</li>
+    </ul>
+    ]]></description>
+
+  <change-notes><![CDATA[
+    <p>首次提交</p>
+   ]]></change-notes>
+
+  <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+  <idea-version since-build="173.0"/>
+
+  <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+       on how to target different products -->
+  <depends>com.intellij.modules.platform</depends>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <!-- Add your extensions here -->
+  </extensions>
+
+  <actions>
+    <!-- Add your actions here -->
+    <action id="cn.smallbun.screw.idea.action" class="cn.smallbun.screw.idea.action.ScrewAction" text="Screw"
+            description="文档生成插件" icon="/META-INF/screw.png">
+      <add-to-group group-id="ToolsMenu" anchor="last"/>
+      <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+    </action>
+  </actions>
+
+</idea-plugin>
