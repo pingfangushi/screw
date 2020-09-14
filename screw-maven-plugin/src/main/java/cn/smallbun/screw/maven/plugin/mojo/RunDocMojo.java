@@ -270,8 +270,8 @@ public class RunDocMojo extends AbstractMojo {
         }
         //phoenix
         if (JdbcUtils.getDbType(getJdbcUrl()).equals(DatabaseType.PHOENIX)) {
-            hikariConfig.addDataSourceProperty(PHOENIX_SYS_NAMESPACE_MAPPING,true);
-            hikariConfig.addDataSourceProperty(PHOENIX_NAMESPACE_MAPPING,true);
+            hikariConfig.addDataSourceProperty(PHOENIX_SYS_NAMESPACE_MAPPING, true);
+            hikariConfig.addDataSourceProperty(PHOENIX_NAMESPACE_MAPPING, true);
         }
         //oracle
         if (JdbcUtils.getDbType(getJdbcUrl()).equals(DatabaseType.ORACLE)) {

@@ -34,30 +34,30 @@ public class PhoenixPrimaryKeyModel implements PrimaryKey {
      * 主键名称
      */
     @MappingField(value = "PK_NAME")
-    private String pkName;
+    private String            pkName;
     /**
      *
      */
     @MappingField(value = "TABLE_SCHEM")
-    private String tableSchem;
+    private String            tableSchem;
     /**
      *
      */
     @MappingField(value = "KEY_SEQ")
-    private String keySeq;
+    private String            keySeq;
     /**
      * tableCat
      */
     @MappingField(value = "TABLE_CAT")
-    private String tableCat;
+    private String            tableCat;
     /**
      * 列名
      */
     @MappingField(value = "COLUMN_NAME")
-    private String columnName;
+    private String            columnName;
     /**
      * 表名
      */
     @MappingField(value = "TABLE_NAME")
-    private String tableName;
+    private String            tableName;
 }

@@ -34,117 +34,117 @@ public class PhoenixColumnModel implements Column {
      *
      */
     @MappingField(value = "SCOPE_TABLE")
-    private Object scopeTable;
+    private Object            scopeTable;
     /**
      *
      */
     @MappingField(value = "TABLE_CAT")
-    private String tableCat;
+    private String            tableCat;
     /**
      *
      */
     @MappingField(value = "BUFFER_LENGTH")
-    private String bufferLength;
+    private String            bufferLength;
     /**
      *
      */
     @MappingField(value = "IS_NULLABLE")
-    private String isNullable;
+    private String            isNullable;
     /**
      * 表名
      */
     @MappingField(value = "TABLE_NAME")
-    private String tableName;
+    private String            tableName;
     /**
      * 默认值
      */
     @MappingField(value = "COLUMN_DEF")
-    private String columnDef;
+    private String            columnDef;
     /**
      *
      */
     @MappingField(value = "SCOPE_CATALOG")
-    private Object scopeCatalog;
+    private Object            scopeCatalog;
     /**
      *
      */
     @MappingField(value = "TABLE_SCHEM")
-    private Object tableSchem;
+    private Object            tableSchem;
     /**
      *
      */
     @MappingField(value = "COLUMN_NAME")
-    private String columnName;
+    private String            columnName;
     /**
      *
      */
     @MappingField(value = "NULLABLE")
-    private String nullable;
+    private String            nullable;
     /**
      * 说明
      */
     @MappingField(value = "REMARKS")
-    private String remarks;
+    private String            remarks;
     /**
      * 小数位
      */
     @MappingField(value = "DECIMAL_DIGITS")
-    private String decimalDigits;
+    private String            decimalDigits;
     /**
      *
      */
     @MappingField(value = "NUM_PREC_RADIX")
-    private String numPrecRadix;
+    private String            numPrecRadix;
     /**
      *
      */
     @MappingField(value = "SQL_DATETIME_SUB")
-    private String sqlDatetimeSub;
+    private String            sqlDatetimeSub;
     /**
      *
      */
     @MappingField(value = "IS_GENERATEDCOLUMN")
-    private String isGeneratedColumn;
+    private String            isGeneratedColumn;
     /**
      *
      */
     @MappingField(value = "IS_AUTOINCREMENT")
-    private String isAutoIncrement;
+    private String            isAutoIncrement;
     /**
      *
      */
     @MappingField(value = "SQL_DATA_TYPE")
-    private String sqlDataType;
+    private String            sqlDataType;
     /**
      *
      */
     @MappingField(value = "CHAR_OCTET_LENGTH")
-    private String charOctetLength;
+    private String            charOctetLength;
     /**
      *
      */
     @MappingField(value = "ORDINAL_POSITION")
-    private String ordinalPosition;
+    private String            ordinalPosition;
     /**
      *
      */
     @MappingField(value = "SCOPE_SCHEMA")
-    private Object scopeSchema;
+    private Object            scopeSchema;
     /**
      *
      */
     @MappingField(value = "SOURCE_DATA_TYPE")
-    private Object sourceDataType;
+    private Object            sourceDataType;
     /**
      * 数据类型
      */
     @MappingField(value = "DATA_TYPE")
-    private String dataType;
+    private String            dataType;
     /**
      *
      */
     @MappingField(value = "TYPE_NAME")
-    private String typeName;
+    private String            typeName;
     /**
      * 列表示给定列的指定列大小。
      * 对于数值数据，这是最大精度。
@@ -154,22 +154,22 @@ public class PhoenixColumnModel implements Column {
      * 对于 ROWID 数据类型，这是字节长度。对于列大小不适用的数据类型，则返回 Null。
      */
     @MappingField(value = "COLUMN_SIZE")
-    private String columnSize;
+    private String            columnSize;
 
     /**
      * 是否主键
      */
-    private String primaryKey;
+    private String            primaryKey;
 
     /**
      * 列类型（带长度）
      */
     @MappingField(value = "COLUMN_TYPE")
-    private String columnType;
+    private String            columnType;
 
     /**
      * 列长度
      */
     @MappingField(value = "COLUMN_LENGTH")
-    private String columnLength;
+    private String            columnLength;
 }

@@ -59,22 +59,22 @@ public class PhoenixDocumentationBuilderTest extends AbstractDocumentationExecut
         DataSource dataSource = new HikariDataSource(hikariConfig);
         //生成配置
         EngineConfig engineConfig = EngineConfig.builder()
-                //生成文件路径
-                .fileOutputDir(fileOutputDir)
-                //文件类型
-                .fileType(EngineFileType.HTML)
-                //生成模板实现
-                .produceType(EngineTemplateType.freemarker).build();
+            //生成文件路径
+            .fileOutputDir(fileOutputDir)
+            //文件类型
+            .fileType(EngineFileType.HTML)
+            //生成模板实现
+            .produceType(EngineTemplateType.freemarker).build();
         //配置
         Configuration config = Configuration.builder()
-                //版本
-                .version("1.0.0")
-                //描述
-                .description("数据库设计文档生成")
-                //数据源
-                .dataSource(dataSource)
-                //生成配置
-                .engineConfig(engineConfig).build();
+            //版本
+            .version("1.0.0")
+            //描述
+            .description("数据库设计文档生成")
+            //数据源
+            .dataSource(dataSource)
+            //生成配置
+            .engineConfig(engineConfig).build();
 
         execute(config);
     }
