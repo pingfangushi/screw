@@ -127,6 +127,29 @@
             <artifactId>fastjson</artifactId>
         </dependency>
     </dependencies>
+    <profiles>
+        <profile>
+            <id>phoenix</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.apache.phoenix</groupId>
+                    <artifactId>phoenix-core</artifactId>
+                    <version>5.0.0-HBase-2.0</version>
+                </dependency>
+                <!--与mysql中的 protobuf-java 冲突-->
+                <dependency>
+                    <groupId>mysql</groupId>
+                    <artifactId>mysql-connector-java</artifactId>
+                    <exclusions>
+                        <exclusion>
+                            <groupId>com.google.protobuf</groupId>
+                            <artifactId>protobuf-java</artifactId>
+                        </exclusion>
+                    </exclusions>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
     <!--build-->
     <build>
         <plugins>

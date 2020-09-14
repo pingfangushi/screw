@@ -26,6 +26,7 @@ import cn.smallbun.screw.core.query.hsql.HsqlDataBaseQuery;
 import cn.smallbun.screw.core.query.mariadb.MariaDbDataBaseQuery;
 import cn.smallbun.screw.core.query.mysql.MySqlDataBaseQuery;
 import cn.smallbun.screw.core.query.oracle.OracleDataBaseQuery;
+import cn.smallbun.screw.core.query.phoenix.PhoenixDataBaseQuery;
 import cn.smallbun.screw.core.query.postgresql.PostgreSqlDataBaseQuery;
 import cn.smallbun.screw.core.query.sqlite.SqliteDataBaseQuery;
 import cn.smallbun.screw.core.query.sqlservice.SqlServerDataBaseQuery;
@@ -124,7 +125,7 @@ public enum DatabaseType implements Serializable {
                                                    * Phoenix
                                                    */
                                                   PHOENIX("phoenix", "Phoenix HBase数据库",
-                                                          OtherDataBaseQuery.class),
+                                                          PhoenixDataBaseQuery.class),
 
                                                   /**
                                                    * CacheDB
