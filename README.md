@@ -63,7 +63,7 @@
 
 - [x] html
 - [x] word
-- [x] markdwon
+- [x] markdown
 
 ## 文档截图
 
