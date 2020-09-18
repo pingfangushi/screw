@@ -19,7 +19,6 @@ package cn.smallbun.screw.core.query;
 
 import cn.smallbun.screw.core.query.cachedb.CacheDbDataBaseQuery;
 import cn.smallbun.screw.core.query.db2.Db2DataBaseQuery;
-import cn.smallbun.screw.core.query.dm.DmDataBaseQuery;
 import cn.smallbun.screw.core.query.h2.H2DataBaseQuery;
 import cn.smallbun.screw.core.query.highgo.HigHgoDataBaseQuery;
 import cn.smallbun.screw.core.query.hsql.HsqlDataBaseQuery;
