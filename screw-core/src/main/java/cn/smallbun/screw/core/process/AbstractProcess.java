@@ -221,6 +221,18 @@ public abstract class AbstractProcess implements Process {
                 columns.forEach(BeanUtils::beanAttributeValueEscapeXml);
             });
         }
+        if (config.getEngineConfig().getFileType().equals(EngineFileType.XSL)) {
+            //escape xml
+            beanAttributeValueReplaceBlank(dataModel);
+            //columns
+            tables.forEach(i -> {
+                //table escape xml
+                beanAttributeValueReplaceBlank(i);
+                List<ColumnModel> columns = i.getColumns();
+                //columns escape xml
+                columns.forEach(BeanUtils::beanAttributeValueReplaceBlank);
+            });
+        }
         //if file type is markdown
         if (config.getEngineConfig().getFileType().equals(EngineFileType.MD)) {
             //escape xml

@@ -64,7 +64,7 @@ public class MySQLDocumentationBuilderTest extends AbstractDocumentationExecute 
             //打开目录
             .openOutputDir(true)
             //文件类型
-            .fileType(EngineFileType.HTML)
+            .fileType(EngineFileType.XSL)
             //生成模板实现
             .produceType(EngineTemplateType.freemarker).build();
 
