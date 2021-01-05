@@ -78,7 +78,7 @@
         <fastjson.version>1.2.75</fastjson.version>
         <poi.version>4.1.2</poi.version>
         <druid.version>1.2.3</druid.version>
-        <commons-lang.version>2.6</commons-lang.version>
+        <commons-lang3.version>3.11</commons-lang3.version>
         <maven-plugin-api.version>3.6.3</maven-plugin-api.version>
         <maven-plugin-plugin.version>3.6.0</maven-plugin-plugin.version>
         <maven-plugin-annotations.version>3.6.0</maven-plugin-annotations.version>
@@ -102,9 +102,9 @@
             </dependency>
             <!-- commons-lang -->
             <dependency>
-                <groupId>commons-lang</groupId>
-                <artifactId>commons-lang</artifactId>
-                <version>${commons-lang.version}</version>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
             </dependency>
             <!--poi-->
             <dependency>
