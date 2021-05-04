@@ -44,7 +44,6 @@ import cn.smallbun.screw.core.util.Assert;
 import cn.smallbun.screw.core.util.CollectionUtils;
 import cn.smallbun.screw.core.util.ExceptionUtils;
 import cn.smallbun.screw.core.util.JdbcUtils;
-import dm.jdbc.driver.DmdbConnection;
 
 /**
  * 达梦数据库查询
@@ -136,14 +135,7 @@ public class DmDataBaseQuery extends AbstractDatabaseQuery {
      */
     @Override
     public String getSchema() throws QueryException {
-        try {
-            String schema;
-            DmdbConnection conn = (DmdbConnection) getMetaData().getConnection();
-            schema = conn.getUserName();
-            return schema;
-        } catch (SQLException e) {
-            throw ExceptionUtils.mpe(e);
-        }
+        return null;
     }
 
     /**
