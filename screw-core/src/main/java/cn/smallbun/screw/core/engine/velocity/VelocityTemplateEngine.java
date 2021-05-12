@@ -95,7 +95,7 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine {
         Template template = null;
         try {
             String templateContent = getEngineConfig().getTemplateContent();
-            if (StringUtils.isBlank(templateContent)) {
+            if (templateContent != null) {
                 // get template path
                 String path = getEngineConfig().getCustomTemplate();
                 //如果自定义了模板
