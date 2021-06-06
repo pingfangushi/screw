@@ -121,6 +121,8 @@ public class Mapping {
     }
 
     /**
+     * 根据列标签获取列信息
+     *
      * @param resultSet {@link ResultSet} 对象
      * @param clazz     领域类型
      * @param <T>       领域泛型
@@ -128,7 +130,7 @@ public class Mapping {
      * @throws MappingException MappingException
      */
     public static <T> List<T> convertListByColumnLabel(ResultSet resultSet,
-                                          Class<T> clazz) throws MappingException {
+                                                       Class<T> clazz) throws MappingException {
         //存放列名和结果
         List<Map<String, Object>> values = new ArrayList<>(16);
         //结果集合

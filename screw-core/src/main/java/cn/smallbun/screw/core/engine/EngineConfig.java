@@ -55,8 +55,4 @@ public class EngineConfig implements Serializable {
      * 文件名称
      */
     private String             fileName;
-    /**
-     * 模板内容
-     */
-    private String             templateContent;
 }

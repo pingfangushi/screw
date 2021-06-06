@@ -74,7 +74,7 @@ public class Db2DataBaseQuery extends AbstractDatabaseQuery {
     public Database getDataBase() throws QueryException {
         Db2DatabaseModel model = new Db2DatabaseModel();
         model.setDatabase(StringUtils.trim(this.getSchema()));
-        return  model;
+        return model;
     }
 
     /**
@@ -88,13 +88,13 @@ public class Db2DataBaseQuery extends AbstractDatabaseQuery {
         try {
             //查询
             resultSet = getMetaData().getTables(getCatalog(), getSchema(), PERCENT_SIGN,
-                    new String[] { "TABLE" });
+                new String[] { "TABLE" });
             //映射
             return Mapping.convertList(resultSet, Db2TableModel.class);
         } catch (SQLException e) {
             throw ExceptionUtils.mpe(e);
         } finally {
-            JdbcUtils.close(resultSet,connection);
+            JdbcUtils.close(resultSet, connection);
         }
     }
 
@@ -111,26 +111,30 @@ public class Db2DataBaseQuery extends AbstractDatabaseQuery {
         ResultSet resultSet = null;
         try {
             //查询所有
-            List<Db2ColumnModel> list = null;
-            if(PERCENT_SIGN.equals(table)){
+            List<Db2ColumnModel> list;
+            if (PERCENT_SIGN.equals(table)) {
                 List<String> tableNames = getTables().stream().map(Table::getTableName)
-                        .collect(Collectors.toList()).stream().distinct().collect(Collectors.toList());
+                    .collect(Collectors.toList()).stream().distinct().collect(Collectors.toList());
                 //db2 getMetaData().getColumns 中 无法获取表名,循环单张表获取
                 list = new ArrayList<>();
                 for (String tableName : tableNames) {
                     list.addAll(getTableColumns(tableName));
                 }
-            }else {
-                if(!this.columnsCaching.containsKey(table)){
+            } else {
+                if (!this.columnsCaching.containsKey(table)) {
                     //查询
-                    resultSet = getMetaData().getColumns(getCatalog(), getSchema(), table, PERCENT_SIGN);
+                    resultSet = getMetaData().getColumns(getCatalog(), getSchema(), table,
+                        PERCENT_SIGN);
                     //映射
                     list = Mapping.convertList(resultSet, Db2ColumnModel.class);
                     //单表查询
-                    String sql = "SELECT COLNAME as NAME,TABNAME as TABLE_NAME,REMARKS,LENGTH as COLUMN_LENGTH, TYPENAME ||'('|| LENGTH ||')'  as COLUMN_TYPE,SCALE as DECIMAL_DIGITS   FROM SYSCAT.COLUMNS WHERE TABSCHEMA='"+StringUtils.trim(getSchema())+"' and TABNAME = '%s' ORDER BY COLNO";
+                    String sql = "SELECT COLNAME as NAME,TABNAME as TABLE_NAME,REMARKS,LENGTH as COLUMN_LENGTH, TYPENAME ||'('|| LENGTH ||')'  as COLUMN_TYPE,SCALE as DECIMAL_DIGITS   FROM SYSCAT.COLUMNS WHERE TABSCHEMA='"
+                                 + StringUtils.trim(getSchema())
+                                 + "' and TABNAME = '%s' ORDER BY COLNO";
                     resultSet = prepareStatement(String.format(sql, table)).executeQuery();
                     //db2 ColumnName 获取的不是 as column 值,使用ColumnLabel获取
-                    List<Db2ColumnModel> inquires = Mapping.convertListByColumnLabel(resultSet, Db2ColumnModel.class);
+                    List<Db2ColumnModel> inquires = Mapping.convertListByColumnLabel(resultSet,
+                        Db2ColumnModel.class);
                     for (Db2ColumnModel i : list) {
                         inquires.forEach(j -> {
                             //列名一致
@@ -141,16 +145,18 @@ public class Db2DataBaseQuery extends AbstractDatabaseQuery {
                                 i.setColumnType(j.getColumnType());
                                 i.setTableName(j.getTableName());
                                 i.setDecimalDigits(j.getDecimalDigits());
-                                if("NO".equals(i.getNullable())){
+                                if ("NO".equals(i.getNullable())) {
                                     i.setNullable("0");
                                 }
                             }
                         });
                     }
-                    this.columnsCaching.put(table,list.stream()
-                            .filter(i ->  StringUtils.isNotBlank(i.getColumnName())).collect(Collectors.toList()));
-                }else{
-                    list =  this.columnsCaching.get(table).stream().map(c -> (Db2ColumnModel)c).collect(Collectors.toList());
+                    this.columnsCaching.put(table,
+                        list.stream().filter(i -> StringUtils.isNotBlank(i.getColumnName()))
+                            .collect(Collectors.toList()));
+                } else {
+                    list = this.columnsCaching.get(table).stream().map(c -> (Db2ColumnModel) c)
+                        .collect(Collectors.toList());
                 }
             }
             return list;
@@ -206,7 +212,8 @@ public class Db2DataBaseQuery extends AbstractDatabaseQuery {
         try {
             // 由于单条循环查询存在性能问题，所以这里通过自定义SQL查询数据库主键信息
             String sql = "SELECT TABSCHEMA as TABLE_SCHEM, TABNAME as TABLE_NAME ,COLNAME as COLUMN_NAME,KEYSEQ as KEY_SEQ   FROM SYSCAT.COLUMNS WHERE TABSCHEMA = '%s' AND KEYSEQ IS NOT NULL ORDER BY KEYSEQ";
-            resultSet = prepareStatement(String.format(sql, getDataBase().getDatabase())).executeQuery();
+            resultSet = prepareStatement(String.format(sql, getDataBase().getDatabase()))
+                .executeQuery();
             return Mapping.convertListByColumnLabel(resultSet, Db2PrimaryKeyModel.class);
         } catch (SQLException e) {
             throw new QueryException(e);
@@ -214,6 +221,5 @@ public class Db2DataBaseQuery extends AbstractDatabaseQuery {
             JdbcUtils.close(resultSet);
         }
     }
-
 
 }
