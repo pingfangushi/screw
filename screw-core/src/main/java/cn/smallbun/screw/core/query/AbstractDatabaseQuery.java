@@ -72,6 +72,7 @@ public abstract class AbstractDatabaseQuery implements DatabaseQuery {
         try {
             //不为空
             if (!Objects.isNull(connection) && !connection.isClosed()) {
+                System.out.println(connection);
                 return connection;
             }
             //同步代码块
@@ -115,7 +116,7 @@ public abstract class AbstractDatabaseQuery implements DatabaseQuery {
         try {
             String schema;
             //获取数据库URL 用于判断数据库类型
-            String url = this.getDataSource().getConnection().getMetaData().getURL();
+            String url = this.getConnection().getMetaData().getURL();
             //获取数据库名称
             String name = JdbcUtils.getDbType(url).getName();
             if (DatabaseType.CACHEDB.getName().equals(name)) {

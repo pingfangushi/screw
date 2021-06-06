@@ -121,6 +121,48 @@ public class Mapping {
     }
 
     /**
+     * @param resultSet {@link ResultSet} 对象
+     * @param clazz     领域类型
+     * @param <T>       领域泛型
+     * @return 领域对象
+     * @throws MappingException MappingException
+     */
+    public static <T> List<T> convertListByColumnLabel(ResultSet resultSet,
+                                          Class<T> clazz) throws MappingException {
+        //存放列名和结果
+        List<Map<String, Object>> values = new ArrayList<>(16);
+        //结果集合
+        List<T> list = new ArrayList<>();
+        try {
+            //处理 ResultSet
+            ResultSetMetaData metaData = resultSet.getMetaData();
+            int columnCount = metaData.getColumnCount();
+            //迭代
+            while (resultSet.next()) {
+                //map object
+                HashMap<String, Object> value = new HashMap<>(16);
+                //循环所有的列，获取列名，根据列名获取值
+                for (int i = 1; i <= columnCount; i++) {
+                    String columnName = metaData.getColumnLabel(i);
+                    value.put(columnName, resultSet.getString(i));
+                }
+                //add object
+                values.add(value);
+            }
+            //获取类数据
+            List<FieldMethod> fieldMethods = getFieldMethods(clazz);
+            //循环集合，根据类型反射构建对象
+            for (Map<String, Object> map : values) {
+                T rsp = getObject(clazz, fieldMethods, map);
+                list.add(rsp);
+            }
+        } catch (Exception e) {
+            throw new MappingException(e);
+        }
+        return list;
+    }
+
+    /**
      * 获取对象
      *
      * @param clazz        class
