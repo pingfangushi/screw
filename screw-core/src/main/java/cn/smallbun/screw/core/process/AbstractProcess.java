@@ -78,7 +78,7 @@ public abstract class AbstractProcess implements Process {
      *
      * @param configuration     {@link Configuration}
      */
-    AbstractProcess(Configuration configuration) {
+    protected AbstractProcess(Configuration configuration) {
         Assert.notNull(configuration, "Configuration can not be empty!");
         this.config = configuration;
     }

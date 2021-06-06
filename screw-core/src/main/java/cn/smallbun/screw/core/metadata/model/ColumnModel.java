@@ -93,4 +93,14 @@ public class ColumnModel implements Serializable {
      * 说明
      */
     private String            remarks;
+
+    /**
+     * 嵌套数据信息（用于文档数据库）
+     */
+    private TableModel        nestedTable;
+
+    /**
+     * 是否弃用
+     */
+    private Boolean           deprecated;
 }

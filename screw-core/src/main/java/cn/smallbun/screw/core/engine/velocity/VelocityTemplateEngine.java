@@ -24,6 +24,7 @@ import cn.smallbun.screw.core.metadata.model.DataModel;
 import cn.smallbun.screw.core.util.Assert;
 import cn.smallbun.screw.core.util.ExceptionUtils;
 import cn.smallbun.screw.core.util.StringUtils;
+import java.util.HashMap;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
@@ -33,6 +34,7 @@ import java.io.BufferedWriter;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import org.apache.velocity.runtime.log.NullLogChute;
 
 import static cn.smallbun.screw.core.constant.DefaultConstants.DEFAULT_ENCODING;
 import static cn.smallbun.screw.core.engine.EngineTemplateType.velocity;
@@ -74,6 +76,7 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine {
             velocityEngine.setProperty("file.resource.loader.class",
                 "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
         }
+        velocityEngine.setProperty("runtime.log.logsystem.class", NullLogChute.class.getName());
         velocityEngine.setProperty(Velocity.FILE_RESOURCE_LOADER_PATH, "");
         velocityEngine.setProperty(Velocity.ENCODING_DEFAULT, DEFAULT_ENCODING);
         velocityEngine.setProperty(Velocity.INPUT_ENCODING, DEFAULT_ENCODING);
@@ -89,21 +92,24 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine {
     @Override
     public void produce(DataModel info, String docName) throws ProduceException {
         Assert.notNull(info, "DataModel can not be empty!");
-        Template template;
+        Template template = null;
         try {
-            // get template path
-            String path = getEngineConfig().getCustomTemplate();
-            //如果自定义了模板
-            if (StringUtils.isNotBlank(path)) {
-                template = velocityEngine.getTemplate(path, DEFAULT_ENCODING);
-            }
-            //没有自定义模板，使用核心包自带
-            else {
-                template = velocityEngine
-                    .getTemplate(velocity.getTemplateDir()
-                                 + getEngineConfig().getFileType().getTemplateNamePrefix()
-                                 + velocity.getSuffix(),
-                        DEFAULT_ENCODING);
+            String templateContent = getEngineConfig().getTemplateContent();
+            if (templateContent != null) {
+                // get template path
+                String path = getEngineConfig().getCustomTemplate();
+                //如果自定义了模板
+                if (StringUtils.isNotBlank(path)) {
+                    template = velocityEngine.getTemplate(path, DEFAULT_ENCODING);
+                }
+                //没有自定义模板，使用核心包自带
+                else {
+                    template = velocityEngine
+                        .getTemplate(velocity.getTemplateDir()
+                                     + getEngineConfig().getFileType().getTemplateNamePrefix()
+                                     + velocity.getSuffix(),
+                            DEFAULT_ENCODING);
+                }
             }
             // output
             try (FileOutputStream outStream = new FileOutputStream(getFile(docName));
@@ -112,8 +118,21 @@ public class VelocityTemplateEngine extends AbstractTemplateEngine {
                 //put data
                 VelocityContext context = new VelocityContext();
                 context.put(DATA, info);
+                context.put("markdown", new HashMap<String, String>() {
+                    {
+                        put("h1", "#");
+                        put("h2", "##");
+                        put("h3", "###");
+                        put("h4", "####");
+                        put("h5", "#####");
+                    }
+                });
                 //generate
-                template.merge(context, sw);
+                if (template != null) {
+                    template.merge(context, sw);
+                } else {
+                    velocityEngine.evaluate(context, sw, "test", templateContent);
+                }
                 // open the output directory
                 openOutputDir();
             }
