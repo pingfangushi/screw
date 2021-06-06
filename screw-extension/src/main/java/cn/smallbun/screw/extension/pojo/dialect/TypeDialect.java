@@ -44,6 +44,8 @@ public interface TypeDialect {
         if (type == null || map == null || map.size() == 0) {
             return null;
         }
+        type = type.toLowerCase();
+        
         if (type.startsWith("date")) {
             return map.get("date");
         }

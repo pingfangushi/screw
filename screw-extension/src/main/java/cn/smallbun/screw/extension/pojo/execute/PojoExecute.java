@@ -70,7 +70,7 @@ public class PojoExecute implements Execute {
             }
             File pathFile = new File(path);
             if (!pathFile.exists()) {
-                boolean mkdir = pathFile.mkdir();
+                boolean mkdir = pathFile.mkdirs();
                 if (!mkdir) {
                     throw new ScrewException("create directory failed");
                 }
