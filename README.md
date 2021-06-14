@@ -330,7 +330,7 @@ void pojoGeneration() {
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td align="center"><img src="https://images.gitee.com/uploads/images/2020/0622/161414_eaa2819d_1407605.jpeg" width="300" height="300"  alt="WeChat"/> </td>
-    <td align="center"><img src="https://images.gitee.com/uploads/images/2021/0105/135406_3a1570ce_1407605.png" width="300" height="300" alt="WeChat"/></td>
+    <td align="center"><img src="https://images.gitee.com/uploads/images/2021/0614/192644_824c8cbd_1407605.png" width="300" height="300" alt="WeChat"/></td>
     <td align="center"><img src="https://images.gitee.com/uploads/images/2020/0707/191620_9a63fb23_1407605.png" width="300" height="300"  alt="QQ"/></td>
   </tr>
   <tr>
@@ -352,6 +352,9 @@ void pojoGeneration() {
  + 上海德邦物流有限公司
  + 兰州百格网络科技有限公司
  + 杭州惠合信息科技有限公司
+ + 浙大网新科技股份有限公司
+ + 金蝶中国（武汉）分公司
+
  
 ## 常见问题
 
