@@ -23,13 +23,13 @@ import cn.smallbun.screw.core.engine.TemplateEngine;
 import cn.smallbun.screw.core.exception.BuilderException;
 import cn.smallbun.screw.core.metadata.model.DataModel;
 import cn.smallbun.screw.core.process.DataModelProcess;
+import cn.smallbun.screw.core.query.DatabaseQuery;
 import cn.smallbun.screw.core.util.ExceptionUtils;
 
 /**
  * 文档生成
  *
- * @author SanLi
- * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on 2020/4/1 22:51
+ * @author SanLi Created by qinggang.zuo@gmail.com / 2689170096@qq.com on 2020/4/1 22:51
  */
 public class DocumentationExecute extends AbstractExecute {
 
@@ -42,6 +42,22 @@ public class DocumentationExecute extends AbstractExecute {
      *
      * @throws BuilderException BuilderException
      */
+    @Override
+    public void execute(DatabaseQuery query) throws BuilderException {
+        try {
+            long start = System.currentTimeMillis();
+            //处理数据
+            DataModel dataModel = new DataModelProcess(config).process(query);
+            //产生文档
+            TemplateEngine produce = new EngineFactory(config.getEngineConfig()).newInstance();
+            produce.produce(dataModel, getDocName(dataModel.getDatabase()));
+            logger.debug("database document generation complete time consuming:{}ms",
+                System.currentTimeMillis() - start);
+        } catch (Exception e) {
+            throw ExceptionUtils.mpe(e);
+        }
+    }
+
     @Override
     public void execute() throws BuilderException {
         try {

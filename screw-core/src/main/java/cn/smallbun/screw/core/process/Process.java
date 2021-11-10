@@ -17,15 +17,15 @@
  */
 package cn.smallbun.screw.core.process;
 
-import cn.smallbun.screw.core.metadata.model.DataModel;
-
 import java.io.Serializable;
+
+import cn.smallbun.screw.core.metadata.model.DataModel;
+import cn.smallbun.screw.core.query.DatabaseQuery;
 
 /**
  * 构建
  *
- * @author SanLi
- * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on 2020/3/22 21:08
+ * @author SanLi Created by qinggang.zuo@gmail.com / 2689170096@qq.com on 2020/3/22 21:08
  */
 public interface Process extends Serializable {
     /**
@@ -35,4 +35,12 @@ public interface Process extends Serializable {
      * @throws Exception Exception
      */
     DataModel process() throws Exception;
+
+    /**
+     * 自定义处理
+     * @param query 自定义查询器
+     * @return {@link DataModel}
+     * @throws Exception Exception
+     */
+    DataModel process(DatabaseQuery query) throws Exception;
 }
