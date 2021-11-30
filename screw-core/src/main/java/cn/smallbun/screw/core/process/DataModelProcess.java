@@ -17,6 +17,10 @@
  */
 package cn.smallbun.screw.core.process;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import cn.smallbun.screw.core.Configuration;
 import cn.smallbun.screw.core.metadata.Column;
 import cn.smallbun.screw.core.metadata.Database;
@@ -29,11 +33,10 @@ import cn.smallbun.screw.core.query.DatabaseQuery;
 import cn.smallbun.screw.core.query.DatabaseQueryFactory;
 import cn.smallbun.screw.core.util.StringUtils;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import static cn.smallbun.screw.core.constant.DefaultConstants.*;
+import static cn.smallbun.screw.core.constant.DefaultConstants.N;
+import static cn.smallbun.screw.core.constant.DefaultConstants.Y;
+import static cn.smallbun.screw.core.constant.DefaultConstants.ZERO;
+import static cn.smallbun.screw.core.constant.DefaultConstants.ZERO_DECIMAL_DIGITS;
 
 /**
  * 数据模型处理
@@ -61,6 +64,18 @@ public class DataModelProcess extends AbstractProcess {
     public DataModel process() {
         //获取query对象
         DatabaseQuery query = new DatabaseQueryFactory(config.getDataSource()).newInstance();
+
+        return this.process(query);
+    }
+
+    /**
+     * 处理
+     *
+     * @return {@link DataModel}
+     */
+    @Override
+    public DataModel process(DatabaseQuery query) {
+        //获取query对象
         DataModel model = new DataModel();
         //Title
         model.setTitle(config.getTitle());

@@ -19,6 +19,7 @@ package cn.smallbun.screw.extension.pojo.execute;
 
 import cn.smallbun.screw.core.exception.ScrewException;
 import cn.smallbun.screw.core.execute.Execute;
+import cn.smallbun.screw.core.query.DatabaseQuery;
 import cn.smallbun.screw.core.util.ExceptionUtils;
 import cn.smallbun.screw.core.util.StringUtils;
 import cn.smallbun.screw.extension.pojo.PojoConfiguration;
@@ -87,6 +88,11 @@ public class PojoExecute implements Execute {
         } catch (Exception e) {
             throw ExceptionUtils.mpe(e);
         }
+    }
+
+    @Override
+    public void execute(DatabaseQuery query) {
+
     }
 
     private String validate(PojoConfiguration config) {

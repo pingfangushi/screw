@@ -17,15 +17,22 @@
  */
 package cn.smallbun.screw.core.execute;
 
+import cn.smallbun.screw.core.query.DatabaseQuery;
+
 /**
  * 执行文档生成
  *
- * @author SanLi
- * Created by qinggang.zuo@gmail.com / 2689170096@qq.com on 2020/4/1 22:38
+ * @author SanLi Created by qinggang.zuo@gmail.com / 2689170096@qq.com on 2020/4/1 22:38
  */
 public interface Execute {
     /**
      * 执行生成
      */
     void execute();
+
+    /**
+     * 执行生成
+     * @param query 自定义查询器
+     */
+    void execute(DatabaseQuery query);
 }
