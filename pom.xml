@@ -69,7 +69,7 @@
         <ojdbc.version>19.3.0.0</ojdbc.version>
         <orai18n.version>12.1.0.2.0</orai18n.version>
         <postgresql.version>42.2.11</postgresql.version>
-        <h2.version>1.4.200</h2.version>
+        <h2.version>2.0.206</h2.version>
         <db2-jdbc.version>11.5.5.0</db2-jdbc.version>
         <sqlite-jdbc.version>3.32.3.2</sqlite-jdbc.version>
         <hsqldb.version>2.5.1</hsqldb.version>
