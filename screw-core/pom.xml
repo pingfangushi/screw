@@ -81,6 +81,12 @@
             <artifactId>orai18n</artifactId>
             <scope>provided</scope>
         </dependency>
+        <!-- dm -->
+        <dependency>
+            <groupId>com.dameng</groupId>
+            <artifactId>DmJdbcDriver18</artifactId>
+            <scope>provided</scope>
+        </dependency>
         <!-- postgresql -->
         <dependency>
             <groupId>org.postgresql</groupId>
