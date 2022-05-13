@@ -159,6 +159,8 @@ public class JdbcUtils implements Serializable {
             return DatabaseType.PHOENIX;
         } else if (jdbcUrl.contains(":Cache:")) {
             return DatabaseType.CACHEDB;
+        } else if (jdbcUrl.contains(":clickhouse:")) {
+            return DatabaseType.CLICKHOUSE;
         } else {
             return DatabaseType.OTHER;
         }

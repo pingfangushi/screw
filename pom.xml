@@ -63,6 +63,7 @@
         <commons-beanutils.version>1.9.4</commons-beanutils.version>
         <mysql-connector-java.version>8.0.22</mysql-connector-java.version>
         <mssql.version>8.2.1.jre8</mssql.version>
+        <clickhouse.version>0.3.1</clickhouse.version>
         <jtds.version>1.3.1</jtds.version>
         <mariadb-java-client.version>2.7.1</mariadb-java-client.version>
         <postgresql.version>42.2.14</postgresql.version>
@@ -188,6 +189,12 @@
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
                 <version>${mysql-connector-java.version}</version>
+            </dependency>
+            <!-- clickhouse-jdbc -->
+            <dependency>
+                <groupId>ru.yandex.clickhouse</groupId>
+                <artifactId>clickhouse-jdbc</artifactId>
+                <version>${clickhouse.version}</version>
             </dependency>
             <!--sqlserver-->
             <dependency>
