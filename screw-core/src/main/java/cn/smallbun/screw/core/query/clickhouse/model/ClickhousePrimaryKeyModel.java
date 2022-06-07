@@ -30,7 +30,6 @@ import lombok.Data;
 @Data
 public class ClickhousePrimaryKeyModel implements PrimaryKey {
 
-
     private static final long serialVersionUID = -6797664259106681770L;
     /**
      * tableCat

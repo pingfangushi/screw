@@ -1,3 +1,20 @@
+/*
+ * screw-core - 简洁好用的数据库表结构文档生成工具
+ * Copyright © 2020 SanLi (qinggang.zuo@gmail.com)
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package cn.smallbun.screw.core.query.clickhouse;
 
 import cn.smallbun.screw.core.exception.QueryException;
@@ -59,7 +76,7 @@ public class ClickhouseDataBaseQuery extends AbstractDatabaseQuery {
         try {
             //查询
             resultSet = getMetaData().getTables(getCatalog(), getSchema(), PERCENT_SIGN,
-                    new String[] { "TABLE" });
+                new String[] { "TABLE" });
             //映射
             return Mapping.convertList(resultSet, ClickhouseTableModel.class);
         } catch (SQLException e) {
@@ -83,36 +100,35 @@ public class ClickhouseDataBaseQuery extends AbstractDatabaseQuery {
             //查询
             resultSet = getMetaData().getColumns(getCatalog(), getSchema(), table, PERCENT_SIGN);
             //映射
-            List<ClickhouseColumnModel> list = Mapping.convertList(resultSet, ClickhouseColumnModel.class);
+            List<ClickhouseColumnModel> list = Mapping.convertList(resultSet,
+                ClickhouseColumnModel.class);
             //这里处理是为了如果是查询全部列呢？所以处理并获取唯一表名
             List<String> tableNames = list.stream().map(ClickhouseColumnModel::getTableName)
-                    .collect(Collectors.toList()).stream().distinct().collect(Collectors.toList());
+                .collect(Collectors.toList()).stream().distinct().collect(Collectors.toList());
             if (CollectionUtils.isEmpty(columnsCaching)) {
                 //查询全部
                 if (table.equals(PERCENT_SIGN)) {
                     //获取全部表列信息SQL
-                    String sql = "select table as TABLE_NAME, name as COLUMN_NAME, type as COLUMN_TYPE, null as COLUMN_LENGTH\n" +
-                            "from system.columns\n" +
-                            "where database = '%s'";
+                    String sql = "select table as TABLE_NAME, name as COLUMN_NAME, type as COLUMN_TYPE, null as COLUMN_LENGTH\n"
+                                 + "from system.columns\n" + "where database = '%s'";
                     PreparedStatement statement = prepareStatement(
-                            String.format(sql, getDataBase().getDatabase()));
+                        String.format(sql, getDataBase().getDatabase()));
                     resultSet = statement.executeQuery();
                 }
                 //单表查询
                 else {
                     //获取表列信息SQL 查询表名、列名、说明、数据类型
-                    String sql = "select table as TABLE_NAME, name as COLUMN_NAME, type as COLUMN_TYPE, null as COLUMN_LENGTH\n" +
-                            "from system.columns\n" +
-                            "where database = '%s'\n" +
-                            "and table = '%s'";
+                    String sql = "select table as TABLE_NAME, name as COLUMN_NAME, type as COLUMN_TYPE, null as COLUMN_LENGTH\n"
+                                 + "from system.columns\n" + "where database = '%s'\n"
+                                 + "and table = '%s'";
                     resultSet = prepareStatement(
-                            String.format(sql, getDataBase().getDatabase(), table)).executeQuery();
+                        String.format(sql, getDataBase().getDatabase(), table)).executeQuery();
                 }
                 List<ClickhouseColumnModel> inquires = Mapping.convertList(resultSet,
-                        ClickhouseColumnModel.class);
+                    ClickhouseColumnModel.class);
                 //处理列，表名为key，列名为值
                 tableNames.forEach(name -> columnsCaching.put(name, inquires.stream()
-                        .filter(i -> i.getTableName().equals(name)).collect(Collectors.toList())));
+                    .filter(i -> i.getTableName().equals(name)).collect(Collectors.toList())));
             }
             //处理备注信息
             list.forEach(i -> {
@@ -121,7 +137,7 @@ public class ClickhouseDataBaseQuery extends AbstractDatabaseQuery {
                 columns.forEach(j -> {
                     //列名表名一致
                     if (i.getColumnName().equals(j.getColumnName())
-                            && i.getTableName().equals(j.getTableName())) {
+                        && i.getTableName().equals(j.getTableName())) {
                         //放入列类型
                         i.setColumnType(j.getColumnType());
                         i.setColumnLength(j.getColumnLength());
@@ -162,18 +178,14 @@ public class ClickhouseDataBaseQuery extends AbstractDatabaseQuery {
 
         ResultSet resultSet = null;
         try {
-            String sql = "select database as TABLE_CAT,\n" +
-                    "       NULL     as TABLE_SCHEM,\n" +
-                    "       table    as TABLE_NAME,\n" +
-                    "       name     as COLUMN_NAME,\n" +
-                    "       position     as KEY_SEQ,\n" +
-                    "       'PRIMARY'     as PK_NAME\n" +
-                    "       from system.columns\n" +
-                    "where database = '%s'\n" +
-                    "  and is_in_primary_key = 1";
+            String sql = "select database as TABLE_CAT,\n" + "       NULL     as TABLE_SCHEM,\n"
+                         + "       table    as TABLE_NAME,\n" + "       name     as COLUMN_NAME,\n"
+                         + "       position     as KEY_SEQ,\n" + "       'PRIMARY'     as PK_NAME\n"
+                         + "       from system.columns\n" + "where database = '%s'\n"
+                         + "  and is_in_primary_key = 1";
             // 拼接参数
             resultSet = prepareStatement(String.format(sql, getDataBase().getDatabase()))
-                    .executeQuery();
+                .executeQuery();
             return Mapping.convertList(resultSet, ClickhousePrimaryKeyModel.class);
         } catch (SQLException e) {
             throw new QueryException(e);

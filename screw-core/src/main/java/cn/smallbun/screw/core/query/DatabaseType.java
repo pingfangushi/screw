@@ -137,7 +137,7 @@ public enum DatabaseType implements Serializable {
                                                    * CLICKHOUSE
                                                    */
                                                   CLICKHOUSE("clickhouse", "CLICKHOUSE数据库",
-                                                          ClickhouseDataBaseQuery.class),
+                                                             ClickhouseDataBaseQuery.class),
 
                                                   /**
                                                    * UNKONWN DB

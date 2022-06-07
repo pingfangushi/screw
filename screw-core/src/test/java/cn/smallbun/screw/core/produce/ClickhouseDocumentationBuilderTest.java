@@ -103,6 +103,7 @@ public class ClickhouseDocumentationBuilderTest extends AbstractDocumentationExe
      */
     @Override
     public String getConfigProperties() {
-        return System.getProperty("user.dir") + "/src/main/resources/properties/clickhouse.properties";
+        return System.getProperty("user.dir")
+               + "/src/main/resources/properties/clickhouse.properties";
     }
 }

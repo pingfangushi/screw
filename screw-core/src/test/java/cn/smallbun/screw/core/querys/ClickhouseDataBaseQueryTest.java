@@ -64,8 +64,7 @@ public class ClickhouseDataBaseQueryTest implements Properties {
         config.setUsername(getUserName());
         config.setPassword(getPassword());
         DataSource dataSource = new HikariDataSource(config);
-        query =
-                new DatabaseQueryFactory(dataSource).newInstance();
+        query = new DatabaseQueryFactory(dataSource).newInstance();
     }
 
     /**
@@ -110,6 +109,7 @@ public class ClickhouseDataBaseQueryTest implements Properties {
      */
     @Override
     public String getConfigProperties() {
-        return System.getProperty("user.dir") + "/src/main/resources/properties/clickhouse.properties";
+        return System.getProperty("user.dir")
+               + "/src/main/resources/properties/clickhouse.properties";
     }
 }
