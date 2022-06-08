@@ -18,6 +18,7 @@
 package cn.smallbun.screw.core.query;
 
 import cn.smallbun.screw.core.query.cachedb.CacheDbDataBaseQuery;
+import cn.smallbun.screw.core.query.clickhouse.ClickhouseDataBaseQuery;
 import cn.smallbun.screw.core.query.db2.Db2DataBaseQuery;
 import cn.smallbun.screw.core.query.dm.DmDataBaseQuery;
 import cn.smallbun.screw.core.query.h2.H2DataBaseQuery;
@@ -132,6 +133,11 @@ public enum DatabaseType implements Serializable {
                                                    */
                                                   CACHEDB("cachedb", "Cache 数据库",
                                                           CacheDbDataBaseQuery.class),
+                                                  /**
+                                                   * CLICKHOUSE
+                                                   */
+                                                  CLICKHOUSE("clickhouse", "CLICKHOUSE数据库",
+                                                             ClickhouseDataBaseQuery.class),
 
                                                   /**
                                                    * UNKONWN DB
