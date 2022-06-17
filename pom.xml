@@ -75,7 +75,7 @@
         <hsqldb.version>2.5.1</hsqldb.version>
         <slf4j-api.version>1.7.30</slf4j-api.version>
         <logback-classic.version>1.2.3</logback-classic.version>
-        <fastjson.version>1.2.75</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
         <poi.version>4.1.2</poi.version>
         <druid.version>1.2.3</druid.version>
         <commons-lang3.version>3.11</commons-lang3.version>
