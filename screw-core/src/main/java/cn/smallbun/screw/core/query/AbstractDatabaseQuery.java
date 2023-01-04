@@ -72,7 +72,6 @@ public abstract class AbstractDatabaseQuery implements DatabaseQuery {
         try {
             //不为空
             if (!Objects.isNull(connection) && !connection.isClosed()) {
-                System.out.println(connection);
                 return connection;
             }
             //同步代码块
