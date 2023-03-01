@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>screw</artifactId>
-        <groupId>cn.smallbun.screw</groupId>
-        <version>1.0.6-SNAPSHOT</version>
+        <groupId>io.github.duqian42707</groupId>
+        <version>1.0.6</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -13,7 +13,7 @@
     <dependencies>
         <!--项目核心包-->
         <dependency>
-            <groupId>cn.smallbun.screw</groupId>
+            <groupId>io.github.duqian42707</groupId>
             <artifactId>screw-core</artifactId>
             <version>${project.version}</version>
         </dependency>

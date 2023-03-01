@@ -1,6 +1,6 @@
 
 <p align="center">
-  <a href="https://github.com/pingfangushi/screw">
+  <a href="https://github.com/duqian424707/screw">
    <img alt="screw-logo" src="https://images.gitee.com/uploads/images/2020/0728/155335_59a712d2_1407605.png">
   </a>
 </p>
@@ -8,10 +8,10 @@
 <p align="center">💕 企业级开发过程中，一颗永不生锈的螺丝钉。</p>
 
 <p align="center">
-    <a href="https://github.com/pingfangushi/screw/blob/master/LICENSE">
+    <a href="https://github.com/duqian424707/screw/blob/master/LICENSE">
         <img src="https://img.shields.io/badge/license-LGPL3-blue.svg" alt="LGPL3">
     </a>
-    <a href="https://github.com/pingfangushi/screw">
+    <a href="https://github.com/duqian424707/screw">
         <img src="https://img.shields.io/badge/link-wiki-green.svg?style=flat-square" alt="wiki">
     </a>
     <a href="https://search.maven.org/search?q=cn.smallbun.screw">

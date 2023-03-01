@@ -4,27 +4,27 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>cn.smallbun.screw</groupId>
+    <groupId>io.github.duqian42707</groupId>
     <artifactId>screw</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.6-SNAPSHOT</version>
+    <version>1.0.6</version>
     <inceptionYear>2020</inceptionYear>
     <name>screw</name>
     <description>简洁好用的数据库表结构文档生成工具</description>
     <url>http://www.screw.smallbun.cn</url>
     <!--scm-->
     <scm>
-        <connection>scm:git:git@github.com:pingfangushi/screw.git</connection>
-        <developerConnection>scm:git:git@github.com:pingfangushi/screw.git
+        <connection>scm:git:git@github.com:duqian42707/screw.git</connection>
+        <developerConnection>scm:git:git@github.com:duqian42707/screw.git
         </developerConnection>
-        <url>http://github.com/pingfangushi/screw/tree/master</url>
+        <url>http://github.com/duqian42707/screw/tree/master</url>
     </scm>
     <!--开发人员信息-->
     <developers>
         <developer>
-            <name>zuoqinggang</name>
-            <email>qinggang.zuo@gmail.com</email>
-            <url>https://www.pingfangushi.com</url>
+            <name>duqian</name>
+            <email>duqian42707@163.com</email>
+            <url>https://www.dqv5.com</url>
         </developer>
     </developers>
     <!--licenses-->
@@ -298,14 +298,14 @@
     </modules>
     <distributionManagement>
         <snapshotRepository>
-            <id>deploymentRepo</id>
+            <id>sonatype-nexus</id>
             <name>Nexus Snapshot Repository</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
         <repository>
-            <id>deploymentRepo</id>
+            <id>sonatype-nexus</id>
             <name>Nexus Release Repository</name>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
     <!--自定义mvn伺服设置 开始 -->
