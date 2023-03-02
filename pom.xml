@@ -442,19 +442,16 @@
     <profiles>
         <profile>
             <id>release</id>
-            <properties>
-                <gpg.keyname>1CCA307B4F79DA10</gpg.keyname>
-            </properties>
             <build>
                 <plugins>
                     <!--gpg-->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>${maven-gpg-plugin.version}</version>
+                        <version>1.6</version>
                         <executions>
                             <execution>
-                                <id>sign-artifacts</id>
+                                <id>sonatype-gpg</id>
                                 <phase>verify</phase>
                                 <goals>
                                     <goal>sign</goal>
