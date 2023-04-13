@@ -121,7 +121,7 @@ public class DataModelProcess extends AbstractProcess {
                     .collect(Collectors.toList()));
             //处理主键，表名为key，主键为值
             primaryKeysCaching.put(table.getTableName(),
-                primaryKeys.stream().filter(i -> i.getTableName().equals(table.getTableName()))
+                primaryKeys.stream().filter(i -> table.getTableName().equals(i.getTableName()))
                     .collect(Collectors.toList()));
         }
         for (Table table : tables) {

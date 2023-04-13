@@ -187,7 +187,16 @@ public class Mapping {
             Method method = filed.getMethod();
             MappingField jsonField = field.getAnnotation(MappingField.class);
             if (!Objects.isNull(jsonField)) {
-                method.invoke(rsp, map.get(jsonField.value()));
+                String value = jsonField.value();
+                Object o = map.get(value);
+                if (o == null) {
+                    o = map.get(value.toUpperCase());
+                }
+                if (o == null) {
+                    o = map.get(value.toLowerCase());
+                }
+
+                method.invoke(rsp, o);
             }
         }
         return rsp;
