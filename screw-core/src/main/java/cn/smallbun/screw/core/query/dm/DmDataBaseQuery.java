@@ -17,19 +17,6 @@
  */
 package cn.smallbun.screw.core.query.dm;
 
-import static cn.smallbun.screw.core.constant.DefaultConstants.PERCENT_SIGN;
-
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
-import java.util.stream.Collectors;
-
-import javax.sql.DataSource;
-
 import cn.smallbun.screw.core.exception.QueryException;
 import cn.smallbun.screw.core.mapping.Mapping;
 import cn.smallbun.screw.core.metadata.Column;
@@ -45,6 +32,18 @@ import cn.smallbun.screw.core.util.CollectionUtils;
 import cn.smallbun.screw.core.util.ExceptionUtils;
 import cn.smallbun.screw.core.util.JdbcUtils;
 
+import javax.sql.DataSource;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+import java.util.stream.Collectors;
+
+import static cn.smallbun.screw.core.constant.DefaultConstants.PERCENT_SIGN;
+
 /**
  * 达梦数据库查询
  *
@@ -57,7 +56,7 @@ public class DmDataBaseQuery extends AbstractDatabaseQuery {
     private static final String                             DM_QUERY_TABLE_SQL   = ""
                                                                                    + "select                                "
                                                                                    + "    ut.table_name TABLE_NAME,         "
-                                                                                   + "    utc.comments COMMENTS             "
+                                                                                   + "    utc.comments REMARKS             "
                                                                                    + "from                                  "
                                                                                    + "        user_tables ut                "
                                                                                    + "left join USER_TAB_COMMENTS utc       "
@@ -126,35 +125,6 @@ public class DmDataBaseQuery extends AbstractDatabaseQuery {
         //当前数据库名称
         model.setDatabase(getSchema());
         return model;
-    }
-
-    /**
-     * 获取达梦数据库的schema
-     *
-     * @return {@link String} 达梦数据库的schema信息
-     */
-    @Override
-    public String getSchema() throws QueryException {
-        return null;
-    }
-
-    /**
-     * 获取达梦数据库的schema
-     *
-     * @return {@link String} 达梦数据库的schema信息
-     */
-    public String getSchemaBak() throws QueryException {
-        try {
-            String schema = null;
-            ResultSet rs = getMetaData().getSchemas();
-            while (rs.next()) {
-                schema = rs.getString(1);
-                break;
-            }
-            return schema;
-        } catch (Exception e) {
-            throw ExceptionUtils.mpe(e);
-        }
     }
 
     /**

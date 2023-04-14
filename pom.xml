@@ -68,6 +68,7 @@
         <postgresql.version>42.2.14</postgresql.version>
         <ojdbc.version>19.3.0.0</ojdbc.version>
         <orai18n.version>12.1.0.2.0</orai18n.version>
+        <dm.version>8.1.1.193</dm.version>
         <postgresql.version>42.2.11</postgresql.version>
         <h2.version>1.4.200</h2.version>
         <db2-jdbc.version>11.5.5.0</db2-jdbc.version>
@@ -217,6 +218,12 @@
                 <groupId>cn.easyproject</groupId>
                 <artifactId>orai18n</artifactId>
                 <version>${orai18n.version}</version>
+            </dependency>
+            <!-- dm -->
+            <dependency>
+                <groupId>com.dameng</groupId>
+                <artifactId>DmJdbcDriver18</artifactId>
+                <version>${dm.version}</version>
             </dependency>
             <!-- postgresql -->
             <dependency>
